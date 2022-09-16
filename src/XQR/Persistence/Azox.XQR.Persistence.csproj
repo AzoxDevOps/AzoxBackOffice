@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\Persistence\Azox.Persistence.Core.csproj" />
     <ProjectReference Include="..\Business\Azox.XQR.Business.csproj" />
   </ItemGroup>

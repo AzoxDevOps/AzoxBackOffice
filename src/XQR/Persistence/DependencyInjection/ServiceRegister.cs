@@ -3,14 +3,9 @@
     using Azox.Core.DependencyInjection;
     using Azox.Persistence.Core;
 
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     internal class ServiceRegister :
         IServiceRegister
@@ -19,7 +14,7 @@
         {
             services.AddDbContextFactory<XQRDbContext>(options =>
             {
-                
+                options.UseNpgsql(configuration.GetConnectionString("Postgres"));
             });
 
             services.AddScoped<IDbContext, XQRDbContext>();
