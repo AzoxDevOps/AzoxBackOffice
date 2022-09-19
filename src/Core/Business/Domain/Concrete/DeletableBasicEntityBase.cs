@@ -7,20 +7,6 @@
         BasicEntityBase,
         IDeletableEntity
     {
-        #region Ctor
-
-        protected DeletableBasicEntityBase() { }
-
-        protected internal DeletableBasicEntityBase(
-            string name,
-            string description) :
-            base(name, description)
-        {
-
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>

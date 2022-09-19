@@ -40,7 +40,7 @@
         /// <param name="services"></param>
         /// <param name="configuration"></param>
         public static void RegisterConfigs(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             IConfiguration configuration)
         {
             TypeFinder typeFinder = new();

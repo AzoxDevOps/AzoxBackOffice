@@ -1,6 +1,7 @@
 ﻿namespace Azox.XQR.Business.Domain.Catalog
 {
     using Azox.Business.Core.Domain;
+    using Azox.XQR.Business.Domain.Media;
 
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,18 +12,23 @@
     public class Category :
         DeletableBasicEntityBase
     {
-        #region Ctor
+        #region Properties
 
-        protected Category() { }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual Category? Parent { get; set; }
 
-        protected internal Category(
-            string name,
-            string description) :
-            base(name, description)
-        {
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual Picture? Picture { get; set; }
 
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 
-        #endregion Ctor
+        #endregion Properties
     }
 }

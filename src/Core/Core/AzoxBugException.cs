@@ -1,12 +1,31 @@
 ﻿namespace Azox.Core
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    internal class AzoxBugException
+    /// <summary>
+    /// 
+    /// </summary>
+    public class AzoxBugException :
+        AzoxException
     {
+        #region Ctor
+
+        public AzoxBugException() :
+            base()
+        {
+
+        }
+
+        public AzoxBugException(string message) :
+            base(message)
+        {
+
+        }
+
+        public AzoxBugException(int code) :
+            base($"[BUG:{code}]")
+        {
+
+        }
+
+        #endregion Ctor
     }
 }

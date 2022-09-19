@@ -11,20 +11,6 @@
     public class StoreUser :
         TrackableEntityBase<int>
     {
-        #region Ctor
-
-        protected StoreUser() { }
-
-        protected internal StoreUser(
-            Store store,
-            User user)
-        {
-            Store = store;
-            User = user;
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>

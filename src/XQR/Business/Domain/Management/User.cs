@@ -11,44 +11,32 @@
     public class User :
         DeletableTrackableEntityBase<int>
     {
-        #region Ctor
-
-        protected User() { }
-
-        protected internal User(
-            UserGroup userGroup,
-            string username,
-            string passwordSalt,
-            string passwordHash)
-        {
-            Username = username;
-            PasswordSalt = passwordSalt;
-            PasswordHash = passwordHash;
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual UserGroup UserGroup { get; private set; }
+        public virtual UserGroup UserGroup { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual string Username { get; private set; }
+        public virtual string Username { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual string PasswordSalt { get; private set; }
+        public virtual string PasswordSalt { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual string PasswordHash { get; private set; }
+        public virtual string PasswordHash { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool IsActive { get; set; }
 
         #endregion Properties
     }

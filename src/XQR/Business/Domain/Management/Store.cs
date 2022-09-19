@@ -8,21 +8,9 @@
     /// 
     /// </summary>
     [Table(nameof(Store), Schema = EntitySchemes.Management)]
-    public class Store:
+    public class Store :
         DeletableBasicEntityBase
     {
-        #region Ctor
 
-        protected Store() { }
-
-        protected internal Store(
-            string name,
-            string description) :
-            base(name, description)
-        {
-
-        }
-
-        #endregion Ctor
     }
 }

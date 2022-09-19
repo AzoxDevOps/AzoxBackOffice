@@ -11,18 +11,6 @@
     public class MenuItem :
         DeletableBasicEntityBase
     {
-        #region Ctor
 
-        protected MenuItem() { }
-
-        protected internal MenuItem(
-            string name,
-            string description) :
-            base(name, description)
-        {
-
-        }
-
-        #endregion Ctor
     }
 }

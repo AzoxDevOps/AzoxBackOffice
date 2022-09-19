@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+    <AuthorizeView>
+        <Authorized>
+            <HeaderLayout />
+            <main>
+                <Sidebar />
+                <div class="container-fluid">
+                    @Body
+                </div>
+            </main>
+        </Authorized>
+        <NotAuthorized>
+            <LayoutView Layout="typeof(LoginLayout)">
+                <PageTitle>Please login</PageTitle>
+            </LayoutView>
+        </NotAuthorized>
+    </AuthorizeView>

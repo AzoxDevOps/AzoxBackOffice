@@ -7,20 +7,6 @@
         TrackableEntityBase<int>,
         IBasicEntity
     {
-        #region Ctor
-
-        protected BasicEntityBase() { }
-
-        protected internal BasicEntityBase(
-            string name,
-            string description)
-        {
-            Name = name;
-            Description = description;
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>

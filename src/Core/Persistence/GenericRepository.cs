@@ -30,12 +30,12 @@
 
         public virtual TEntity GetById(Guid id)
         {
-            return _entities.Find(id);
+            return Entities.Find(id);
         }
 
         public virtual TEntity GetById(int id)
         {
-            return _entities.Find(id);
+            return Entities.Find(id);
         }
 
         #endregion Methods

@@ -11,26 +11,6 @@
     public class UserGroup :
         DeletableBasicEntityBase
     {
-        #region Fields
-
-        private readonly IList<User> _users;
-
-        #endregion Fields
-
-        #region Ctor
-
-        protected UserGroup() { }
-
-        protected internal UserGroup(
-            string name,
-            string description) :
-            base(name, description)
-        {
-            _users = new List<User>();
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>
@@ -41,7 +21,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual IEnumerable<User> Users => _users;
+        public virtual ICollection<User> Users { get; set; } = new List<User>();
 
         #endregion Properties
     }
