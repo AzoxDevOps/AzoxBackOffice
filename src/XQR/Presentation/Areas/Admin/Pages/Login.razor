@@ -1,0 +1,25 @@
+﻿<main>
+    <div class="form">
+        <EditForm Model="Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+            <DataAnnotationsValidator />
+            <img class="mb-4" src="https://avatars.githubusercontent.com/u/71711421?s=200&v=4" />
+            <div class="form-floating mb-2">
+                <input type="text" id="@nameof(Model.Username)" @bind-value="Model.Username" placeholder="Kullanıcı Adı" class="form-control" />
+                <label for="@nameof(Model.Username)">Kullanıcı Adı</label>
+                <ValidationMessage For="()=> Model.Username" />
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" id="@nameof(Model.Password)" @bind-value="Model.Password" placeholder="Şifre" class="form-control" />
+                <label for="@nameof(Model.Password)">Şifre</label>
+                <ValidationMessage For="()=> Model.Password" />
+            </div>
+            <button disabled="@_isBusy" class="w-100 btn btn-lg btn-primary" type="submit">
+                @if (_isBusy)
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Giriş Yap
+            </button>
+        </EditForm>
+    </div>
+</main>

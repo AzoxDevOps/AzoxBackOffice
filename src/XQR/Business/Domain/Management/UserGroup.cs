@@ -16,12 +16,17 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual Merchant? Merchant { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual bool IsAdmin { get; private set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<User> Users { get; set; } = new List<User>();
+        public virtual ICollection<User> Users { get; set; }
 
         #endregion Properties
     }

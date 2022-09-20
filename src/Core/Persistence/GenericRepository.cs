@@ -2,13 +2,14 @@
 {
     using Azox.Business.Core.Data;
     using Azox.Business.Core.Domain;
-
+    using Azox.Core;
     using Microsoft.EntityFrameworkCore;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// 
     /// </summary>
-    internal class GenericRepository<TEntity> :
+    internal partial class GenericRepository<TEntity> :
         IRepository<TEntity>
         where TEntity : class, IEntity
     {
@@ -28,15 +29,91 @@
 
         #region Methods
 
-        public virtual TEntity GetById(Guid id)
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool Any(Expression<Func<TEntity, bool>> predicate) =>
+             Entities.Any(predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual int Count() =>
+             Entities.Count();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual int Count(Expression<Func<TEntity, bool>> predicate) =>
+             Entities.Count(predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity FirstOrDefault() =>
+             Entities.FirstOrDefault();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate) =>
+             Entities.FirstOrDefault(predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate) =>
+             Entities.Where(predicate).ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<TEntity> Filter(
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, object>> sort,
+            SortOrder sortOrder = SortOrder.Ascending)
         {
-            return Entities.Find(id);
+            IQueryable<TEntity> query = Entities.Where(predicate);
+
+            query = sortOrder switch
+            {
+                SortOrder.Ascending => query.OrderBy(sort),
+                SortOrder.Descending => query.OrderByDescending(sort),
+                _ => throw new AzoxBugException()
+            };
+
+            return query.ToList();
         }
 
-        public virtual TEntity GetById(int id)
-        {
-            return Entities.Find(id);
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<TEntity> GetAll() =>
+             Entities.ToList();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity GetById(Guid id) =>
+             Entities.Find(id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity GetById(int id) =>
+             Entities.Find(id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity GetById(long id) =>
+             Entities.Find(id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
+             Entities.SingleOrDefault(predicate);
 
         #endregion Methods
 

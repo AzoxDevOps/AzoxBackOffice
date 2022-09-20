@@ -11,6 +11,28 @@
     public class MenuItem :
         DeletableBasicEntityBase
     {
+        #region Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual MenuItem? Parent { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string Url { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string Icon { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual int DisplayOrder { get; set; }
+
+        #endregion Properties
     }
 }

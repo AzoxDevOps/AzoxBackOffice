@@ -13,12 +13,20 @@
         {
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.Pictures)
-                .OnDelete(DeleteBehavior.ClientNoAction)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
             builder.HasOne(x => x.Picture)
                 .WithMany()
-                .OnDelete(DeleteBehavior.ClientNoAction)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired();
+
+            builder.Property(x => x.IsVisible)
+                .HasColumnOrder(lastColumnOrder++)
+                .IsRequired();
+
+            builder.Property(x => x.DisplayOrder)
+                .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
         }
     }

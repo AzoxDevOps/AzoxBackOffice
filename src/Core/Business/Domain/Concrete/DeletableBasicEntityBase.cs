@@ -10,9 +10,14 @@
         #region Properties
 
         /// <summary>
-        /// 
+        /// DB' den silinmesin
         /// </summary>
         public virtual bool IsDeleted { get; protected internal set; }
+
+        /// <summary>
+        /// DB' den periyodik olarak kontrollü bir şekilde servis tarafından silinsin.
+        /// </summary>
+        //public virtual bool IsPermanentlyDeleted { get; protected internal set; }
 
         /// <summary>
         /// 

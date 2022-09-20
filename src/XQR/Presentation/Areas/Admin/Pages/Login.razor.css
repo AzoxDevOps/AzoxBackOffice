@@ -1,0 +1,22 @@
+﻿main {
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.form {
+    width: 100%;
+    height: 100%;
+    max-width: 20rem;
+    max-height: 20rem;
+    padding: 15px;
+    margin: auto;
+}
+
+    .form input {
+        background-color: var(--x-body-bg-rgba);
+        color: var(--x-body-color-rgba);
+    }

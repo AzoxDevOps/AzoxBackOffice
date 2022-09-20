@@ -29,7 +29,7 @@
                     default:
                         throw new AzoxBugException("Invalid db provider");
                 }
-
+                //TODO kullanım durumuna göre bakılacak
                 //options.UseLazyLoadingProxies();
             });
 

@@ -1,8 +1,7 @@
-﻿namespace Azox.XQR.Infrastructure
+﻿namespace Azox.Toolkit.Blazor.DependencyInjection
 {
     using Azox.Core.DependencyInjection;
-    using Azox.XQR.Business;
-
+    using Azox.Toolkit.Blazor.Services;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +10,7 @@
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ILocalStorageService, LocalStorageService>();
         }
     }
 }

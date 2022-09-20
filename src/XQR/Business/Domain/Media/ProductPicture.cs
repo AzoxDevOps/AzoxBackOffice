@@ -27,7 +27,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual bool Published { get; set; }
+        public virtual bool IsVisible { get; set; }
 
         /// <summary>
         /// 

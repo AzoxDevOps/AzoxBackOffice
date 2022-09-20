@@ -13,6 +13,11 @@
         /// <summary>
         /// 
         /// </summary>
+        //bool IsPermanentlyDeleted { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         DateTime? DeletionTime { get; }
     }
 }

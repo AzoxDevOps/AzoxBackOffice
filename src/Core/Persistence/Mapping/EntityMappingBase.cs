@@ -51,6 +51,10 @@
                     .HasColumnOrder(columnOrder++)
                     .IsRequired();
 
+                //builder.Property(nameof(IDeletableEntity.IsPermanentlyDeleted))
+                //    .HasColumnOrder(columnOrder++)
+                //    .IsRequired();
+
                 builder.Property(nameof(IDeletableEntity.DeletionTime))
                     .HasColumnOrder(columnOrder++);
             }

@@ -1,7 +1,6 @@
 ﻿namespace Azox.XQR.Business.Domain.Management
 {
     using Azox.Business.Core.Domain;
-
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -37,6 +36,11 @@
         /// 
         /// </summary>
         public virtual bool IsActive { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool IsLocked { get; set; }
 
         #endregion Properties
     }

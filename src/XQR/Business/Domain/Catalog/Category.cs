@@ -17,6 +17,16 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual bool IsVisible { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual int DisplayOrder { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual Category? Parent { get; set; }
 
         /// <summary>
@@ -27,7 +37,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        public virtual ICollection<Product> Products { get; set; }
 
         #endregion Properties
     }
