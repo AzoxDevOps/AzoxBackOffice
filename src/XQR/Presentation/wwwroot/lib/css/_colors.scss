@@ -1,0 +1,19 @@
+﻿.navbar {
+    --x-navbar-color: #1D273B;
+    --x-navbar-hover-color: rgba(0, 0, 0, 0.7);
+    --x-navbar-border-width:1px;
+    --x-navbar-border-width:#E6E7E9;
+
+
+    &.navbar-light {
+        -moz-box-shadow: inset 0 calc(-1 * var(--x-border-width)) 0 0 var(--x-navbar-border-color);
+        -webkit-box-shadow: inset 0 calc(-1 * var(--x-border-width)) 0 0 var(--x-navbar-border-color);
+        box-shadow: inset 0 calc(-1 * var(--x-navbar-border-width)) 0 0 var(--x-navbar-border-color);
+        background-color: #FFFFFF;
+    }
+
+    &.navbar-dark {
+        background:var(--x-navbar-color);
+        color:rgba(255, 255, 255, 0.7);
+    }
+}

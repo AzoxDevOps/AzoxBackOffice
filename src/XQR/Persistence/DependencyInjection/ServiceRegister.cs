@@ -14,7 +14,7 @@
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextFactory<XQRDbContext>((serviceProvider, options) =>
+            services.AddDbContext<XQRDbContext>((serviceProvider, options) =>
             {
                 DbConfig dbConfig = serviceProvider.GetRequiredService<DbConfig>();
 
@@ -30,7 +30,7 @@
                         throw new AzoxBugException("Invalid db provider");
                 }
                 //TODO kullanım durumuna göre bakılacak
-                //options.UseLazyLoadingProxies();
+                options.UseLazyLoadingProxies();
             });
 
             services.AddScoped<IDbContext, XQRDbContext>();

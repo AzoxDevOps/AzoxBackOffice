@@ -16,7 +16,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual Merchant Merchant { get; set; }
+        public virtual Location Location { get; set; }
 
         /// <summary>
         /// 

@@ -16,12 +16,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual Merchant? Merchant { get; set; }
+        public virtual Service? Service { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual bool IsAdmin { get; private set; }
+        public virtual UserGroupType UserGroupType { get; set; }
 
         /// <summary>
         /// 

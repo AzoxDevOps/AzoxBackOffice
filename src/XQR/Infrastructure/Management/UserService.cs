@@ -1,5 +1,6 @@
 ﻿namespace Azox.XQR.Infrastructure
 {
+    using Azox.Core;
     using Azox.Core.Extensions;
     using Azox.Infrastructure.Core;
     using Azox.XQR.Business;
@@ -9,7 +10,7 @@
     using System.Text;
 
     internal class UserService :
-        EntityServiceBase<User>,
+        EntityServiceBase<User, UserService>,
         IUserService
     {
         #region Ctor
@@ -52,6 +53,43 @@
         #endregion Utils
 
         #region Methods
+
+        public virtual RegisterResult Register(UserGroup userGroup, string username, string password)
+        {
+            if (userGroup == null)
+            {
+                throw new AzoxBugException($"Invalid parameter : {nameof(userGroup)}");
+            }
+
+            if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
+            {
+                return RegisterResult.InvalidUsernameOrPassword();
+            }
+
+            username = username.ToLowerInvariant();
+
+            if (Repository.Any(x => x.Username == username))
+            {
+                return RegisterResult.UserExists();
+            }
+
+            (string PasswordSalt, string PasswordHash) = PasswordEncrypt(password);
+
+            User user = new User
+            {
+                UserGroup = userGroup,
+                Username = username,
+                PasswordHash = PasswordHash,
+                PasswordSalt = PasswordSalt,
+                IsActive = true,
+                PasswordChangeOnFirstLogin = true
+            };
+
+            Repository.Insert(user);
+            Repository.SaveChanges();
+
+            return RegisterResult.Succeeded();
+        }
 
         public virtual async Task<User> GetByUsernameAsync(string username)
         {

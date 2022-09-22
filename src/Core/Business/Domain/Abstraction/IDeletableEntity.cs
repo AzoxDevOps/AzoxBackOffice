@@ -8,7 +8,7 @@
         /// <summary>
         /// 
         /// </summary>
-        bool IsDeleted { get; }
+        bool IsDeleted { get; set; }
 
         /// <summary>
         /// 
@@ -18,6 +18,6 @@
         /// <summary>
         /// 
         /// </summary>
-        DateTime? DeletionTime { get; }
+        DateTime? DeletionTime { get; set; }
     }
 }

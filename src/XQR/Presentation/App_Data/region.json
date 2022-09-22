@@ -1,0 +1,12 @@
+{
+  "Cities": [
+    {
+      "Name": "İstanbul",
+      "Districts": [
+        {
+          "Name": "Bahçelievler"
+        }
+      ]
+    }
+  ]
+}

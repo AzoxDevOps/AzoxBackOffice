@@ -2,6 +2,7 @@
 {
     using Azox.Business.Core.Domain;
     using Azox.XQR.Business.Domain.Common;
+    using Azox.XQR.Business.Domain.Management;
     using Azox.XQR.Business.Domain.Media;
 
     using System.ComponentModel.DataAnnotations.Schema;
@@ -40,13 +41,26 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<ProductPicture> Pictures { get; set; }
+        // TODO içindeki malzemeler için çalışma yapılmalı
+        //public virtual string? Ingredients { get; set; }
 
-        //TODO burası düzenlecenek
         /// <summary>
         /// 
         /// </summary>
-        //public virtual ICollection<Ingredients> Ingredients { get; set; }
+        // TODO Dış mutfak servisi için aksiyon alınacak
+        //public virtual ExternalService? ExternalService { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        // TODO Dış mutfak servisi için aksiyon alınacak
+        //public virtual Price? ExternalServicePrice { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<ProductPicture> Pictures { get; set; }
+
 
         #endregion Properties
     }

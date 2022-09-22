@@ -71,5 +71,20 @@
         /// 
         /// </summary>
         Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Task InsertAsync(TEntity entity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Task InsertRangeAsync(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        Task<int> SaveChangesAsync();
     }
 }

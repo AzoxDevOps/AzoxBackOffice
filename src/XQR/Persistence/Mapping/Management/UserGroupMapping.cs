@@ -10,12 +10,12 @@
     {
         public override void Configure(EntityTypeBuilder<UserGroup> builder, int lastColumnOrder)
         {
-            builder.Property(x => x.IsAdmin)
+            builder.Property(x => x.UserGroupType)
                 .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
 
-            builder.HasOne(x => x.Merchant)
-                .WithMany(x => x.UserGroups)
+            builder.HasOne(x => x.Service)
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired(false);
         }

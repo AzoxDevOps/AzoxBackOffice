@@ -32,6 +32,13 @@
                     v => JsonSerializer.Deserialize<Contact>(v, (JsonSerializerOptions)null))
                 .IsRequired();
 
+            builder.Property(x => x.FacebookLink)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasMaxLength(1024);
+
+            builder.Property(x => x.InstagramLink)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasMaxLength(1024);
         }
     }
 }

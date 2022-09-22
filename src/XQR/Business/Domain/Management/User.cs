@@ -42,6 +42,16 @@
         /// </summary>
         public virtual bool IsLocked { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual bool PasswordChangeOnFirstLogin { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual DateTime? LastLoginTime { get; set; }
+
         #endregion Properties
     }
 }

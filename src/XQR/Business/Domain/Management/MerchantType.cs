@@ -8,10 +8,11 @@
         /// <summary>
         /// 
         /// </summary>
-        Hotel = 10,
+        Restaurant = 10,
+
         /// <summary>
         /// 
         /// </summary>
-        Restaurant = 20
+        Hotel = 20
     }
 }

@@ -1,9 +1,6 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap');
 
 :root {
     --bs-font-sans-serif: 'Titillium Web', sans-serif;
-    --x-body-bg-opacity: 1;
-    --x-body-color-opacity: 1;
-    --x-body-bg-rgba: rgba(var(--bs-dark-rgb),var(--x-body-bg-opacity));
-    --x-body-color-rgba: rgba(var(--bs-white-rgb), var(--x-body-color-opacity));
+    --bs-body-bg:#F1F5F9;
 }

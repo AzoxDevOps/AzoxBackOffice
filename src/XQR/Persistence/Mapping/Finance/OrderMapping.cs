@@ -10,7 +10,7 @@
     {
         public override void Configure(EntityTypeBuilder<Order> builder, int lastColumnOrder)
         {
-            builder.HasOne(x => x.Merchant)
+            builder.HasOne(x => x.Location)
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();

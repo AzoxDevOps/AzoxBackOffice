@@ -36,7 +36,7 @@ namespace Azox.XQR.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
+                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,31 +44,19 @@ namespace Azox.XQR.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuItem",
-                schema: "Management",
+                name: "InstallationStep",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    StepName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Success = table.Column<bool>(type: "bit", nullable: false),
+                    Error = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastExecutionTime = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MenuItem_MenuItem_ParentId",
-                        column: x => x.ParentId,
-                        principalSchema: "Management",
-                        principalTable: "MenuItem",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_InstallationStep", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +86,7 @@ namespace Azox.XQR.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Code = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
                     CityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -220,6 +208,8 @@ namespace Azox.XQR.Persistence.Migrations
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     MerchantType = table.Column<int>(type: "int", nullable: false),
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FacebookLink = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    InstagramLink = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -273,6 +263,32 @@ namespace Azox.XQR.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ExternalService",
+                schema: "Management",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MerchantId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExternalService", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExternalService_Merchant_MerchantId",
+                        column: x => x.MerchantId,
+                        principalSchema: "Management",
+                        principalTable: "Merchant",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "License",
                 schema: "Management",
                 columns: table => new
@@ -298,30 +314,6 @@ namespace Azox.XQR.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
-                schema: "Finance",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    MerchantId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Order_Merchant_MerchantId",
-                        column: x => x.MerchantId,
-                        principalSchema: "Management",
-                        principalTable: "Merchant",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Service",
                 schema: "Management",
                 columns: table => new
@@ -335,7 +327,9 @@ namespace Azox.XQR.Persistence.Migrations
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ServiceType = table.Column<int>(type: "int", nullable: false),
                     Contacts = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MerchantId = table.Column<int>(type: "int", nullable: false)
+                    WorkingHours = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MerchantId = table.Column<int>(type: "int", nullable: false),
+                    Currency = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -345,63 +339,6 @@ namespace Azox.XQR.Persistence.Migrations
                         column: x => x.MerchantId,
                         principalSchema: "Management",
                         principalTable: "Merchant",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserGroup",
-                schema: "Management",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "bit", nullable: false),
-                    MerchantId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserGroup", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserGroup_Merchant_MerchantId",
-                        column: x => x.MerchantId,
-                        principalSchema: "Management",
-                        principalTable: "Merchant",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "OrderItem",
-                schema: "Finance",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Note = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
-                    OrderId = table.Column<long>(type: "bigint", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OrderItem", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Order_OrderId",
-                        column: x => x.OrderId,
-                        principalSchema: "Finance",
-                        principalTable: "Order",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_OrderItem_Product_ProductId",
-                        column: x => x.ProductId,
-                        principalSchema: "Catalog",
-                        principalTable: "Product",
                         principalColumn: "Id");
                 });
 
@@ -431,31 +368,52 @@ namespace Azox.XQR.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuItemRight",
+                name: "UserGroup",
                 schema: "Management",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
-                    UserGroupId = table.Column<int>(type: "int", nullable: false),
-                    MenuItemId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserGroupType = table.Column<int>(type: "int", nullable: false),
+                    ServiceId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuItemRight", x => x.Id);
+                    table.PrimaryKey("PK_UserGroup", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuItemRight_MenuItem_MenuItemId",
-                        column: x => x.MenuItemId,
+                        name: "FK_UserGroup_Service_ServiceId",
+                        column: x => x.ServiceId,
                         principalSchema: "Management",
-                        principalTable: "MenuItem",
+                        principalTable: "Service",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                schema: "Finance",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Note = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuItemRight_UserGroup_UserGroupId",
-                        column: x => x.UserGroupId,
+                        name: "FK_Order_Location_LocationId",
+                        column: x => x.LocationId,
                         principalSchema: "Management",
-                        principalTable: "UserGroup",
+                        principalTable: "Location",
                         principalColumn: "Id");
                 });
 
@@ -474,6 +432,8 @@ namespace Azox.XQR.Persistence.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsLocked = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordChangeOnFirstLogin = table.Column<bool>(type: "bit", nullable: false),
+                    LastLoginTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserGroupId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -484,6 +444,39 @@ namespace Azox.XQR.Persistence.Migrations
                         column: x => x.UserGroupId,
                         principalSchema: "Management",
                         principalTable: "UserGroup",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrderItem",
+                schema: "Finance",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UnitPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
+                    OrderId = table.Column<long>(type: "bigint", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalSchema: "Finance",
+                        principalTable: "Order",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderItem_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalSchema: "Catalog",
+                        principalTable: "Product",
                         principalColumn: "Id");
                 });
 
@@ -560,6 +553,24 @@ namespace Azox.XQR.Persistence.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ExternalService_CreationTime",
+                schema: "Management",
+                table: "ExternalService",
+                column: "CreationTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExternalService_MerchantId",
+                schema: "Management",
+                table: "ExternalService",
+                column: "MerchantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExternalService_Name",
+                schema: "Management",
+                table: "ExternalService",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_License_CreationTime",
                 schema: "Management",
                 table: "License",
@@ -588,42 +599,6 @@ namespace Azox.XQR.Persistence.Migrations
                 schema: "Management",
                 table: "Location",
                 column: "ServiceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_CreationTime",
-                schema: "Management",
-                table: "MenuItem",
-                column: "CreationTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_Name",
-                schema: "Management",
-                table: "MenuItem",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItem_ParentId",
-                schema: "Management",
-                table: "MenuItem",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItemRight_CreationTime",
-                schema: "Management",
-                table: "MenuItemRight",
-                column: "CreationTime");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItemRight_MenuItemId",
-                schema: "Management",
-                table: "MenuItemRight",
-                column: "MenuItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuItemRight_UserGroupId",
-                schema: "Management",
-                table: "MenuItemRight",
-                column: "UserGroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Merchant_AddressId",
@@ -656,10 +631,10 @@ namespace Azox.XQR.Persistence.Migrations
                 column: "CreationTime");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_MerchantId",
+                name: "IX_Order_LocationId",
                 schema: "Finance",
                 table: "Order",
-                column: "MerchantId");
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItem_CreationTime",
@@ -758,30 +733,29 @@ namespace Azox.XQR.Persistence.Migrations
                 column: "CreationTime");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserGroup_MerchantId",
-                schema: "Management",
-                table: "UserGroup",
-                column: "MerchantId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserGroup_Name",
                 schema: "Management",
                 table: "UserGroup",
                 column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserGroup_ServiceId",
+                schema: "Management",
+                table: "UserGroup",
+                column: "ServiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ExternalService",
+                schema: "Management");
+
+            migrationBuilder.DropTable(
+                name: "InstallationStep");
+
+            migrationBuilder.DropTable(
                 name: "License",
-                schema: "Management");
-
-            migrationBuilder.DropTable(
-                name: "Location",
-                schema: "Management");
-
-            migrationBuilder.DropTable(
-                name: "MenuItemRight",
                 schema: "Management");
 
             migrationBuilder.DropTable(
@@ -797,14 +771,6 @@ namespace Azox.XQR.Persistence.Migrations
                 schema: "Management");
 
             migrationBuilder.DropTable(
-                name: "Service",
-                schema: "Management");
-
-            migrationBuilder.DropTable(
-                name: "MenuItem",
-                schema: "Management");
-
-            migrationBuilder.DropTable(
                 name: "Order",
                 schema: "Finance");
 
@@ -817,8 +783,16 @@ namespace Azox.XQR.Persistence.Migrations
                 schema: "Management");
 
             migrationBuilder.DropTable(
+                name: "Location",
+                schema: "Management");
+
+            migrationBuilder.DropTable(
                 name: "Category",
                 schema: "Catalog");
+
+            migrationBuilder.DropTable(
+                name: "Service",
+                schema: "Management");
 
             migrationBuilder.DropTable(
                 name: "Merchant",

@@ -12,7 +12,7 @@
         /// <summary>
         /// DB' den silinmesin
         /// </summary>
-        public virtual bool IsDeleted { get; protected internal set; }
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// DB' den periyodik olarak kontrollü bir şekilde servis tarafından silinsin.
@@ -22,7 +22,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual DateTime? DeletionTime { get; protected internal set; }
+        public virtual DateTime? DeletionTime { get; set; }
 
         #endregion Properties
     }

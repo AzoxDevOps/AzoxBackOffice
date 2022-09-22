@@ -37,6 +37,13 @@
             builder.Property(x => x.IsLocked)
                 .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
+
+            builder.Property(x => x.PasswordChangeOnFirstLogin)
+                .HasColumnOrder(lastColumnOrder++)
+                .IsRequired();
+
+            builder.Property(x => x.LastLoginTime)
+                .HasColumnOrder(lastColumnOrder++);
         }
     }
 }

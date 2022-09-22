@@ -1,4 +1,6 @@
 ﻿@import 'common';
+@import 'colors';
+@import 'sidebar';
 
 html,
 body {
@@ -6,7 +8,46 @@ body {
     height: 100%;
 }
 
-body {
-    background-color:var(--x-body-bg-rgba);
-    color:var(--x-body-color-rgba);
+.page-wrapper {
+    display: flex;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    & .page-header {
+        display: flex;
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        min-height: 2.5rem;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        -webkit-justify-content: center;
+        justify-content: center;
+        margin: 1.25rem 0 0;
+
+        & .page-title {
+            display: flex;
+            margin: 0;
+            font-size: 1.25rem;
+            line-height: 1.4;
+            font-weight: 600;
+            color: inherit;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    }
+
+    & .page-body {
+        margin:1.25rem 0;
+    }
+}
+
+.navbar-brand {
+    font-family: 'Michroma', sans-serif;
+    font-weight: bolder;
 }

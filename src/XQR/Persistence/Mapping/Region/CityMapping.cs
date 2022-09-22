@@ -12,8 +12,9 @@
         {
             builder.Property(x => x.Code)
                 .HasColumnOrder(lastColumnOrder++)
-                .HasMaxLength(1024)
-                .IsRequired();
+                .HasMaxLength(16);
+
         }
     }
 }
+

@@ -71,5 +71,40 @@
         /// 
         /// </summary>
         TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Insert(TEntity entity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void InsertRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Update(TEntity entity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void UpdateRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Delete(TEntity entity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void DeleteRange(IEnumerable<TEntity> entities);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        int SaveChanges();
     }
 }

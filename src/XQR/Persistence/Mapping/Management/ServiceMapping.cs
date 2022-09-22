@@ -31,6 +31,16 @@
                         (c1, c2) => c1.SequenceEqual(c2),
                         c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                         c => (ICollection<Contact>)c.ToList()));
+
+            builder.Property(x => x.WorkingHours)
+               .HasColumnOrder(lastColumnOrder++)
+               .HasConversion(
+                   v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                   v => JsonSerializer.Deserialize<List<ServiceWorkingHour>>(v, (JsonSerializerOptions)null),
+                   new ValueComparer<ICollection<ServiceWorkingHour>>(
+                       (c1, c2) => c1.SequenceEqual(c2),
+                       c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                       c => (ICollection<ServiceWorkingHour>)c.ToList()));
         }
     }
 }

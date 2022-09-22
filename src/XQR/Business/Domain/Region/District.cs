@@ -15,7 +15,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual string Code { get; set; }
+        public virtual string? Code { get; set; }
 
         /// <summary>
         /// 

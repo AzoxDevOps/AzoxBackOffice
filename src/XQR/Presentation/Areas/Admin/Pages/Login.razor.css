@@ -14,9 +14,12 @@
     max-height: 20rem;
     padding: 15px;
     margin: auto;
+    background-color: rgba(29,39,59,1);
+    color: rgba(255,255,255,1);
+    -moz-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+    -webkit-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+    box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
 }
-
-    .form input {
-        background-color: var(--x-body-bg-rgba);
-        color: var(--x-body-color-rgba);
-    }

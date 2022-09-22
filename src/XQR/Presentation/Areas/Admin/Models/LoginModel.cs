@@ -10,14 +10,14 @@
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Kullanıcı Adı boş geçilemez")]
 
         public string Username { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Şifre boş geçilemez")]
         public string Password { get; set; }
     }
 }

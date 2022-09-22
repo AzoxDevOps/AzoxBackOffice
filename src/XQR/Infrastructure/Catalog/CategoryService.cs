@@ -5,7 +5,7 @@
     using Azox.XQR.Business.Domain.Catalog;
 
     internal class CategoryService :
-        EntityServiceBase<Category>,
+        EntityServiceBase<Category, CategoryService>,
         ICategoryService
     {
         #region Ctor

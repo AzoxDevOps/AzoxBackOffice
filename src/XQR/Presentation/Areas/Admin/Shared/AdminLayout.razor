@@ -3,12 +3,9 @@
 <AuthorizeView>
     <Authorized>
         <HeaderLayout />
-        <main>
-            <Sidebar />
-            <div class="container-fluid">
-                @Body
-            </div>
-        </main>
+        <div class="container-xl">
+            @Body
+        </div>
     </Authorized>
     <NotAuthorized>
         <Login />

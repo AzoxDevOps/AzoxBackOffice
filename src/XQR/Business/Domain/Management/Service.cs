@@ -25,6 +25,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual Currency Currency { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual ICollection<Contact> Contacts { get; set; }
 
         /// <summary>
@@ -32,5 +37,9 @@
         /// </summary>
         public virtual ICollection<Location> Locations { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<ServiceWorkingHour> WorkingHours { get; set; }
     }
 }

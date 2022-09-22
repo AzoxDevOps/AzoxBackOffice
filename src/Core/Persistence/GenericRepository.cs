@@ -115,6 +115,53 @@
         public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate) =>
              Entities.SingleOrDefault(predicate);
 
+        public virtual void Insert(TEntity entity) =>
+            Entities.Add(entity);
+
+        public virtual void InsertRange(IEnumerable<TEntity> entities) =>
+            Entities.AddRange(entities);
+
+        public virtual void Update(TEntity entity) =>
+            Entities.Update(entity);
+
+        public virtual void UpdateRange(IEnumerable<TEntity> entities) =>
+            Entities.UpdateRange(entities);
+
+        public virtual void Delete(TEntity entity)
+        {
+            if (typeof(IDeletableEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                IDeletableEntity deletableEntity = (IDeletableEntity)entity;
+                deletableEntity.IsDeleted = true;
+                deletableEntity.DeletionTime = DateTime.Now;
+
+                Update(entity);
+                return;
+            }
+
+            Entities.Remove(entity);
+        }
+
+        public virtual void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                Delete(entity);
+            }
+        }
+
+        public virtual int SaveChanges()
+        {
+            try
+            {
+                return _dbContext.SaveChanges();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         #endregion Methods
 
         #region Properties

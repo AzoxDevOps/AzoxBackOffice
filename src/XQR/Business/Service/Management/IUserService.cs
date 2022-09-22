@@ -13,6 +13,11 @@
         /// <summary>
         /// 
         /// </summary>
+        RegisterResult Register(UserGroup userGroup, string username, string password);
+
+        /// <summary>
+        /// 
+        /// </summary>
         Task<User> GetByUsernameAsync(string username);
 
         /// <summary>

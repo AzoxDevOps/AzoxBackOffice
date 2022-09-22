@@ -1,25 +1,36 @@
-﻿<main>
-    <div class="form">
-        <EditForm Model="Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
-            <DataAnnotationsValidator />
-            <img class="mb-4" src="https://avatars.githubusercontent.com/u/71711421?s=200&v=4" />
-            <div class="form-floating mb-2">
-                <input type="text" id="@nameof(Model.Username)" @bind-value="Model.Username" placeholder="Kullanıcı Adı" class="form-control" />
-                <label for="@nameof(Model.Username)">Kullanıcı Adı</label>
-                <ValidationMessage For="()=> Model.Username" />
-            </div>
-            <div class="form-floating mb-2">
-                <input type="password" id="@nameof(Model.Password)" @bind-value="Model.Password" placeholder="Şifre" class="form-control" />
-                <label for="@nameof(Model.Password)">Şifre</label>
-                <ValidationMessage For="()=> Model.Password" />
-            </div>
-            <button disabled="@_isBusy" class="w-100 btn btn-lg btn-primary" type="submit">
-                @if (_isBusy)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Giriş Yap
-            </button>
-        </EditForm>
-    </div>
-</main>
+﻿@if (ShowLogin)
+{
+    <main>
+        <div class="form">
+            <EditForm Model="Model" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="d-inline-flex mb-4 justify-content-center align-items-center">
+                    <img class="m-2" style="width:50px; height:50px;" src="/dist/images/xqr-logo.png" />
+                    <span class="fs-5 fw-bold" style="font-family: 'Michroma', sans-serif !important;">XQR</span>
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text bi bi-person"></span>
+                    <input type="text" id="@nameof(Model.Username)" class="form-control" placeholder="Kullanıcı Adı" @bind-value="Model.Username" />
+                    <ValidationMessage For="()=> Model.Username" />
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text bi bi-key"></span>
+                    <input type="password" id="@nameof(Model.Password)" class="form-control" placeholder="Şifre" @bind-value="Model.Password" />
+                    <ValidationMessage For="()=> Model.Password" />
+                </div>
+                <span>@ResponseMessage</span>
+
+                <button class="btn btn-lg btn-primary w-100" type="submit">
+                    @if (IsBusy)
+                    {
+                        <span class="spinner-border spinner-border-sm"></span>
+                    }
+                    else
+                    {
+                        <span>Giriş Yap</span>
+                    }
+                </button>
+            </EditForm>
+        </div>
+    </main>
+}

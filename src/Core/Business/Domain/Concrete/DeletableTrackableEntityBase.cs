@@ -15,7 +15,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual bool IsDeleted { get; protected internal set; }
+        public virtual bool IsDeleted { get; set; }
 
         /// <summary>
         /// 
@@ -25,7 +25,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual DateTime? DeletionTime { get; protected internal set; }
+        public virtual DateTime? DeletionTime { get; set; }
 
         #endregion Properties
     }

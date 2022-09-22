@@ -97,6 +97,24 @@
         public virtual async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate) =>
             await Entities.SingleOrDefaultAsync(predicate);
 
+        public virtual async Task InsertAsync(TEntity entity) =>
+            await Entities.AddAsync(entity);
+
+        public virtual async Task InsertRangeAsync(IEnumerable<TEntity> entities) =>
+            await Entities.AddRangeAsync(entities);
+
+        public virtual async Task<int> SaveChangesAsync()
+        {
+            try
+            {
+                return await _dbContext.SaveChangesAsync();
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
         #endregion Methods
     }
 }

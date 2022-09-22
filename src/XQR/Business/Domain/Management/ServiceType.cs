@@ -9,11 +9,13 @@
         /// <summary>
         /// 
         /// </summary>
-        RoomService = 1,
+        Restaurant = 1,
+
         /// <summary>
         /// 
         /// </summary>
-        Restaurant = 2,
+        RoomService = 2,
+
         /// <summary>
         /// 
         /// </summary>

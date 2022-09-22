@@ -1,11 +1,12 @@
 ﻿namespace Azox.XQR.Presentation.Areas.Admin.Services
 {
+    using Azox.Core.Extensions;
+    using Azox.Toolkit.Blazor.Services;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Models.Management;
     using Azox.XQR.Presentation.Areas.Admin.Configs;
     using Azox.XQR.Presentation.Areas.Admin.Models;
     using Microsoft.AspNetCore.Components.Authorization;
-    using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
     using Microsoft.IdentityModel.Tokens;
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
@@ -22,7 +23,7 @@
 
         private readonly ILogger<AuthStateProvider> _logger;
         private readonly IUserService _userService;
-        private readonly ProtectedSessionStorage _protectedSessionStorage;
+        private readonly ILocalStorageService _localStorageService;
         private readonly SymmetricSecurityKey _symmetricSecurityKey;
 
         #endregion Fields
@@ -32,12 +33,12 @@
         public AuthStateProvider(
             ILogger<AuthStateProvider> logger,
             IUserService userService,
-            ProtectedSessionStorage protectedSessionStorage,
+            ILocalStorageService localStorageService,
             JwtConfig jwtConfig)
         {
             _logger = logger;
             _userService = userService;
-            _protectedSessionStorage = protectedSessionStorage;
+            _localStorageService = localStorageService;
             _symmetricSecurityKey = new(jwtConfig.SecretKeyBytes);
         }
 
@@ -121,14 +122,14 @@
         {
             try
             {
-                ProtectedBrowserStorageResult<string> storageResult = await _protectedSessionStorage
-                    .GetAsync<string>(AUTH_TOKEN_NAME);
+                string storageResult = await _localStorageService
+                    .GetItemAsStringAsync(AUTH_TOKEN_NAME);
 
-                if (storageResult.Success && VerifyToken(storageResult.Value, out string? username))
+                if (!storageResult.IsNullOrEmpty() && VerifyToken(storageResult, out string? username))
                 {
                     string token = GenerateJwtToken(username);
 
-                    await _protectedSessionStorage.SetAsync(AUTH_TOKEN_NAME, token);
+                    await _localStorageService.SetItemAsStringAsync(AUTH_TOKEN_NAME, token);
 
                     return GetAuthenticationState(new List<Claim>
                 {
@@ -153,7 +154,7 @@
             {
                 string token = GenerateJwtToken(loginModel.Username);
 
-                await _protectedSessionStorage.SetAsync(AUTH_TOKEN_NAME, token);
+                await _localStorageService.SetItemAsStringAsync(AUTH_TOKEN_NAME, token);
             }
 
             return result;

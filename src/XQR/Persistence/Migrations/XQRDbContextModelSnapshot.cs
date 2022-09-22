@@ -22,6 +22,33 @@ namespace Azox.XQR.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Azox.Business.Core.Domain.Concrete.InstallationStep", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Error")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastExecutionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StepName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Success")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("InstallationStep");
+                });
+
             modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -145,6 +172,57 @@ namespace Azox.XQR.Persistence.Migrations
                     b.ToTable("Product", "Catalog");
                 });
 
+            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.ExternalService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(6);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)")
+                        .HasColumnOrder(3);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(2);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("MerchantId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("ExternalService", "Management");
+                });
+
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.License", b =>
                 {
                     b.Property<int>("Id")
@@ -235,102 +313,6 @@ namespace Azox.XQR.Persistence.Migrations
                     b.ToTable("Location", "Management");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.MenuItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int")
-                        .HasColumnOrder(8);
-
-                    b.Property<string>("Icon")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(7);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(6);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("MenuItem", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.MenuItemRight", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("MenuItemId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserGroupId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.HasIndex("UserGroupId");
-
-                    b.ToTable("MenuItemRight", "Management");
-                });
-
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
                 {
                     b.Property<int>("Id")
@@ -360,6 +342,16 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)")
                         .HasColumnOrder(3);
+
+                    b.Property<string>("FacebookLink")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(8);
+
+                    b.Property<string>("InstagramLink")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(9);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -409,6 +401,9 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(1);
 
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(5);
@@ -434,6 +429,11 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int>("ServiceType")
                         .HasColumnType("int")
                         .HasColumnOrder(6);
+
+                    b.Property<string>("WorkingHours")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(8);
 
                     b.HasKey("Id");
 
@@ -474,6 +474,14 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<bool>("IsLocked")
                         .HasColumnType("bit")
                         .HasColumnOrder(8);
+
+                    b.Property<DateTime?>("LastLoginTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(10);
+
+                    b.Property<bool>("PasswordChangeOnFirstLogin")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(9);
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -527,16 +535,9 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("nvarchar(4000)")
                         .HasColumnOrder(3);
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(6);
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(4);
-
-                    b.Property<int?>("MerchantId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -544,13 +545,20 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("nvarchar(1024)")
                         .HasColumnOrder(2);
 
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserGroupType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(6);
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreationTime");
 
-                    b.HasIndex("MerchantId");
-
                     b.HasIndex("Name");
+
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("UserGroup", "Management");
                 });
@@ -648,7 +656,7 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(2);
 
-                    b.Property<int>("MerchantId")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
@@ -660,7 +668,7 @@ namespace Azox.XQR.Persistence.Migrations
 
                     b.HasIndex("CreationTime");
 
-                    b.HasIndex("MerchantId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Order", "Finance");
                 });
@@ -689,13 +697,21 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<string>("Note")
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(4);
+                        .HasColumnOrder(5);
 
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitPrice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(4);
 
                     b.HasKey("Id");
 
@@ -761,9 +777,8 @@ namespace Azox.XQR.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)")
                         .HasColumnOrder(6);
 
                     b.Property<DateTime>("CreationTime")
@@ -811,9 +826,8 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)")
                         .HasColumnOrder(6);
 
                     b.Property<DateTime>("CreationTime")
@@ -878,6 +892,17 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.ExternalService", b =>
+                {
+                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
+                        .WithMany()
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
+                });
+
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.License", b =>
                 {
                     b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
@@ -898,35 +923,6 @@ namespace Azox.XQR.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.MenuItem", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.MenuItem", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.MenuItemRight", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.MenuItem", "MenuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Azox.XQR.Business.Domain.Management.UserGroup", "UserGroup")
-                        .WithMany()
-                        .HasForeignKey("UserGroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("MenuItem");
-
-                    b.Navigation("UserGroup");
                 });
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
@@ -971,12 +967,12 @@ namespace Azox.XQR.Persistence.Migrations
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.UserGroup", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
-                        .WithMany("UserGroups")
-                        .HasForeignKey("MerchantId")
+                    b.HasOne("Azox.XQR.Business.Domain.Management.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Merchant");
+                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Media.ProductPicture", b =>
@@ -1000,13 +996,13 @@ namespace Azox.XQR.Persistence.Migrations
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Order.Order", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
+                    b.HasOne("Azox.XQR.Business.Domain.Management.Location", "Location")
                         .WithMany()
-                        .HasForeignKey("MerchantId")
+                        .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Merchant");
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Order.OrderItem", b =>
@@ -1071,8 +1067,6 @@ namespace Azox.XQR.Persistence.Migrations
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
                 {
                     b.Navigation("Services");
-
-                    b.Navigation("UserGroups");
                 });
 
             modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Service", b =>

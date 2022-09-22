@@ -39,12 +39,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual string? FacebookLink { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual ICollection<UserGroup> UserGroups { get; set; }
+        public virtual string? InstagramLink { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual ICollection<Service> Services { get; set; }
 
         #endregion Properties
     }

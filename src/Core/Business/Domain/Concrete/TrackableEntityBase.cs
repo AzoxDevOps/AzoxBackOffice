@@ -8,21 +8,12 @@
         ITrackableEntity
         where TId : struct
     {
-        #region Ctor
-
-        protected TrackableEntityBase()
-        {
-            CreationTime = DateTime.UtcNow;
-        }
-
-        #endregion Ctor
-
         #region Properties
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual DateTime CreationTime { get; protected internal set; }
+        public virtual DateTime CreationTime { get; set; } = DateTime.Now;
 
         #endregion Properties
     }

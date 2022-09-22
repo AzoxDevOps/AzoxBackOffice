@@ -16,7 +16,7 @@
         /// 
         /// </summary>
         [Key, Column(Order = 0)]
-        public virtual TId Id { get; protected internal set; }
+        public virtual TId Id { get; set; }
 
         #endregion Properties
     }
