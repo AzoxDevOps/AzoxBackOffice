@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Azox.XQR.Persistence.Migrations
 {
-    public partial class V1000 : Migration
+    public partial class v1000 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -207,10 +207,10 @@ namespace Azox.XQR.Persistence.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     MerchantType = table.Column<int>(type: "int", nullable: false),
-                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FacebookLink = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     InstagramLink = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
-                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    AddressId = table.Column<int>(type: "int", nullable: true),
                     PictureId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>

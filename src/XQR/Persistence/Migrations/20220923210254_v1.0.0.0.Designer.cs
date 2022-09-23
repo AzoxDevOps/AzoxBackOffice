@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Azox.XQR.Persistence.Migrations
 {
     [DbContext(typeof(XQRDbContext))]
-    [Migration("20220922222005_V1.0.0.0")]
-    partial class V1000
+    [Migration("20220923210254_v1.0.0.0")]
+    partial class v1000
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,11 +324,10 @@ namespace Azox.XQR.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Contact")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(7);
 
@@ -932,8 +931,7 @@ namespace Azox.XQR.Persistence.Migrations
                     b.HasOne("Azox.XQR.Business.Domain.Region.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("Azox.XQR.Business.Domain.Media.Picture", "Picture")
                         .WithMany()

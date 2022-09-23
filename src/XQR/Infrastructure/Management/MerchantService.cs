@@ -21,15 +21,5 @@
 
 
         #endregion Ctor
-
-        #region Methods
-
-
-        public async Task<IEnumerable<Merchant>> GetAllMerchantsAsync()
-        {
-            return await Repository.FilterAsync(x => !x.IsDeleted);
-        }
-
-        #endregion Methods
     }
 }

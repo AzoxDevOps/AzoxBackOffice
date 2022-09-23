@@ -24,12 +24,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; } = new();
 
         /// <summary>
         /// 
         /// </summary>
-        public virtual Address Address { get; set; }
+        public virtual Address? Address { get; set; }
 
         /// <summary>
         /// 

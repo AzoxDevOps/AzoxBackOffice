@@ -21,6 +21,8 @@
             builder.Services.AddServerSideBlazor()
                 .AddCircuitOptions(options => options.DetailedErrors = true);
 
+            builder.Services.AddMemoryCache();
+
             builder.Services.RegisterConfigs(builder.Configuration);
             builder.Services.RegisterServices(builder.Configuration);
 

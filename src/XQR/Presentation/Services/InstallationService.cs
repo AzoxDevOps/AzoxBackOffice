@@ -14,6 +14,8 @@
     {
         #region Fields
 
+        private static readonly object _installLockObject = new();
+
         private readonly ILogger _logger;
         private readonly IDbContext _dbContext;
         private readonly ITypeFinder _typeFinder;
@@ -42,44 +44,51 @@
 
         public void Install()
         {
-            try
+            lock (_installLockObject)
             {
-                _dbContext.Database.EnsureCreated();
-                _dbContext.Database.Migrate();
-
-                foreach (IInstallationStep step in _typeFinder.FindInstancesOf<IInstallationStep>())
+                if (Installed)
                 {
-                    string stepName = step.GetType().FullName;
+                    return;
+                }
+                try
+                {
+                    _dbContext.Database.Migrate();
 
-                    InstallationStep installationStep = _installationStepService.GetStep(stepName)
-                        ?? new InstallationStep { StepName = stepName };
-
-                    try
+                    foreach (IInstallationStep step in _typeFinder.FindInstancesOf<IInstallationStep>())
                     {
-                        if (!installationStep.Success)
+                        string stepName = step.GetType().FullName;
+
+                        InstallationStep installationStep = _installationStepService.GetStep(stepName)
+                            ?? new InstallationStep { StepName = stepName };
+
+                        if (installationStep.Success)
+                        {
+                            continue;
+                        }
+
+                        try
                         {
                             step.Install(_serviceProvider);
 
                             installationStep.Success = true;
+                            installationStep.LastExecutionTime = DateTime.Now;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        installationStep.Success = false;
-                        installationStep.Error = ex.Message;
+                        catch (Exception ex)
+                        {
+                            installationStep.Success = false;
+                            installationStep.Error = ex.Message;
+                        }
+
+                        _installationStepService.UpdateStep(installationStep);
+                        _dbContext.SaveChanges();
                     }
 
-                    installationStep.LastExecutionTime = DateTime.Now;
-                    _installationStepService.UpdateStep(installationStep);
-
-                    _dbContext.SaveChanges();
+                    Installed = true;
                 }
-
-                Installed = true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, ex.Message);
+                }
             }
         }
 

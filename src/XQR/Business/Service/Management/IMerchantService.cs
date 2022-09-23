@@ -9,10 +9,5 @@
     public interface IMerchantService :
         IEntityService<Merchant>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task<IEnumerable<Merchant>> GetAllMerchantsAsync();
     }
 }

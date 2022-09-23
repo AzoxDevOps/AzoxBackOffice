@@ -18,8 +18,7 @@
 
             builder.HasOne(x => x.Address)
                 .WithMany()
-                .OnDelete(DeleteBehavior.NoAction)
-                .IsRequired();
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(x => x.Picture)
                 .WithMany()
@@ -30,7 +29,7 @@
                 .HasConversion(
                     v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
                     v => JsonSerializer.Deserialize<Contact>(v, (JsonSerializerOptions)null))
-                .IsRequired();
+                .IsRequired(false);
 
             builder.Property(x => x.FacebookLink)
                 .HasColumnOrder(lastColumnOrder++)

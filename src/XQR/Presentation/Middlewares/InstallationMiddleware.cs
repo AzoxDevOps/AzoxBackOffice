@@ -31,11 +31,7 @@
         {
             if (!_installationService.Installed)
             {
-                SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1);
-
-                semaphoreSlim.Wait();
                 _installationService.Install();
-                semaphoreSlim.Release();
             }
 
             await _next(httpContext);

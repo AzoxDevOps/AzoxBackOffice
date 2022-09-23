@@ -99,7 +99,7 @@
             }
 
             username = username.Trim().ToLowerInvariant();
-            return await Repository.SingleOrDefaultAsync(x => x.Username == username);
+            return await SingleOrDefaultAsync(x => x.Username == username);
         }
 
         public virtual async Task<ValidateCredentialsResult> ValidateCredentials(string username, string password)

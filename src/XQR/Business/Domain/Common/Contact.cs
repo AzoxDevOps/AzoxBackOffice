@@ -1,12 +1,19 @@
 ﻿namespace Azox.XQR.Business.Domain.Common
 {
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct Contact
+    public class Contact
     {
         #region Ctor
 
+        public Contact()
+        {
+        }
+
+        [JsonConstructor]
         public Contact(string name, string phone, string email)
         {
             Name = name;
@@ -21,17 +28,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Phone { get; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Email { get; }
+        public string Email { get; set; }
 
         #endregion Properties
     }

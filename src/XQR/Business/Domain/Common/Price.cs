@@ -2,14 +2,16 @@
 {
     using Azox.Core;
     using System.Globalization;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct Price
+    public class Price
     {
         #region Ctor
 
+        [JsonConstructor]
         public Price(decimal amount, Currency currency)
         {
             Amount = amount;
@@ -40,12 +42,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public decimal Amount { get; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Currency Currency { get; }
+        public Currency Currency { get; set; }
 
         #endregion Properties
     }

@@ -1,12 +1,15 @@
 ﻿namespace Azox.XQR.Business.Domain.Management
 {
+    using System.Text.Json.Serialization;
+
     /// <summary>
     /// 
     /// </summary>
-    public readonly struct ServiceWorkingHour
+    public class ServiceWorkingHour
     {
         #region Ctor
 
+        [JsonConstructor]
         public ServiceWorkingHour(DayOfWeek dayOfWeek, TimeSpan openingTime, TimeSpan closingTime)
         {
             DayOfWeek = dayOfWeek;
@@ -21,17 +24,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public DayOfWeek DayOfWeek { get; }
+        public DayOfWeek DayOfWeek { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public TimeSpan OpeningTime { get; }
+        public TimeSpan OpeningTime { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public TimeSpan ClosingTime { get; }
+        public TimeSpan ClosingTime { get; set; }
 
         #endregion Properties
     }
