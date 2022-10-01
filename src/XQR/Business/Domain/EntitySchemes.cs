@@ -8,6 +8,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public const string Auth = nameof(Auth);
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const string Catalog = nameof(Catalog);
 
         /// <summary>

@@ -1,7 +1,6 @@
-﻿namespace Azox.XQR.Business.Domain.Order
+﻿namespace Azox.XQR.Business
 {
     using Azox.Business.Core.Domain;
-    using Azox.XQR.Business.Domain.Management;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -17,16 +16,6 @@
         /// 
         /// </summary>
         public virtual Location Location { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual string? Note { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<OrderItem> Items { get; set; }
 
         #endregion Properties
     }

@@ -1,7 +1,6 @@
-﻿namespace Azox.XQR.Business.Domain.Management
+﻿namespace Azox.XQR.Business
 {
     using Azox.Business.Core.Domain;
-    using Azox.XQR.Business;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -16,7 +15,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual Service Service { get; set; }
+        public virtual MerchantServe Service { get; set; }
 
         #endregion Properties
     }

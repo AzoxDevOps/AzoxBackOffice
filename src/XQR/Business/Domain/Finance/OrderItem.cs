@@ -1,8 +1,6 @@
-﻿namespace Azox.XQR.Business.Domain.Order
+﻿namespace Azox.XQR.Business
 {
     using Azox.Business.Core.Domain;
-    using Azox.XQR.Business.Domain.Catalog;
-    using Azox.XQR.Business.Domain.Common;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -33,11 +31,6 @@
         /// 
         /// </summary>
         public virtual int Quantity { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual string? Note { get; set; }
 
         #endregion Properties
     }

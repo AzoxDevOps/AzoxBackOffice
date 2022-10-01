@@ -1,0 +1,12 @@
+﻿@page "/admin/category"
+
+<SummaryLayout PageTitle="Kategoriler">
+    <PageBody>
+        <RadzenDataGrid TItem="CategoryDto" Data="DataSource" AllowSorting="true" PageSize="10" PageSizeOptions="new List<int>{ 5, 10, 20, 50 }">
+            <Columns>
+                <RadzenDataGridColumn TItem="CategoryDto" Property="DisplayOrder" Title="Sıra" />
+                <RadzenDataGridColumn TItem="CategoryDto" Property="Name" Title="Kategori Adı" />
+            </Columns>
+        </RadzenDataGrid>
+    </PageBody>
+</SummaryLayout>

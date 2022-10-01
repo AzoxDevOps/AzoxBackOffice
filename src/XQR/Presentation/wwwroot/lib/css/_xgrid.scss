@@ -1,0 +1,42 @@
+﻿.xgrid {
+    & table {
+        & thead {
+            & tr {
+                & th {
+                    font-size: 0.875rem;
+                    line-height: 1.5rem;
+                    font-weight: 600;
+
+                    & div {
+                        display: flex;
+                        -ms-flex: 1;
+                        -webkit-flex: 1;
+                        flex: 1;
+                        -webkit-justify-content: start;
+                        justify-content: start;
+                        -ms-align-content: center;
+                        -webkit-align-content: center;
+                        align-content: center;
+                    }
+
+                    &.command {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+
+        & tbody {
+            & tr {
+                & td {
+                    font-size: 0.875rem;
+                    line-height: 1.5rem;
+
+                    &.command {
+                        text-align: right;
+                    }
+                }
+            }
+        }
+    }
+}

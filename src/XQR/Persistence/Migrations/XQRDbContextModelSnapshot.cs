@@ -49,7 +49,7 @@ namespace Azox.XQR.Persistence.Migrations
                     b.ToTable("InstallationStep");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Category", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,8 +92,8 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PictureId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -103,12 +103,303 @@ namespace Azox.XQR.Persistence.Migrations
 
                     b.HasIndex("ParentId");
 
-                    b.HasIndex("PictureId");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("Category", "Catalog");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Product", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)")
+                        .HasColumnOrder(3);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(4);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("ServiceId");
+
+                    b.ToTable("Location", "Management");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.Merchant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(8);
+
+                    b.Property<string>("Contact")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(9);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)")
+                        .HasColumnOrder(3);
+
+                    b.Property<string>("FacebookLink")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(11);
+
+                    b.Property<string>("InstagramLink")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(12);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(7);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("MerchantType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(6);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(2);
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(10);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("Merchant", "Management");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.MerchantServe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Contacts")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(8);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("Currency")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)")
+                        .HasColumnOrder(3);
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(6);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("ServiceType")
+                        .HasColumnType("int")
+                        .HasColumnOrder(7);
+
+                    b.Property<string>("WorkingHours")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(9);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("MerchantId");
+
+                    b.HasIndex("Name");
+
+                    b.ToTable("MerchantServe", "Management");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.MerchantServeUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MerchantServeUser", "Auth");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.Order", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(3);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(2);
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Order", "Finance");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.OrderItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(3);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(2);
+
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitPrice")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(4);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationTime");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderItem", "Finance");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,280 +463,7 @@ namespace Azox.XQR.Persistence.Migrations
                     b.ToTable("Product", "Catalog");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.ExternalService", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Contact")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(6);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<int>("MerchantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("MerchantId");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("ExternalService", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.License", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.Property<string>("LicenseData")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("LicenseKey")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(4);
-
-                    b.Property<int>("MerchantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("MerchantId");
-
-                    b.ToTable("License", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Location", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("Location", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Contact")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(7);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<string>("FacebookLink")
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(8);
-
-                    b.Property<string>("InstagramLink")
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(9);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<int>("MerchantType")
-                        .HasColumnType("int")
-                        .HasColumnOrder(6);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.Property<Guid?>("PictureId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("Name");
-
-                    b.HasIndex("PictureId");
-
-                    b.ToTable("Merchant", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Service", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Contacts")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(7);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("Currency")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<int>("MerchantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("ServiceType")
-                        .HasColumnType("int")
-                        .HasColumnOrder(6);
-
-                    b.Property<string>("WorkingHours")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(8);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("MerchantId");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("Service", "Management");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.User", b =>
+            modelBuilder.Entity("Azox.XQR.Business.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -509,10 +527,10 @@ namespace Azox.XQR.Persistence.Migrations
 
                     b.HasIndex("UserGroupId");
 
-                    b.ToTable("User", "Management");
+                    b.ToTable("User", "Auth");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.UserGroup", b =>
+            modelBuilder.Entity("Azox.XQR.Business.UserGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -543,9 +561,6 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)")
                         .HasColumnOrder(2);
-
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
 
                     b.Property<int>("UserGroupType")
                         .HasColumnType("int")
@@ -557,366 +572,31 @@ namespace Azox.XQR.Persistence.Migrations
 
                     b.HasIndex("Name");
 
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("UserGroup", "Management");
+                    b.ToTable("UserGroup", "Auth");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Media.Picture", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Category", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnOrder(0);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.ToTable("Picture", "Media");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Media.ProductPicture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
-
-                    b.Property<int>("DisplayOrder")
-                        .HasColumnType("int")
-                        .HasColumnOrder(5);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<Guid>("PictureId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("PictureId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductPicture", "Media");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Order.Order", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Note")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(4);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("LocationId");
-
-                    b.ToTable("Order", "Finance");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Order.OrderItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(2);
-
-                    b.Property<string>("Note")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(5);
-
-                    b.Property<long>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UnitPrice")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(4);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItem", "Finance");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AddressLine")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(2);
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("DistrictId")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("Latitude")
-                        .HasColumnType("float")
-                        .HasColumnOrder(3);
-
-                    b.Property<double?>("Longitude")
-                        .HasColumnType("float")
-                        .HasColumnOrder(4);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("DistrictId");
-
-                    b.ToTable("Address", "Region");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.City", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasColumnOrder(6);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("City", "Region");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.District", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)")
-                        .HasColumnOrder(6);
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(5);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)")
-                        .HasColumnOrder(3);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(4);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CreationTime");
-
-                    b.HasIndex("Name");
-
-                    b.ToTable("District", "Region");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Category", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Catalog.Category", "Parent")
+                    b.HasOne("Azox.XQR.Business.Category", "Parent")
                         .WithMany()
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("Azox.XQR.Business.Domain.Media.Picture", "Picture")
+                    b.HasOne("Azox.XQR.Business.MerchantServe", "Service")
                         .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Parent");
 
-                    b.Navigation("Picture");
+                    b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Product", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Location", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Catalog.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.ExternalService", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
+                    b.HasOne("Azox.XQR.Business.MerchantServe", "Service")
                         .WithMany()
-                        .HasForeignKey("MerchantId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Merchant");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.License", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
-                        .WithMany()
-                        .HasForeignKey("MerchantId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Merchant");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Location", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Service", "Service")
-                        .WithMany("Locations")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -924,27 +604,10 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Navigation("Service");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
+            modelBuilder.Entity("Azox.XQR.Business.MerchantServe", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Region.Address", "Address")
+                    b.HasOne("Azox.XQR.Business.Merchant", "Merchant")
                         .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("Azox.XQR.Business.Domain.Media.Picture", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Address");
-
-                    b.Navigation("Picture");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Service", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Merchant", "Merchant")
-                        .WithMany("Services")
                         .HasForeignKey("MerchantId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -952,49 +615,28 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Navigation("Merchant");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.User", b =>
+            modelBuilder.Entity("Azox.XQR.Business.MerchantServeUser", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.UserGroup", "UserGroup")
-                        .WithMany("Users")
-                        .HasForeignKey("UserGroupId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("UserGroup");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.UserGroup", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Service", "Service")
+                    b.HasOne("Azox.XQR.Business.MerchantServe", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Azox.XQR.Business.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Service");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Media.ProductPicture", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Order", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Media.Picture", "Picture")
-                        .WithMany()
-                        .HasForeignKey("PictureId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Azox.XQR.Business.Domain.Catalog.Product", "Product")
-                        .WithMany("Pictures")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Picture");
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Order.Order", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Management.Location", "Location")
+                    b.HasOne("Azox.XQR.Business.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1003,15 +645,15 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Order.OrderItem", b =>
+            modelBuilder.Entity("Azox.XQR.Business.OrderItem", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Order.Order", "Order")
-                        .WithMany("Items")
+                    b.HasOne("Azox.XQR.Business.Order", "Order")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Azox.XQR.Business.Domain.Catalog.Product", "Product")
+                    b.HasOne("Azox.XQR.Business.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1022,69 +664,26 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.Address", b =>
+            modelBuilder.Entity("Azox.XQR.Business.Product", b =>
                 {
-                    b.HasOne("Azox.XQR.Business.Domain.Region.City", "City")
+                    b.HasOne("Azox.XQR.Business.Category", "Category")
                         .WithMany()
-                        .HasForeignKey("CityId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Azox.XQR.Business.Domain.Region.District", "District")
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.User", b =>
+                {
+                    b.HasOne("Azox.XQR.Business.UserGroup", "UserGroup")
                         .WithMany()
-                        .HasForeignKey("DistrictId")
+                        .HasForeignKey("UserGroupId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("City");
-
-                    b.Navigation("District");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.District", b =>
-                {
-                    b.HasOne("Azox.XQR.Business.Domain.Region.City", "City")
-                        .WithMany("Districts")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("City");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Category", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Catalog.Product", b =>
-                {
-                    b.Navigation("Pictures");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Merchant", b =>
-                {
-                    b.Navigation("Services");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.Service", b =>
-                {
-                    b.Navigation("Locations");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Management.UserGroup", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Order.Order", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("Azox.XQR.Business.Domain.Region.City", b =>
-                {
-                    b.Navigation("Districts");
+                    b.Navigation("UserGroup");
                 });
 #pragma warning restore 612, 618
         }

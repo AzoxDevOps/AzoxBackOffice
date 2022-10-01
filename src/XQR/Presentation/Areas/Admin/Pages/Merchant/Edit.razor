@@ -1,0 +1,39 @@
+﻿@page "/admin/merchant/{Id:int}"
+@inherits DetailLayout
+@layout DetailLayout
+
+@if (Model != null)
+{
+    <div class="container-xl">
+        <div class="page-wrapper">
+            <div class="page-header">
+                <h2 class="page-title">@Model.Name</h2>
+                <div class="btn-group btn-group-sm btn-group-hover">
+                    <button class="btn btn-primary me-1 rounded-5" @onclick="SaveAsync">
+                        <i class="bi bi-save"></i>
+                        <span>Kaydet</span>
+                    </button>
+                    <button class="btn btn-success me-1 rounded-5" @onclick="SaveAndCloseAsync">
+                        <i class="bi bi-save"></i>
+                        <span>Kaydet & Kapat</span>
+                    </button>
+                    <button class="btn btn-danger me-1 rounded-5" @onclick="DeleteAsync">
+                        <i class="bi bi-trash"></i>
+                        <span>Sil</span>
+                    </button>
+                    <button class="btn btn-light rounded-5" @onclick="@(()=>NavigationManager.NavigateTo("/admin/merchant"))">
+                        <i class="bi bi-x-lg"></i>
+                        <span>Kapat</span>
+                    </button>
+                </div>
+            </div>
+            <div class="page-body">
+                <div class="card">
+                    <div class="card-body">
+                        <Detail IsNew="false" Model="Model" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

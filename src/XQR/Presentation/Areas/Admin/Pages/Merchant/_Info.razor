@@ -1,0 +1,93 @@
+﻿@if (Model != null)
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="container-fluid">
+
+                @if (IsNew)
+                {
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="col-12 ">
+                                <label class="col-form-label">İşletme Tipi</label>
+                                <select class="form-select" @bind="Model.MerchantType">
+                                    <option value="@MerchantType.Restaurant" selected>@MerchantType.Restaurant.GetDescription()</option>
+                                    <option value="@MerchantType.Hotel">@MerchantType.Hotel.GetDescription()</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="col-form-label">İşletme Adı</label>
+                                <input class="form-control" @bind-value="Model.Name" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">İşletme Kısa Bilgi</label>
+                            <textarea class="form-control" style="height:calc(100% - 38px);" @bind="Model.Description" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">Yetkili</label>
+                            <input class="form-control" @bind-value="Model.Contact.Name" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">Yetkili Telefon</label>
+                            <input class="form-control" @bind-value="Model.Contact.Phone" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">Yetkili Email</label>
+                            <input class="form-control" @bind-value="Model.Contact.Email" />
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="col-12 ">
+                                <label class="col-form-label">İşletme Tipi</label>
+                                <select class="form-select" @bind="Model.MerchantType" disabled>
+                                    <option value="@MerchantType.Restaurant">@MerchantType.Restaurant.GetDescription()</option>
+                                    <option value="@MerchantType.Hotel">@MerchantType.Hotel.GetDescription()</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="col-form-label">İşletme Adı</label>
+                                <input class="form-control" @bind-value="Model.Name" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">İşletme Kısa Bilgi</label>
+                            <textarea class="form-control" style="height:calc(100% - 38px);" @bind="Model.Description" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="col-12">
+                                <label class="col-form-label">Yetkili</label>
+                                <input class="form-control" @bind-value="Model.Contact.Name" />
+                            </div>
+                            <div class="col-12">
+                                <label class="col-form-label">Yetkili Telefon</label>
+                                <input class="form-control" @bind-value="Model.Contact.Phone" />
+                            </div>
+                            <div class="col-12">
+                                <label class="col-form-label">Yetkili Email</label>
+                                <input class="form-control" @bind-value="Model.Contact.Email" />
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-center align-items-center h-100 flex-column position-relative">
+                                    <img style="height:190px;" src="@Model.Picture.FileName" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <InputFile OnChange="OnChange" class="form-control" accept=".jpg,.png" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}

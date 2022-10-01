@@ -1,7 +1,6 @@
-﻿namespace Azox.XQR.Business.Domain.Catalog
+﻿namespace Azox.XQR.Business
 {
     using Azox.Business.Core.Domain;
-    using Azox.XQR.Business.Domain.Media;
 
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +16,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual MerchantServe Service { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual bool IsVisible { get; set; }
 
         /// <summary>
@@ -28,16 +32,6 @@
         /// 
         /// </summary>
         public virtual Category? Parent { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual Picture? Picture { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public virtual ICollection<Product> Products { get; set; }
 
         #endregion Properties
     }

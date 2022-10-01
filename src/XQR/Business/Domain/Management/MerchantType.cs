@@ -1,5 +1,7 @@
-﻿namespace Azox.XQR.Business.Domain.Management
+﻿namespace Azox.XQR.Business
 {
+    using System.ComponentModel;
+
     /// <summary>
     /// 
     /// </summary>
@@ -8,11 +10,13 @@
         /// <summary>
         /// 
         /// </summary>
+        [Description("Restorant")]
         Restaurant = 10,
 
         /// <summary>
         /// 
         /// </summary>
+        [Description("Otel")]
         Hotel = 20
     }
 }

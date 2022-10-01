@@ -1,9 +1,7 @@
 ﻿namespace Azox.XQR.Presentation.Areas.Admin.DependencyInjection
 {
     using Azox.Core.DependencyInjection;
-    using Azox.XQR.Presentation.Areas.Admin.Services;
-    using Microsoft.AspNetCore.Components.Authorization;
-    using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+    using Azox.XQR.Presentation.Areas.Admin.Helpers;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -12,9 +10,7 @@
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<ProtectedSessionStorage>();
-            services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
-            services.AddScoped<IAuthStateProvider, AuthStateProvider>();
+            services.AddSingleton<SitemapHelper>();
         }
     }
 }

@@ -1,0 +1,27 @@
+﻿@page "/admin/store/new"
+@layout DetailLayout
+
+<div class="container-xl">
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h2 class="page-title">Yeni Hizmet Oluştur</h2>
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-primary me-1 rounded-4" @onclick="SaveAsync">
+                    <i class="bi bi-save">&nbsp;</i>
+                    <span>Kaydet</span>
+                </button>
+                <button class="btn btn-secondary rounded-4" @onclick="@(()=>NavigationManager.NavigateTo("/admin/store",true))">
+                    <i class="bi bi-x-lg">&nbsp;</i>
+                    <span>Kapat</span>
+                </button>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="card">
+                <div class="card-body">
+                    <Detail Model="Model" IsNew="true" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,7 @@
-﻿namespace Azox.XQR.Persistence.Mapping.Finance
+﻿namespace Azox.XQR.Persistence.Mapping
 {
     using Azox.Persistence.Core.Mapping;
-    using Azox.XQR.Business.Domain.Common;
-    using Azox.XQR.Business.Domain.Order;
+    using Azox.XQR.Business;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using System.Text.Json;
@@ -13,7 +12,7 @@
         public override void Configure(EntityTypeBuilder<OrderItem> builder, int lastColumnOrder)
         {
             builder.HasOne(x => x.Order)
-                .WithMany(x => x.Items)
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
@@ -31,10 +30,6 @@
 
             builder.Property(x => x.Quantity)
                 .IsRequired();
-
-            builder.Property(x => x.Note)
-                .HasColumnOrder(lastColumnOrder++)
-                .HasMaxLength(4000);
         }
     }
 }

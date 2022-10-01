@@ -31,7 +31,7 @@
                 }
                 //TODO kullanım durumuna göre bakılacak
                 options.UseLazyLoadingProxies();
-            });
+            }, ServiceLifetime.Singleton);
 
             services.AddScoped<IDbContext, XQRDbContext>();
         }

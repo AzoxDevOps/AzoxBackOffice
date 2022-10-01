@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Business.Domain.Common
+﻿namespace Azox.XQR.Business
 {
     using System.Text.Json.Serialization;
 

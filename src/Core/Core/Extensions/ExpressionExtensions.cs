@@ -5,6 +5,30 @@
 
     public static class ExpressionExtensions
     {
+        public static Expression<Func<T, bool>> Or<T>(
+            this Expression<Func<T, bool>> predicate,
+            Expression<Func<T, bool>> otherPredicate)
+        {
+            InvocationExpression invocationExpression = Expression
+                .Invoke(otherPredicate, predicate.Parameters.Cast<Expression>());
+
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.OrElse(predicate.Body, invocationExpression),
+                predicate.Parameters);
+        }
+
+        public static Expression<Func<T, bool>> And<T>(
+            this Expression<Func<T, bool>> predicate,
+            Expression<Func<T, bool>> otherPredicate)
+        {
+            InvocationExpression invocationExpression = Expression
+                .Invoke(otherPredicate, predicate.Parameters.Cast<Expression>());
+
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.AndAlso(predicate.Body, invocationExpression),
+                predicate.Parameters);
+        }
+
         public static string Simplify<T>(this Expression<T> expression)
         {
             return Simplify((Expression)expression);

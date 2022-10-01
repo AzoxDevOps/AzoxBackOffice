@@ -1,0 +1,13 @@
+﻿@layout AdminLayout
+@inherits LayoutComponentBase
+
+<HeaderLayout />
+<main class="container-xl">
+    @Body
+</main>
+<FooterLayout />
+
+@code {
+    [Parameter]
+    public bool ShowSave { get; set; }
+}

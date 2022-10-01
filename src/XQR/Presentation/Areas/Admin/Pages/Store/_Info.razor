@@ -1,0 +1,28 @@
+﻿@if (Model != null)
+{
+    <div class="card">
+        <div class="card-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <label class="col-form-label">Hizmet Tipi</label>
+                        <select class="form-select" @bind="Model.ServiceType">
+                            @foreach (var item in Enum.GetValues(typeof(MerchantServeType)))
+                            {
+                                <option value="@item">@(((MerchantServeType)item).GetDescription())</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-12  col-md-6">
+                        <label class="col-form-label">Hizmet Adı</label>
+                        <input class="form-control" @bind-value="Model.Name" />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="col-form-label">Hizmet Kısa Bilgi</label>
+                        <input class="form-control" @bind-value="Model.Description" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

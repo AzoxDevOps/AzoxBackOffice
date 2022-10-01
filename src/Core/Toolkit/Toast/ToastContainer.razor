@@ -1,0 +1,8 @@
+﻿@namespace Azox.Toolkit.Blazor
+
+<div class="toast-container" @attributes="Attributes">
+    @for (int i = 0; i < ((IInternalToastService)ToastService).Messages.Count; i++)
+    {
+        @DrawToast(i, ((IInternalToastService)ToastService).Messages[i])
+    }
+</div>

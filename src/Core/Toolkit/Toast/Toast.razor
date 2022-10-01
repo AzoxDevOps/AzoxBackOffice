@@ -1,0 +1,11 @@
+﻿@namespace Azox.Toolkit.Blazor
+@using Microsoft.AspNetCore.Components.Web
+@if (Visible)
+{
+    <div class="toast show @Message.Type.Style">
+        <div class="toast-body d-flex justify-content-between">
+            <span>@Message.Message</span>
+            <button class="btn-close" @onclick="Close"></button>
+        </div>
+    </div>
+}

@@ -1,7 +1,7 @@
-﻿namespace Azox.XQR.Persistence.Mapping.Management
+﻿namespace Azox.XQR.Persistence.Mapping
 {
     using Azox.Persistence.Core.Mapping;
-    using Azox.XQR.Business.Domain.Management;
+    using Azox.XQR.Business;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +11,7 @@
         public override void Configure(EntityTypeBuilder<Location> builder, int lastColumnOrder)
         {
             builder.HasOne(x => x.Service)
-                .WithMany(x => x.Locations)
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
         }

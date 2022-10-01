@@ -1,0 +1,40 @@
+﻿@page "/admin/merchants"
+@layout SummaryLayout
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2 class="page-title">İşletmeler</h2>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" @onclick="@(()=> NavigationManager.NavigateTo("/admin/merchants/new"))">
+                <i class="bi bi-plus-circle"></i>
+                <span>Yeni</span>
+            </button>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="card">
+            <div class="card-body">
+                <RadzenDataGrid Data="Model" TItem="MerchantModel" AllowFiltering=true AllowPaging=true PageSize="10" AllowSorting=true>
+                    <Columns>
+                        <RadzenDataGridColumn TItem="MerchantModel" Property="Id" Visible="false" />
+                        <RadzenDataGridColumn TItem="MerchantModel" Property="Name" Title="Adı" />
+                        <RadzenDataGridColumn TItem="MerchantModel" Title="Tipi">
+                            <Template Context="merchant">
+                                <span>@merchant.MerchantType.GetDisplayDescription()</span>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="MerchantModel" Property="Contact.Name" Title="Yetkili" />
+                        <RadzenDataGridColumn TItem="MerchantModel" TextAlign="TextAlign.Center" Filterable=false Sortable=false>
+                            <Template Context="merchant">
+                                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light"
+                                              Click="@(()=> NavigationManager.NavigateTo($"/admin/merchants/edit/{merchant.Id}"))"
+                                              Class="m-1" @onclick:stopPropagation="true" />
+                                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Light" Class="m-1" @onclick:stopPropagation="true" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </div>
+</div>

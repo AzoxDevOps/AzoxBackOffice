@@ -1,8 +1,7 @@
-﻿namespace Azox.XQR.Presentation
+namespace Azox.XQR.Presentation
 {
     using Azox.Core.Extensions;
-    using Azox.XQR.Presentation.Middlewares;
-    using Azox.XQR.Presentation.Services;
+    using Azox.XQR.Presentation.Core.Middlewares;
 
     class Program
     {
@@ -25,8 +24,6 @@
 
             builder.Services.RegisterConfigs(builder.Configuration);
             builder.Services.RegisterServices(builder.Configuration);
-
-            builder.Services.AddSingleton<InstallationService>();
         }
 
         private static void ConfigurePipelines(WebApplication app)
@@ -45,8 +42,7 @@
             app.MapRazorPages();
             app.MapBlazorHub();
             app.MapFallbackToAreaPage("~/Admin/{*catchall}", "/_AdminHost", "Admin");
-            app.MapFallbackToPage("/_Host");
-
+            //app.MapFallbackToPage("/_Host");
         }
     }
 }

@@ -1,11 +1,8 @@
-﻿namespace Azox.XQR.Infrastructure.Management
+﻿namespace Azox.XQR.Infrastructure
 {
     using Azox.Infrastructure.Core;
-    using Azox.XQR.Business.Domain.Management;
-    using Azox.XQR.Business.Service.Management;
+    using Azox.XQR.Business;
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     internal class MerchantService :
         EntityServiceBase<Merchant, MerchantService>,

@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Business.Domain.Management
+﻿namespace Azox.XQR.Business
 {
     /// <summary>
     /// 

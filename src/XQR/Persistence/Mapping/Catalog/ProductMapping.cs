@@ -1,8 +1,7 @@
-﻿namespace Azox.XQR.Persistence.Mapping.Catalog
+﻿namespace Azox.XQR.Persistence.Mapping
 {
     using Azox.Persistence.Core.Mapping;
-    using Azox.XQR.Business.Domain.Catalog;
-    using Azox.XQR.Business.Domain.Common;
+    using Azox.XQR.Business;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using System.Text.Json;
@@ -35,7 +34,7 @@
                 .IsRequired();
 
             builder.HasOne(x => x.Category)
-                .WithMany(x => x.Products)
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
         }

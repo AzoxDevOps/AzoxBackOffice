@@ -1,0 +1,20 @@
+{
+  "Items": [
+    {
+      "Name": "Kontrol Paneli",
+      "Url": "/admin"
+    },
+    {
+      "Name": "İşletmeler",
+      "Url": "/admin/merchant"
+    },
+    {
+      "Name": "Hizmetler",
+      "Url": "/admin/service"
+    },
+    {
+      "Name": "Kategoriler",
+      "Url": "/admin/category"
+    }
+  ]
+}

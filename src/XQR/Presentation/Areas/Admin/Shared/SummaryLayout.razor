@@ -1,0 +1,43 @@
+﻿@inherits LayoutComponentBase
+@layout AdminLayout
+
+<div class="container-xl">
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h2 class="page-title">@PageTitle</h2>
+            @if (PageToolbar != null)
+            {
+                @PageToolbar
+            }
+        </div>
+        <div class="page-body">
+            @if (Search != null)
+            {
+                <div class="accordion mb-4">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <button class="accordion-button p-2"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#summaryfilter">
+                                <i class="bi bi-search">&nbsp;</i>
+                                <span>Arama</span>
+                            </button>
+                        </div>
+                        <div class="accordion-body collapse show" id="summaryfilter">
+                            @Search
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="card">
+                <div class="card-body">
+                    @if (PageBody != null)
+                    {
+                        @PageBody
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,8 +1,7 @@
-﻿namespace Azox.XQR.Persistence.Mapping.Management
+﻿namespace Azox.XQR.Persistence.Mapping
 {
     using Azox.Persistence.Core.Mapping;
-    using Azox.XQR.Business.Domain.Common;
-    using Azox.XQR.Business.Domain.Management;
+    using Azox.XQR.Business;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using System.Text.Json;
@@ -16,19 +15,29 @@
                 .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
 
-            builder.HasOne(x => x.Address)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.Property(x => x.IsActive)
+                .HasColumnOrder(lastColumnOrder++)
+                .IsRequired();
 
-            builder.HasOne(x => x.Picture)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
+            builder.Property(x => x.Address)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<Address>(v, (JsonSerializerOptions)null))
+                .IsRequired(false);
 
             builder.Property(x => x.Contact)
                 .HasColumnOrder(lastColumnOrder++)
                 .HasConversion(
                     v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
                     v => JsonSerializer.Deserialize<Contact>(v, (JsonSerializerOptions)null))
+                .IsRequired(false);
+
+            builder.Property(x => x.Picture)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions)null),
+                    v => JsonSerializer.Deserialize<Picture>(v, (JsonSerializerOptions)null))
                 .IsRequired(false);
 
             builder.Property(x => x.FacebookLink)

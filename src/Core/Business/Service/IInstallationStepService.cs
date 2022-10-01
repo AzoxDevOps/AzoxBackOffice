@@ -12,15 +12,5 @@
         /// 
         /// </summary>
         InstallationStep GetStep(string stepName);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void InsertStep(InstallationStep step);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        void UpdateStep(InstallationStep step);
     }
 }

@@ -1,0 +1,38 @@
+﻿@if (Sitemap != null)
+{
+    <div class="navbar d-none d-md-flex">
+        <div class="container-xl">
+            <ul class="nav">
+                @foreach (var item in Sitemap.Items)
+                {
+                    if (item.Items != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                                <span>@item.Name</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach (var innerItem in item.Items)
+                                {
+                                    <li>
+                                        <a class="nav-link" href="@innerItem.Url">
+                                            <span>@innerItem.Name</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@item.Url">
+                                <span>@item.Name</span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}

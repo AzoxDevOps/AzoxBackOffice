@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Business.Domain.Common
+﻿namespace Azox.XQR.Business
 {
     using Azox.Core;
     using System.Globalization;
@@ -10,6 +10,8 @@
     public class Price
     {
         #region Ctor
+
+        public Price() { }
 
         [JsonConstructor]
         public Price(decimal amount, Currency currency)

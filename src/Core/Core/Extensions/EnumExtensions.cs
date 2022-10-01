@@ -17,17 +17,47 @@
 
             string description = _descriptions.GetOrAdd(key, x =>
             {
-                FieldInfo field = @enum.GetType().GetField(@enum.ToString());
-
-                DescriptionAttribute descriptionAttribute = field
-                    .GetCustomAttribute<DescriptionAttribute>();
-
-                if (descriptionAttribute != null)
+                if (@enum.GetType().GetCustomAttribute<FlagsAttribute>() != null)
                 {
-                    return descriptionAttribute.Description;
-                }
+                    List<string> descriptions = new();
 
-                return @enum.ToString();
+                    foreach (var item in Enum.GetValues(@enum.GetType()))
+                    {
+                        if (@enum.HasFlag((Enum)item))
+                        {
+                            FieldInfo field = @enum.GetType().GetField(Enum.GetName(@enum.GetType(), item));
+
+                            DescriptionAttribute descriptionAttribute = field
+                                .GetCustomAttribute<DescriptionAttribute>();
+
+                            if (descriptionAttribute != null)
+                            {
+                                descriptions.Add(descriptionAttribute.Description);
+                            }
+                            else
+                            {
+                                descriptions.Add(item.ToString());
+                            }
+                        }
+                    }
+
+                    return String.Join(", ", descriptions);
+                }
+                else
+                {
+
+                    FieldInfo field = @enum.GetType().GetField(@enum.ToString());
+
+                    DescriptionAttribute descriptionAttribute = field
+                        .GetCustomAttribute<DescriptionAttribute>();
+
+                    if (descriptionAttribute != null)
+                    {
+                        return descriptionAttribute.Description;
+                    }
+
+                    return @enum.ToString();
+                }
             });
 
             return description;

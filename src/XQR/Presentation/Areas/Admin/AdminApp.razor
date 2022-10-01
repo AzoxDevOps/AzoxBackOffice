@@ -1,14 +1,11 @@
-﻿<CascadingAuthenticationState >
-    <Router AppAssembly="@typeof(AdminApp).Assembly">
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="typeof(AdminApp).Assembly">
         <Found Context="routeData">
-            <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(AdminLayout)" />
-            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(AdminLayout)"/>
+            <FocusOnNavigate RouteData="routeData" Selector=".page-title"/>
         </Found>
         <NotFound>
-            <PageTitle>Not found</PageTitle>
-            <LayoutView Layout="@typeof(AdminLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
-            </LayoutView>
+            <PageTitle>Page Not Found</PageTitle>
         </NotFound>
     </Router>
 </CascadingAuthenticationState>
