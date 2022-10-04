@@ -1,4 +1,26 @@
 ﻿@inherits LayoutComponentBase
 @layout AdminLayout
 
-@Body
+<div class="container-xl">
+    <div class="page-wrapper">
+        <div class="page-header">
+            <h2 class="page-title">@PageTitle</h2>
+            <div class="btn btn-toolbar">
+                @if (PageToolbar != null)
+                {
+                    @PageToolbar
+                }
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="card">
+                <div class="card-body">
+                    @if (PageBody != null)
+                    {
+                        @PageBody
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

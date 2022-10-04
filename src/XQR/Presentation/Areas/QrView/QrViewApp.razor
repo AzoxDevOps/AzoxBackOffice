@@ -1,0 +1,9 @@
+﻿<Router AppAssembly="typeof(QrViewApp).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(QrViewLayout)" />
+        <FocusOnNavigate RouteData="routeData" Selector=".page-title" />
+    </Found>
+    <NotFound>
+        <PageTitle>Page Not Found</PageTitle>
+    </NotFound>
+</Router>

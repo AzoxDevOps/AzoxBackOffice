@@ -5,10 +5,12 @@
     <div class="page-wrapper">
         <div class="page-header">
             <h2 class="page-title">@PageTitle</h2>
-            @if (PageToolbar != null)
-            {
-                @PageToolbar
-            }
+            <div class="btn btn-toolbar">
+                @if (PageToolbar != null)
+                {
+                    @PageToolbar
+                }
+            </div>
         </div>
         <div class="page-body">
             @if (Search != null)

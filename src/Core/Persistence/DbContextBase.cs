@@ -38,6 +38,7 @@
                 if (!assemblyNames.Contains(entityMappingType.Assembly.FullName))
                 {
                     modelBuilder.ApplyConfigurationsFromAssembly(entityMappingType.Assembly);
+                    assemblyNames.Add(entityMappingType.Assembly.FullName);
                 }
 
                 entityMappingTypes.Add(entityMappingType?.BaseType?.GetGenericArguments()[0].FullName);

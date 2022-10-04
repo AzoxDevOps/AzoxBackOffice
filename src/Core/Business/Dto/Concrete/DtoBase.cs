@@ -10,10 +10,20 @@
         where TEntity : EntityBase<TId>
         where TId : struct
     {
+        #region Ctor
+
+        protected DtoBase()
+        {
+            IsNew = true;
+        }
+
+        #endregion Ctor
+
         #region Methods
 
         public virtual void Init(TEntity entity)
         {
+            IsNew = false;
             Id = entity.Id;
         }
 
@@ -25,6 +35,11 @@
         /// 
         /// </summary>
         public TId Id { get; protected internal set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsNew { get; private set; }
 
         #endregion Properties
     }

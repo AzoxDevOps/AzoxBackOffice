@@ -1,7 +1,14 @@
 ﻿[
   {
-    "outputFile": "wwwroot/dist/css/app.css",
-    "inputFile": "wwwroot/lib/css/app.scss",
+    "outputFile": "wwwroot/dist/css/admin.css",
+    "inputFile": "wwwroot/lib/css/admin/app.scss",
+    "minify": {
+      "enabled": true
+    }
+  },
+  {
+    "outputFile": "wwwroot/dist/css/qrview.css",
+    "inputFile": "wwwroot/lib/css/view/qrview.scss",
     "minify": {
       "enabled": true
     }

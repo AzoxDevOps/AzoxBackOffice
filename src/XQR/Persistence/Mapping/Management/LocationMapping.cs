@@ -14,6 +14,10 @@
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
+
+            builder.Property(x => x.Slug)
+                .HasMaxLength(1024)
+                .IsRequired();
         }
     }
 }

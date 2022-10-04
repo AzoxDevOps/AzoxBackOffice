@@ -97,6 +97,7 @@ namespace Azox.XQR.Persistence.Migrations
                     ServiceType = table.Column<int>(type: "int", nullable: false),
                     Contacts = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WorkingHours = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThemeTypeName = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     Currency = table.Column<int>(type: "int", nullable: false),
                     MerchantId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -187,7 +188,8 @@ namespace Azox.XQR.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ServiceId = table.Column<int>(type: "int", nullable: false)
+                    ServiceId = table.Column<int>(type: "int", nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
                 {

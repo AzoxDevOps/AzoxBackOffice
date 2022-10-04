@@ -1,0 +1,17 @@
+﻿@page "/admin/service"
+
+<SummaryLayout PageTitle="Hizmetler">
+    <PageBody>
+        <RadzenDataGrid TItem="MerchantServeDto">
+            <Columns>
+                <RadzenDataGridColumn TItem="MerchantServeDto" Property="Merchant.Name" Title="İşletme Adı" />
+                <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Hizmet Adı" />
+                <RadzenDataGridColumn TItem="MerchantServeDto" Title="Hizmet Tipi">
+                    <Template Context="item">
+                        <span>@item.ServiceType.GetDescription()</span>
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </PageBody>
+</SummaryLayout>

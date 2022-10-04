@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Azox.XQR.Persistence.Migrations
 {
     [DbContext(typeof(XQRDbContext))]
-    [Migration("20221001201401_V1.0.0.0")]
+    [Migration("20221004120237_V1.0.0.0")]
     partial class V1000
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,6 +145,11 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreationTime");
@@ -276,6 +281,11 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int>("ServiceType")
                         .HasColumnType("int")
                         .HasColumnOrder(7);
+
+                    b.Property<string>("ThemeTypeName")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(10);
 
                     b.Property<string>("WorkingHours")
                         .HasColumnType("nvarchar(max)")

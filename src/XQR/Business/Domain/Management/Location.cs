@@ -17,6 +17,11 @@
         /// </summary>
         public virtual MerchantServe Service { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string Slug { get; set; }
+
         #endregion Properties
     }
 }

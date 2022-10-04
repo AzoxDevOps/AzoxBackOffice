@@ -28,6 +28,7 @@
             IsActive = entity.IsActive;
             Currency = entity.Currency;
             ServiceType = entity.ServiceType;
+            ThemeTypeName = entity.ThemeTypeName;
 
             if (entity.Merchant != null)
             {
@@ -68,6 +69,11 @@
         /// 
         /// </summary>
         public MerchantServeType ServiceType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string? ThemeTypeName { get; set; }
 
         /// <summary>
         /// 

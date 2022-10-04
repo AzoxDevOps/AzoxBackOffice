@@ -143,6 +143,11 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CreationTime");
@@ -274,6 +279,11 @@ namespace Azox.XQR.Persistence.Migrations
                     b.Property<int>("ServiceType")
                         .HasColumnType("int")
                         .HasColumnOrder(7);
+
+                    b.Property<string>("ThemeTypeName")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(10);
 
                     b.Property<string>("WorkingHours")
                         .HasColumnType("nvarchar(max)")

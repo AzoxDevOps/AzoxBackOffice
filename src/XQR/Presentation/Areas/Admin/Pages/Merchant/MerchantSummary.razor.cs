@@ -5,37 +5,27 @@
     using Microsoft.AspNetCore.Components;
     using System.Threading.Tasks;
 
-    public partial class Create
+    public partial class MerchantSummary
     {
         #region Injects
 
         [Inject]
         private IMerchantService MerchantService { get; set; }
 
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
-
         #endregion Injects
 
         #region Methods
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            Model = new();
-        }
-
-        private async Task SaveAsync()
-        {
-            await Task.CompletedTask;
-
-            //NavigationManager.NavigateTo($"/admin/merchant/{merchant.Id}", true);
+            DataSource = await MerchantService.GetAllAsync<MerchantDto>();
         }
 
         #endregion Methods
 
         #region Properties
 
-        private MerchantDto Model { get; set; }
+        private IEnumerable<MerchantDto> DataSource { get; set; }
 
         #endregion Properties
     }

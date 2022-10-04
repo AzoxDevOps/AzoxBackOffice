@@ -28,6 +28,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual string? ThemeTypeName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual Merchant Merchant { get; set; }
 
         /// <summary>

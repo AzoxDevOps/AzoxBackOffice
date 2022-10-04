@@ -28,7 +28,7 @@ namespace Azox.XQR.Presentation
 
         private static void ConfigurePipelines(WebApplication app)
         {
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -42,6 +42,7 @@ namespace Azox.XQR.Presentation
             app.MapRazorPages();
             app.MapBlazorHub();
             app.MapFallbackToAreaPage("~/Admin/{*catchall}", "/_AdminHost", "Admin");
+            app.MapFallbackToAreaPage("~/QrView/{*catchall}", "/_QrViewHost", "QrView");
             //app.MapFallbackToPage("/_Host");
         }
     }

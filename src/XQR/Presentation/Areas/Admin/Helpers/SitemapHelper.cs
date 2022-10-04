@@ -64,6 +64,8 @@
                 public string Url { get; set; }
 
                 public SitemapItem[] Items { get; set; }
+
+                public int[] Roles { get; set; }
             }
         }
 
