@@ -4,7 +4,9 @@
     using Azox.Core.Extensions;
     using Azox.Infrastructure.Core;
     using Azox.XQR.Business;
+
     using Microsoft.Extensions.Logging;
+
     using System.Security.Cryptography;
     using System.Text;
 
@@ -90,7 +92,7 @@
             return RegisterResult.Succeeded();
         }
 
-        public virtual async Task<User> GetByUsernameAsync(string username)
+        public virtual User GetByUsername(string username)
         {
             if (username.IsNullOrEmpty())
             {
@@ -98,14 +100,14 @@
             }
 
             username = username.Trim().ToLowerInvariant();
-            return await SingleOrDefaultAsync(x => x.Username == username);
+            return SingleOrDefault(x => x.Username == username);
         }
 
-        public virtual async Task<bool> UpdatePassword(string username, string password)
+        public virtual bool UpdatePassword(string username, string password)
         {
             try
             {
-                User user = await GetByUsernameAsync(username);
+                User user = GetByUsername(username);
 
                 user.PasswordHash = GeneratePasswordHash(password, user.PasswordSalt);
                 user.PasswordChangeOnFirstLogin = false;
@@ -120,7 +122,7 @@
             }
         }
 
-        public virtual async Task<ValidateCredentialsResult> ValidateCredentials(string username, string password)
+        public virtual ValidateCredentialsResult ValidateCredentials(string username, string password)
         {
             if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
@@ -128,7 +130,7 @@
             }
 
             username = username.Trim().ToLowerInvariant();
-            User user = await GetByUsernameAsync(username);
+            User user = GetByUsername(username);
 
             if (user == null)
             {

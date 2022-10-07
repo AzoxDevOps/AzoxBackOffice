@@ -1,5 +1,6 @@
 ﻿namespace Azox.Business.Core.Service
 {
+    using Azox.Business.Core.Data;
     using Azox.Business.Core.Domain;
     using System.Linq.Expressions;
 
@@ -33,6 +34,14 @@
         /// 
         /// </summary>
         IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        IEnumerable<TEntity> Filter(
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, object>> sort,
+            SortOrder sortOrder = SortOrder.Ascending);
 
         /// <summary>
         /// 
@@ -88,6 +97,21 @@
         /// 
         /// </summary>
         void Delete(TEntity entity);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Delete(Guid id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Delete(int id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void Delete(long id);
 
         /// <summary>
         /// 

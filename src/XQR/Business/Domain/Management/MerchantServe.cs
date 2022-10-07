@@ -44,5 +44,10 @@
         /// 
         /// </summary>
         public virtual List<MerchantServeWorkingHour> WorkingHours { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual List<Location> Locations { get; set; }
     }
 }

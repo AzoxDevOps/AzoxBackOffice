@@ -14,5 +14,10 @@
         /// 
         /// </summary>
         int Priority { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        bool IsRecurring { get; }
     }
 }

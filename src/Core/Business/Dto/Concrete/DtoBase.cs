@@ -34,7 +34,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public TId Id { get; protected internal set; }
+        public TId Id { get; set; }
 
         /// <summary>
         /// 

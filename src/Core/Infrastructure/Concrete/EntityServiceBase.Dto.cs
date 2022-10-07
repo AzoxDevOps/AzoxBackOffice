@@ -1,7 +1,9 @@
 ﻿namespace Azox.Infrastructure.Core
 {
+    using Azox.Business.Core.Data;
     using Azox.Business.Core.Dto;
     using Azox.Business.Core.Extensions;
+
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
@@ -15,6 +17,15 @@
         /// </summary>
         public virtual IEnumerable<TDto> Filter<TDto>(Expression<Func<TEntity, bool>> predicate)
             where TDto : IDtoFor<TEntity> => Filter(predicate).ToDto<TEntity, TDto>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IEnumerable<TDto> Filter<TDto>(
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, object>> sort,
+            SortOrder sortOrder = SortOrder.Ascending)
+            where TDto : IDtoFor<TEntity> => Filter(predicate, sort, sortOrder).ToDto<TEntity, TDto>();
 
         /// <summary>
         /// 

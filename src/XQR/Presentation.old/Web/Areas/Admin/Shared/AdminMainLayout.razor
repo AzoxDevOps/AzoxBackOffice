@@ -1,0 +1,13 @@
+﻿@inherits LayoutComponentBase
+@using Azox.XQR.Presentation.Web.Areas.Admin.Pages.Login
+
+<AuthorizeView>
+    <Authorized>
+        <PageTitle>XQR Yönetim Paneli</PageTitle>
+        <AdminHeader />
+        @Body
+    </Authorized>
+    <NotAuthorized>
+        <Login />
+    </NotAuthorized>
+</AuthorizeView>

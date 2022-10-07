@@ -14,7 +14,7 @@
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<XQRDbContext>((serviceProvider, options) =>
+            services.AddDbContextFactory<XQRDbContext>((serviceProvider, options) =>
             {
                 DbConfig dbConfig = serviceProvider.GetRequiredService<DbConfig>();
 
@@ -29,11 +29,19 @@
                     default:
                         throw new AzoxBugException("Invalid db provider");
                 }
+
+                options.EnableDetailedErrors();
                 //TODO kullanım durumuna göre bakılacak
                 options.UseLazyLoadingProxies();
-            }, ServiceLifetime.Singleton);
+            });
 
-            services.AddScoped<IDbContext, XQRDbContext>();
+            services.AddScoped<IDbContext>(serviceProvider =>
+            {
+                IDbContextFactory<XQRDbContext> factory = serviceProvider
+                    .GetRequiredService<IDbContextFactory<XQRDbContext>>();
+
+                return factory.CreateDbContext();
+            });
         }
     }
 }

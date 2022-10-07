@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Business.Dto.Management
+﻿namespace Azox.XQR.Business.Dto
 {
     using Azox.Business.Core.Dto;
 
@@ -20,6 +20,8 @@
         {
             base.Init(entity);
 
+            Slug = entity.Slug;
+
             if (entity.Service != null)
             {
                 Service.Init(entity.Service);
@@ -30,7 +32,15 @@
 
         #region Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public MerchantServeDto Service { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Slug { get; set; }
 
         #endregion Properties
     }

@@ -154,7 +154,9 @@
         {
             try
             {
-                return _dbContext.SaveChanges();
+                int saveChangesResult = _dbContext.SaveChanges();
+
+                return saveChangesResult;
             }
             catch
             {

@@ -1,0 +1,7 @@
+﻿[
+  {
+    "outputFile": "wwwroot/dist/css/admin.css",
+    "inputFile": "wwwroot/lib/css/admin.scss",
+    "minify": { "enabled": true }
+  }
+]

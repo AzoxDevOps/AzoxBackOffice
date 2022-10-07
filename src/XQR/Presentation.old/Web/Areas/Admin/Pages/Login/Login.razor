@@ -1,0 +1,66 @@
+﻿<PageTitle>XQR Kullanıcı Paneli Girişi</PageTitle>
+<HeadContent>
+    <style>
+        form {
+            width: 100%;
+            max-width: 20rem;
+            padding: 15px;
+            margin: auto;
+            background-color: rgba(29,39,59,1);
+            color: rgba(255,255,255,1);
+            -moz-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            -webkit-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+            form h4 {
+                font-family: 'Michroma', sans-serif;
+                font-weight: bolder;
+            }
+    </style>
+</HeadContent>
+
+@if (Show)
+{
+    <div class="d-flex w-100 h-100 align-items-center">
+        <form @onsubmit="LoginAsync">
+            <div class="container-fluid">
+                <h4 class="text-center mb-4">XQR</h4>
+                <div class="row">
+                    <div class="input-group mb-2">
+                        <span class="input-group-text material-icons fs-5">person</span>
+                        <input class="form-control" @bind-value="Username" placeholder="Kullanıcı Adı" disabled="@PasswordChangeOnFirstLogin" required />
+                    </div>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text material-icons fs-5">password</span>
+                        <input class="form-control" @bind-value="Password" placeholder="Şifre" disabled="@PasswordChangeOnFirstLogin" type="password" required />
+                    </div>
+                    @if (PasswordChangeOnFirstLogin)
+                    {
+                        <div class="input-group my-2">
+                            <span class="input-group-text material-icons fs-5">password</span>
+                            <input class="form-control" @bind-value="NewPassword" placeholder="Yeni Şifre" type="password" required />
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text material-icons fs-5">password</span>
+                            <input class="form-control" @bind-value="NewPasswordConfirm" placeholder="Yeni Şifre Tekrar" type="password" required />
+                        </div>
+                    }
+                </div>
+                <button class="btn btn-primary mt-2 w-100" @onclick="LoginAsync" disabled="@IsBusy">
+                    @if (IsBusy)
+                    {
+                        <span class="spinner-border me-2">&nbsp;</span>
+                    }
+                    else
+                    {
+                        <span>Giriş Yap</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+}

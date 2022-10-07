@@ -1,6 +1,6 @@
 ﻿namespace Azox.Business.Core.Service
 {
-    using Azox.Business.Core.Domain.Concrete;
+    using Azox.Business.Core.Domain;
 
     /// <summary>
     /// 

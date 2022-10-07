@@ -2,6 +2,7 @@
 {
     using Azox.Persistence.Core.Mapping;
     using Azox.XQR.Business;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,7 +12,7 @@
         public override void Configure(EntityTypeBuilder<Location> builder, int lastColumnOrder)
         {
             builder.HasOne(x => x.Service)
-                .WithMany()
+                .WithMany(x => x.Locations)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 

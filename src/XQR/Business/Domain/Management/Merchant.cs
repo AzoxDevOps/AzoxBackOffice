@@ -1,6 +1,7 @@
 ﻿namespace Azox.XQR.Business
 {
     using Azox.Business.Core.Domain;
+
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -46,6 +47,11 @@
         /// 
         /// </summary>
         public virtual string? InstagramLink { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual List<MerchantServe> Services { get; set; }
 
         #endregion Properties
     }

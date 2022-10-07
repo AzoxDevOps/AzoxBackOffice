@@ -16,16 +16,16 @@
         /// <summary>
         /// 
         /// </summary>
-        Task<User> GetByUsernameAsync(string username);
+        User GetByUsername(string username);
 
         /// <summary>
         /// 
         /// </summary>
-        Task<bool> UpdatePassword(string username, string password);
+        bool UpdatePassword(string username, string password);
 
         /// <summary>
         /// 
         /// </summary>
-        Task<ValidateCredentialsResult> ValidateCredentials(string username, string password);
+        ValidateCredentialsResult ValidateCredentials(string username, string password);
     }
 }

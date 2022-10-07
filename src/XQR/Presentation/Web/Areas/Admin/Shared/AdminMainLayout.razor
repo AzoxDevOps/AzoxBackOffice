@@ -1,0 +1,12 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView>
+    <Authorized>
+        <PageTitle>XQR Yönetim Paneli</PageTitle>
+        <AdminHeader />
+        @Body
+    </Authorized>
+    <NotAuthorized>
+        <Login />
+    </NotAuthorized>
+</AuthorizeView>

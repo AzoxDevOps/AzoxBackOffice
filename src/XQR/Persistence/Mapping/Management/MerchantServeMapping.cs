@@ -2,9 +2,11 @@
 {
     using Azox.Persistence.Core.Mapping;
     using Azox.XQR.Business;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.ChangeTracking;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     using System.Text.Json;
 
     public class MerchantServeMapping :
@@ -21,7 +23,7 @@
                 .IsRequired();
 
             builder.HasOne(x => x.Merchant)
-                .WithMany()
+                .WithMany(x => x.Services)
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 

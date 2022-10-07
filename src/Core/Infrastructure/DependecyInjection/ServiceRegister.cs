@@ -3,8 +3,10 @@
     using Azox.Business.Core.Service;
     using Azox.Core.DependencyInjection;
     using Azox.Core.Reflection;
+
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+
     using System;
 
     internal class ServiceRegister :
@@ -26,6 +28,8 @@
                     services.AddScoped(entityServiceInterfaceType, entityServiceImplType);
                 }
             }
+
+            services.AddSingleton<IInstallationService, InstallationService>();
         }
     }
 }

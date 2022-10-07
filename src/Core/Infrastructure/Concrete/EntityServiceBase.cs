@@ -5,9 +5,11 @@
     using Azox.Business.Core.Service;
     using Azox.Core.Eventing;
     using Azox.Core.Extensions;
+
     using Microsoft.Extensions.Caching.Memory;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+
     using System;
     using System.Linq.Expressions;
 
@@ -30,12 +32,10 @@
 
         protected EntityServiceBase(IServiceProvider serviceProvider)
         {
-            ServiceProvider = serviceProvider;
-
-            EventHandlerService = ServiceProvider.GetRequiredService<IEventHandlerService>();
-            MemoryCache = ServiceProvider.GetRequiredService<IMemoryCache>();
-            Logger = ServiceProvider.GetRequiredService<ILogger<TService>>();
-            Repository = ServiceProvider.GetRequiredService<IRepository<TEntity>>();
+            EventHandlerService = serviceProvider.GetRequiredService<IEventHandlerService>();
+            MemoryCache = serviceProvider.GetRequiredService<IMemoryCache>();
+            Logger = serviceProvider.GetRequiredService<ILogger<TService>>();
+            Repository = serviceProvider.GetRequiredService<IRepository<TEntity>>();
         }
 
         #endregion Ctor
@@ -70,9 +70,15 @@
             return cacheKey;
         }
 
-        protected string GetCacheKey(Expression expression)
+        protected string GetCacheKey(params Expression[] expressions)
         {
-            string cacheKey = $"{typeof(TEntity).Name}-byexp-{expression.Simplify()}";
+            string cacheKey = $"{typeof(TEntity).Name}-byexp";
+
+            foreach (var exp in expressions)
+            {
+                cacheKey += $"-{exp.Simplify()}";
+            }
+
             SetCacheKey(cacheKey);
 
             return cacheKey;
@@ -119,6 +125,15 @@
         public virtual IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
         {
             return MemoryCache.GetOrCreate(GetCacheKey(predicate),
+                 ce => Repository.Filter(predicate));
+        }
+
+        public virtual IEnumerable<TEntity> Filter(
+            Expression<Func<TEntity, bool>> predicate,
+            Expression<Func<TEntity, object>> sort,
+            SortOrder sortOrder = SortOrder.Ascending)
+        {
+            return MemoryCache.GetOrCreate(GetCacheKey(predicate, sort),
                  ce => Repository.Filter(predicate));
         }
 
@@ -227,6 +242,22 @@
             }
         }
 
+        public virtual void Delete(Guid id)
+        {
+            Delete(GetById(id));
+        }
+
+        public virtual void Delete(int id)
+        {
+            Delete(GetById(id));
+        }
+
+        public virtual void Delete(long id)
+        {
+            Delete(GetById(id));
+        }
+
+
         public virtual void DeleteRange(IEnumerable<TEntity> entities)
         {
             try
@@ -251,7 +282,7 @@
         #endregion Methods
 
         #region Properties
-        
+
         protected IEventHandlerService EventHandlerService { get; }
 
         protected ILogger Logger { get; }

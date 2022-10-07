@@ -1,4 +1,4 @@
-﻿namespace Azox.Business.Core.Domain.Concrete
+﻿namespace Azox.Business.Core.Domain
 {
     using System.ComponentModel.DataAnnotations.Schema;
 
