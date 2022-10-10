@@ -26,12 +26,14 @@
 
         #region Methods
 
-        protected override void OnParametersSet()
+        protected override void OnInitialized()
         {
-            Location location = LocationService.SingleOrDefault(x => x.Slug == LocationSlug);
+            if (!LocationService.GetThemeTypeName(LocationSlug, out string themeTypeName))
+            {
+                return;
+            }
 
-            ThemeComponentType = ThemeContext.GetThemeMainComponentType(location.Service.ThemeTypeName);
-            ThemeComponentParameters = new Dictionary<string, object> { { nameof(LocationSlug), LocationSlug } };
+            ThemeComponentType = ThemeContext.GetThemeMainComponentType(themeTypeName);
         }
 
         #endregion Methods
@@ -39,7 +41,6 @@
         #region Properties
 
         private Type ThemeComponentType { get; set; }
-        private Dictionary<string, object> ThemeComponentParameters { get; set; }
 
         #endregion Properties
     }

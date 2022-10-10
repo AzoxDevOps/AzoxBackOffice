@@ -4,6 +4,50 @@ body {
   height: 100%;
 }
 
-header {
-  background-color: rgba(12, 11, 9, 0.6);
+header .navbar-brand {
+  font-family: "Michroma", sans-serif;
+  font-weight: bolder;
+  text-align: center;
+}
+
+main {
+  position: fixed;
+  top: 57px;
+  bottom: 31px;
+  left: 0;
+  right: 0;
+}
+main.splash .col {
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -ms-align-content: center;
+  -webkit-align-content: center;
+  align-content: center;
+}
+main.splash .col button {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: auto;
+  padding: 0.5rem 0;
+  background: #212529;
+  color: #FFF;
+  font-size: 0.875rem;
+  border: 0.25rem solid rgba(33, 37, 41, 0.8);
+  -moz-border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  -moz-box-shadow: 0 0.5rem 1rem 0.5rem #212529;
+  -webkit-box-shadow: 0 0.5rem 1rem 0.5rem #212529;
+  box-shadow: 0 0.5rem 1rem 0.5rem #212529;
+}
+main.splash .col button > * {
+  width: 100%;
+}
+footer .copyright {
+  font-family: "Michroma", sans-serif;
+  font-weight: normal;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #FFF;
 }

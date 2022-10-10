@@ -12,5 +12,10 @@
         /// 
         /// </summary>
         Location Create(int merchantServeId, string name);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        bool GetThemeTypeName(string slug, out string themeTypeName);
     }
 }

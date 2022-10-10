@@ -6,7 +6,7 @@
     /// 
     /// </summary>
     public partial class Main :
-        ThemeMainComponentBase
+        IThemeMainComponent
     {
     }
 }

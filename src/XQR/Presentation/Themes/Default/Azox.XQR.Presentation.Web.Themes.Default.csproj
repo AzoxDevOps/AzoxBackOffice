@@ -8,11 +8,9 @@
 
 
 	<PropertyGroup>
-		<ProductName>XQR Default Theme</ProductName>
-		<PackageId>XQR.Themes.Default</PackageId>
 		<AssemblyName>XQR.Themes.Default</AssemblyName>
-		<ProductVersion>1.0.0</ProductVersion>
-		<OutputPath>$(SolutionDir)dist/$(Configuration)/Themes/$(ProductName)/$(ProductVersion)</OutputPath>
+		<AssemblyVersion>1.0.0</AssemblyVersion>
+		<OutputPath>$(SolutionDir)dist/$(Configuration)/Themes/$(AssemblyName)/$(AssemblyVersion)</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 
@@ -31,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="BuildWebCompiler2022" Version="1.14.8" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
 	</ItemGroup>
 
@@ -47,6 +46,13 @@
 			<Output TaskParameter="DeletedFiles" ItemName="FilesDeleted" />
 		</Delete>
 		<Message Text="Files deleted: @(FilesDeleted)" />
+	</Target>
+
+	<Target Name="CopyToStyles" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+		<ItemGroup>
+			<CssFile Include="$(MSBuildProjectDirectory)/wwwroot/css/*.css" />
+		</ItemGroup>
+		<Copy SourceFiles="@(CssFile)" DestinationFolder="$(SolutionDir)dist/$(Configuration)/wwwroot/dist/css/$(AssemblyName)/$(AssemblyVersion)" />
 	</Target>
 
 </Project>

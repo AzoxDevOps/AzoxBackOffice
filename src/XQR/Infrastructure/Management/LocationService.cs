@@ -1,6 +1,7 @@
 ﻿namespace Azox.XQR.Infrastructure
 {
     using Azox.Core;
+    using Azox.Core.Extensions;
     using Azox.Infrastructure.Core;
     using Azox.XQR.Business;
 
@@ -49,6 +50,25 @@
 
             Insert(location);
             return GetById(location.Id);
+        }
+
+        public bool GetThemeTypeName(string slug, out string themeTypeName)
+        {
+            themeTypeName = string.Empty;
+
+            if (slug.IsNullOrEmpty())
+            {
+                return false;
+            }
+
+            Location location = SingleOrDefault(x => x.Slug == slug);
+            if (location == null)
+            {
+                return false;
+            }
+
+            themeTypeName = location.Service.ThemeTypeName;
+            return true;
         }
 
         #endregion Methods

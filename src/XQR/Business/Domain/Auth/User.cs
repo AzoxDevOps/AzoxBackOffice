@@ -30,8 +30,7 @@
         /// <summary>
         /// 
         /// </summary>
-        [NotMapped]
-        public string FullName => $"{FirstName} {LastName}";
+        public virtual string FullName => $"{FirstName} {LastName}";
 
         /// <summary>
         /// 
