@@ -16,6 +16,10 @@ namespace Azox.XQR.Presentation.Web
 
         static void ConfigureServices(WebApplicationBuilder builder)
         {
+            AppContext.TryGetSwitch("Npgsql.EnableLegacyTimestampBehavior", out bool deger);
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.TryGetSwitch("Npgsql.EnableLegacyTimestampBehavior", out bool deger2);
+
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 
