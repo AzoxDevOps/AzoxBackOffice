@@ -32,6 +32,7 @@
 
         protected EntityServiceBase(IServiceProvider serviceProvider)
         {
+            ServiceProvider = serviceProvider;
             EventHandlerService = serviceProvider.GetRequiredService<IEventHandlerService>();
             MemoryCache = serviceProvider.GetRequiredService<IMemoryCache>();
             Logger = serviceProvider.GetRequiredService<ILogger<TService>>();

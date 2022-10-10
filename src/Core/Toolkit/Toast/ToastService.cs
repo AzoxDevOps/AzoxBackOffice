@@ -38,6 +38,42 @@
             }
         }
 
+        public void ShowSuccess(string message)
+        {
+            Show(new ToastMessage
+            {
+                Message = message,
+                Type = ToastType.Success,
+            });
+        }
+
+        public void ShowError(string message)
+        {
+            Show(new ToastMessage
+            {
+                Message = message,
+                Type = ToastType.Error,
+            });
+        }
+
+        public void ShowInfo(string message)
+        {
+            Show(new ToastMessage
+            {
+                Message = message,
+                Type = ToastType.Info,
+            });
+        }
+
+        public void ShowWarning(string message)
+        {
+            Show(new ToastMessage
+            {
+                Message = message,
+                Type = ToastType.Warning,
+            });
+        }
+
         #endregion Methods
 
         #region Properties

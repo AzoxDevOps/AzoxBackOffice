@@ -16,7 +16,7 @@
         {
             base.Init(entity);
 
-            IsVisible = entity.IsVisible;
+            IsVisible = entity.IsActive;
             DisplayOrder = entity.DisplayOrder;
 
             if (entity.Service!= null)

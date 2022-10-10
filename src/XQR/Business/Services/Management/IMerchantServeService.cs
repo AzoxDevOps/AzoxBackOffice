@@ -8,5 +8,9 @@
     public interface IMerchantServeService :
         IEntityService<MerchantServe>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        MerchantServe Create(int merchantId, string name, string description, MerchantServeType serviceType);
     }
 }

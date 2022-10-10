@@ -1,1 +1,39 @@
 ﻿@page "/admin/categories"
+@inherits Summary<CategoryDto>
+
+<GenericLayout Title="Kategoriler">
+    <TopToolbar>
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="Create">
+                <span>Yeni</span>
+            </button>
+        </div>
+    </TopToolbar>
+    <Body>
+        <RadzenDataGrid TItem="CategoryDto"
+                        Data="DataSource"
+                        AllowPaging="true"
+                        AllowSorting="true"
+                        EmptyText="Kayıt bulunamadı"
+                        PageSize="10"
+                        PageSizeOptions="new List<int> { 5, 10, 20, 50, 100 }"
+                        PageSizeText="Sayfa başına kayıt"
+                        ShowPagingSummary="true">
+            <Columns>
+                <RadzenDataGridColumn TItem="CategoryDto" Property="Name" Title="Kategori Adı" />
+                <RadzenDataGridColumn TItem="CategoryDto" Sortable="false" TextAlign="TextAlign.Right" Width="7rem">
+                    <Template Context="item">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-sm btn-light" @onclick="@(()=> Edit(item.Id))">
+                                <span class="material-icons">edit</span>
+                            </button>
+                            <button class="btn btn-sm btn-dark" @onclick="@(()=> Delete(item.Id))">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </Body>
+</GenericLayout>

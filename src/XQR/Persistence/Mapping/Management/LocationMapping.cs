@@ -16,9 +16,15 @@
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
+            builder.Property(x => x.IsActive)
+                .IsRequired();
+
             builder.Property(x => x.Slug)
                 .HasMaxLength(1024)
                 .IsRequired();
+
+            builder.HasIndex(x => x.Slug)
+                .IsUnique();
         }
     }
 }

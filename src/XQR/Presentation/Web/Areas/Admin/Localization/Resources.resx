@@ -120,6 +120,9 @@
   <data name="DeleteConfirm" xml:space="preserve">
     <value>Silmek istediğinize emin misiniz?</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Silindi</value>
+  </data>
   <data name="GeneralErrorMessage" xml:space="preserve">
     <value>Sistemde bir hata oluştu.</value>
   </data>
@@ -132,7 +135,13 @@
   <data name="LockedUser" xml:space="preserve">
     <value>Kilitli kullanıcı</value>
   </data>
+  <data name="Recorded" xml:space="preserve">
+    <value>Kaydedildi</value>
+  </data>
   <data name="UnmatchedPassword" xml:space="preserve">
     <value>Yeni şifre eşleşmedi</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Güncellendi</value>
   </data>
 </root>

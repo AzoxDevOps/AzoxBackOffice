@@ -20,6 +20,21 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual string? FirstName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string? LastName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual string FullName => $"{FirstName} {LastName}";
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string Username { get; set; }
 
         /// <summary>

@@ -2,60 +2,46 @@
 {
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Localization;
+    using Azox.XQR.Presentation.Web.Areas.Admin.Components;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components;
-    using Microsoft.JSInterop;
-
-    using System.Threading.Tasks;
 
     [Authorize(Roles = nameof(UserGroupType.Admin))]
-    public partial class MerchantSummary
+    public partial class MerchantSummary :
+        Summary<MerchantDto>
     {
         #region Injects
 
         [Inject]
-        private IJSRuntime JsRuntime { get; set; }
-
-        [Inject]
         private IMerchantService MerchantService { get; set; }
-
-        [Inject]
-        private NavigationManager Navigation { get; set; }
 
         #endregion Injects
 
         #region Methods
 
-        protected override void OnInitialized()
+        protected override void InitializeDataSource(UserGroupType userGroupType, int merchantId, int serviceId)
         {
-            DataSource = MerchantService.Filter<MerchantDto>(x => !x.IsDeleted);
-        }
-
-        private void Create()
-        {
-            Navigation.NavigateTo("/admin/merchant/new");
-        }
-
-        private void Edit(int id)
-        {
-            Navigation.NavigateTo($"/admin/merchant/{id}");
-        }
-
-        private async Task Delete(int id)
-        {
-            if (await JsRuntime.InvokeAsync<bool>("confirm", Resources.DeleteConfirm))
+            if (userGroupType == UserGroupType.Admin)
             {
-
+                DataSource = MerchantService.Filter<MerchantDto>(x => !x.IsDeleted);
             }
+            else if (userGroupType == UserGroupType.MerchantAdmin)
+            {
+                DataSource = MerchantService.Filter<MerchantDto>(x => !x.IsDeleted && x.Id == merchantId);
+            }
+        }
+
+        protected override void OnDelete(int id)
+        {
+
         }
 
         #endregion Methods
 
         #region Properties
 
-        private IEnumerable<MerchantDto> DataSource { get; set; }
+        protected override string DetailUrl => "merchant";
 
         #endregion Properties
     }

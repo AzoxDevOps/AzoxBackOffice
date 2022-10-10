@@ -130,6 +130,29 @@
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="paths"></param>
+        public void AddDirectoryPaths(params string[] paths)
+        {
+            lock (_lock)
+            {
+                if (paths != null && paths.Length > 0)
+                {
+                    foreach (var item in paths)
+                    {
+                        if (!_assemblyDirectoryPaths.Contains(item))
+                        {
+                            _assemblyDirectoryPaths.Add(item);
+                        }
+                    }
+
+                    _assemblies.Clear();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public IEnumerable<Type> FindClassesOf<T>() =>

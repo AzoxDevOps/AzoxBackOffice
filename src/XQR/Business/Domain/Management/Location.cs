@@ -20,6 +20,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public virtual bool IsActive { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string Slug { get; set; }
 
         #endregion Properties

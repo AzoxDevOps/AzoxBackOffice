@@ -8,11 +8,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="~/" />
+    <link rel="stylesheet" href="~/dist/css/bootstrap.min.css" asp-append-version="true" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
     @RenderBody()
-
     <script src="_framework/blazor.server.js"></script>
+    <script src="~/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

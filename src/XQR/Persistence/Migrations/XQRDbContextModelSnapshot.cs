@@ -22,7 +22,7 @@ namespace Azox.XQR.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Azox.Business.Core.Domain.Concrete.InstallationStep", b =>
+            modelBuilder.Entity("Azox.Business.Core.Domain.InstallationStep", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,13 +75,13 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(7);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(6);
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(4);
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(6);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -130,6 +130,9 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("nvarchar(4000)")
                         .HasColumnOrder(3);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(4);
@@ -155,6 +158,9 @@ namespace Azox.XQR.Persistence.Migrations
                     b.HasIndex("Name");
 
                     b.HasIndex("ServiceId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.ToTable("Location", "Management");
                 });
@@ -438,13 +444,13 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(7);
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnOrder(6);
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
                         .HasColumnOrder(4);
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit")
-                        .HasColumnOrder(6);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -490,9 +496,14 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(3);
 
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(4);
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit")
-                        .HasColumnOrder(7);
+                        .HasColumnOrder(9);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit")
@@ -500,27 +511,32 @@ namespace Azox.XQR.Persistence.Migrations
 
                     b.Property<bool>("IsLocked")
                         .HasColumnType("bit")
-                        .HasColumnOrder(8);
+                        .HasColumnOrder(10);
 
                     b.Property<DateTime?>("LastLoginTime")
                         .HasColumnType("datetime2")
-                        .HasColumnOrder(10);
+                        .HasColumnOrder(12);
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(1024)
+                        .HasColumnType("nvarchar(1024)")
+                        .HasColumnOrder(5);
 
                     b.Property<bool>("PasswordChangeOnFirstLogin")
                         .HasColumnType("bit")
-                        .HasColumnOrder(9);
+                        .HasColumnOrder(11);
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(6);
+                        .HasColumnOrder(8);
 
                     b.Property<string>("PasswordSalt")
                         .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(5);
+                        .HasColumnOrder(7);
 
                     b.Property<int>("UserGroupId")
                         .HasColumnType("int");
@@ -529,7 +545,7 @@ namespace Azox.XQR.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)")
-                        .HasColumnOrder(4);
+                        .HasColumnOrder(6);
 
                     b.HasKey("Id");
 
@@ -606,7 +622,7 @@ namespace Azox.XQR.Persistence.Migrations
             modelBuilder.Entity("Azox.XQR.Business.Location", b =>
                 {
                     b.HasOne("Azox.XQR.Business.MerchantServe", "Service")
-                        .WithMany()
+                        .WithMany("Locations")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -617,7 +633,7 @@ namespace Azox.XQR.Persistence.Migrations
             modelBuilder.Entity("Azox.XQR.Business.MerchantServe", b =>
                 {
                     b.HasOne("Azox.XQR.Business.Merchant", "Merchant")
-                        .WithMany()
+                        .WithMany("Services")
                         .HasForeignKey("MerchantId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -694,6 +710,16 @@ namespace Azox.XQR.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("UserGroup");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.Merchant", b =>
+                {
+                    b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("Azox.XQR.Business.MerchantServe", b =>
+                {
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }

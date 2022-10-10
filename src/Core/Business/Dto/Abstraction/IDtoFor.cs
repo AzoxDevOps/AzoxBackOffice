@@ -6,7 +6,7 @@
     /// 
     /// </summary>
     public interface IDtoFor<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : IEntity
     {
         /// <summary>
         /// 

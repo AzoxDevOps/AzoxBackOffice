@@ -18,7 +18,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public virtual bool IsVisible { get; set; }
+        public virtual bool IsActive { get; set; }
 
         /// <summary>
         /// 

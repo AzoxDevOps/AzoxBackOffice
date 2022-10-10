@@ -1,7 +1,7 @@
 namespace Azox.XQR.Presentation.Web
 {
     using Azox.Core.Extensions;
-    using Azox.XQR.Presentation.Web.Middlewares;
+    using Azox.XQR.Presentation.Core.Middlewares;
 
     class Program
     {

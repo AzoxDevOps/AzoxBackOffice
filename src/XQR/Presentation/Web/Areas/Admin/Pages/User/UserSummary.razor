@@ -1,1 +1,52 @@
 ﻿@page "/admin/users"
+@inherits Summary<UserDto>
+
+<GenericLayout Title="Kullanıcılar">
+    <TopToolbar>
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="Create">
+                <span>Yeni</span>
+            </button>
+        </div>
+    </TopToolbar>
+    <Body>
+        <RadzenDataGrid TItem="UserDto"
+                        Data="DataSource"
+                        AllowPaging="true"
+                        AllowSorting="true"
+                        EmptyText="Kayıt bulunamadı"
+                        PageSize="10"
+                        PageSizeOptions="new List<int> { 5, 10, 20, 50, 100 }"
+                        PageSizeText="Sayfa başına kayıt"
+                        ShowPagingSummary="true"
+                        PagingSummaryFormat="Toplam {1} sayfa ve {2} kayıt">
+            <Columns>
+                <RadzenDataGridColumn TItem="UserDto" Property="Username" Title="Kullanıcı Adı" />
+                <RadzenDataGridColumn TItem="UserDto" Title="Aktif" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <span class="material-icons">@(item.IsActive ? "check_circle": "cancel")</span>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="UserDto" Title="Kilitli" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <span class="material-icons">@(item.IsLocked ? "check_circle": "cancel")</span>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="UserDto" Property="LastLoginTime" Title="Son Giriş Zamanı" />
+                <RadzenDataGridColumn TItem="UserDto" Sortable="false" TextAlign="TextAlign.Right" Width="7rem">
+                    <Template Context="item">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-sm btn-light" @onclick="@(()=> Edit(item.Id))">
+                                <span class="material-icons">edit</span>
+                            </button>
+                            <button class="btn btn-sm btn-dark" @onclick="@(()=> Delete(item.Id))">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+        </RadzenDataGrid>
+    </Body>
+</GenericLayout>
+

@@ -19,9 +19,12 @@
         /// <param name="configuration"></param>
         public static void RegisterServices(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            params string[] externalPaths)
         {
             TypeFinder typeFinder = new();
+
+            typeFinder.AddDirectoryPaths(externalPaths);
 
             IEnumerable<IServiceRegister> serviceRegisters = typeFinder
                 .FindInstancesOf<IServiceRegister>();
@@ -41,9 +44,12 @@
         /// <param name="configuration"></param>
         public static void RegisterConfigs(
             this IServiceCollection services,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            params string[] externalPaths)
         {
             TypeFinder typeFinder = new();
+
+            typeFinder.AddDirectoryPaths(externalPaths);
 
             IEnumerable<IConfig> configs = typeFinder
                 .FindInstancesOf<IConfig>();

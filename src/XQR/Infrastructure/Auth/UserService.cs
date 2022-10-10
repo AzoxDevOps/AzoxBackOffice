@@ -64,14 +64,14 @@
 
             if (username.IsNullOrEmpty() || password.IsNullOrEmpty())
             {
-                return RegisterResult.InvalidUsernameOrPassword();
+                return RegisterResult.InvalidUsernameOrPassword;
             }
 
             username = username.ToLowerInvariant();
 
             if (Repository.Any(x => x.Username == username))
             {
-                return RegisterResult.UserExists();
+                return RegisterResult.UserExists;
             }
 
             (string PasswordSalt, string PasswordHash) = PasswordEncrypt(password);
@@ -89,7 +89,7 @@
             Repository.Insert(user);
             Repository.SaveChanges();
 
-            return RegisterResult.Succeeded();
+            return RegisterResult.Succeeded;
         }
 
         public virtual User GetByUsername(string username)

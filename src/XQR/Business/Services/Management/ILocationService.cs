@@ -8,5 +8,9 @@
     public interface ILocationService :
         IEntityService<Location>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        Location Create(int merchantServeId, string name);
     }
 }

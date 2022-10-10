@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.InstallationSteps
+﻿namespace Azox.XQR.Presentation.Core.InstallationSteps
 {
     using Azox.Infrastructure.Core;
     using Azox.XQR.Business;

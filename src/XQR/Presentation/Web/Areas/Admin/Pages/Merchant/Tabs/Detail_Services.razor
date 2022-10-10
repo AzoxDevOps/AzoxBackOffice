@@ -1,0 +1,36 @@
+﻿@namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant
+
+<RadzenDataGrid TItem="MerchantServeDto"
+                Data="DataSource"
+                AllowPaging="true"
+                AllowSorting="true"
+                EmptyText="Kayıt bulunamadı"
+                PageSize="10"
+                PageSizeOptions="new List<int> { 5, 10, 20, 50, 100 }"
+                PageSizeText="Sayfa başına kayıt">
+    <Columns>
+        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Hizmet Adı" />
+        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Hizmet Tipi">
+            <Template Context="item">
+                <span>@item.ServiceType.GetDescription()</span>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Aktif" Width="4rem" TextAlign="TextAlign.Center">
+            <Template Context="item">
+                <span class="material-icons">@(item.IsActive ? "check_circle": "cancel")</span>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn TItem="MerchantServeDto" Sortable="false" TextAlign="TextAlign.Right" Width="7rem">
+            <Template Context="item">
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-sm btn-light" @onclick="@(()=> Edit(item.Id))">
+                        <span class="material-icons">edit</span>
+                    </button>
+                    <button class="btn btn-sm btn-dark" @onclick="@(()=> Delete(item.Id))">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </div>
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>

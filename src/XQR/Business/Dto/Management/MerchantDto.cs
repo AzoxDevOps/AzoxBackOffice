@@ -96,7 +96,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string,MerchantType> MerchantTypes { get; set; }
+        public Dictionary<string, MerchantType> MerchantTypes { get; set; }
 
         #endregion Properties
     }

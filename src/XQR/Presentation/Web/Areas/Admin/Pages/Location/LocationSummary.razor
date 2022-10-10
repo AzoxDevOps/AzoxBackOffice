@@ -1,4 +1,5 @@
 ﻿@page "/admin/locations"
+@inherits Summary<LocationDto>
 
 <GenericLayout Title="Lokasyonlar">
     <TopToolbar>
@@ -26,6 +27,11 @@
                 <RadzenDataGridColumn TItem="LocationDto" Title="Hizmet Tipi">
                     <Template Context="item">
                         <span>@item.Service.ServiceType.GetDescription()</span>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="LocationDto" Title="Aktif" Width="4rem" TextAlign="TextAlign.Center">
+                    <Template Context="item">
+                        <span class="material-icons">@(item.IsActive ? "check_circle": "cancel")</span>
                     </Template>
                 </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="LocationDto" Sortable="false" TextAlign="TextAlign.Right" Width="7rem">

@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<ProductName>XQR Default Theme</ProductName>
+		<PackageId>XQR.Themes.Default</PackageId>
+		<AssemblyName>XQR.Themes.Default</AssemblyName>
+		<ProductVersion>1.0.0</ProductVersion>
+		<OutputPath>$(SolutionDir)dist/$(Configuration)/Themes/$(ProductName)/$(ProductVersion)</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+	  <Content Remove="compilerconfig.json" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Include="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.9" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\Azox.XQR.Presentation.Core.csproj" />
+	</ItemGroup>
+
+	<Target Name="DeleteDebugSymbolFile" AfterTargets="Build">
+		<ItemGroup>
+			<FilesToDelete Include="$(OutputPath)/Azox.*" />
+		</ItemGroup>
+		<Message Text="Deleting Files @(FilesToDelete)" />
+		<Delete Files="@(FilesToDelete)">
+			<Output TaskParameter="DeletedFiles" ItemName="FilesDeleted" />
+		</Delete>
+		<Message Text="Files deleted: @(FilesDeleted)" />
+	</Target>
+
+</Project>

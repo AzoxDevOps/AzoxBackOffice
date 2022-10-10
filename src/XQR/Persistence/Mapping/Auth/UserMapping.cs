@@ -2,6 +2,7 @@
 {
     using Azox.Persistence.Core.Mapping;
     using Azox.XQR.Business;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +15,18 @@
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
+
+            builder.Property(x => x.FirstName)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasMaxLength(1024)
+                .IsRequired(false);
+
+            builder.Property(x => x.LastName)
+                .HasColumnOrder(lastColumnOrder++)
+                .HasMaxLength(1024)
+                .IsRequired(false);
+
+            builder.Ignore(x => x.FullName);
 
             builder.Property(x => x.Username)
                 .HasColumnOrder(lastColumnOrder++)

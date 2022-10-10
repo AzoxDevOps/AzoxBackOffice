@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Azox.XQR.Persistence.Migrations
 {
-    public partial class V1000 : Migration
+    public partial class V1000_MSSQL : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -122,6 +122,8 @@ namespace Azox.XQR.Persistence.Migrations
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: true),
                     Username = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     PasswordSalt = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
@@ -154,7 +156,7 @@ namespace Azox.XQR.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     ParentId = table.Column<int>(type: "int", nullable: true)
@@ -189,6 +191,7 @@ namespace Azox.XQR.Persistence.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
                 },
                 constraints: table =>
@@ -242,7 +245,7 @@ namespace Azox.XQR.Persistence.Migrations
                     Description = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DeletionTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OldPrice = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -355,6 +358,13 @@ namespace Azox.XQR.Persistence.Migrations
                 schema: "Management",
                 table: "Location",
                 column: "ServiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Location_Slug",
+                schema: "Management",
+                table: "Location",
+                column: "Slug",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Merchant_CreationTime",

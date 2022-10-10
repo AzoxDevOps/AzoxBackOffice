@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.Middlewares
+﻿namespace Azox.XQR.Presentation.Core.Middlewares
 {
     using Azox.Infrastructure.Core;
 

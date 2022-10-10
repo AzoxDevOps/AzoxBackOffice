@@ -20,6 +20,7 @@
         {
             base.Init(entity);
 
+            IsActive = entity.IsActive;
             Slug = entity.Slug;
 
             if (entity.Service != null)
@@ -36,6 +37,11 @@
         /// 
         /// </summary>
         public MerchantServeDto Service { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// 

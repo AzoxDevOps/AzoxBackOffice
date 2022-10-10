@@ -11,7 +11,7 @@
     {
         public override void Configure(EntityTypeBuilder<Product> builder, int lastColumnOrder)
         {
-            builder.Property(x => x.IsVisible)
+            builder.Property(x => x.IsActive)
                 .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
 

@@ -70,6 +70,15 @@ namespace Azox.XQR.Presentation.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Silindi.
+        /// </summary>
+        internal static string Deleted {
+            get {
+                return ResourceManager.GetString("Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sistemde bir hata oluştu..
         /// </summary>
         internal static string GeneralErrorMessage {
@@ -106,11 +115,29 @@ namespace Azox.XQR.Presentation.Web.Areas.Admin.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaydedildi.
+        /// </summary>
+        internal static string Recorded {
+            get {
+                return ResourceManager.GetString("Recorded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yeni şifre eşleşmedi.
         /// </summary>
         internal static string UnmatchedPassword {
             get {
                 return ResourceManager.GetString("UnmatchedPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Güncellendi.
+        /// </summary>
+        internal static string Updated {
+            get {
+                return ResourceManager.GetString("Updated", resourceCulture);
             }
         }
     }

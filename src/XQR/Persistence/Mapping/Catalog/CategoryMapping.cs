@@ -19,7 +19,7 @@
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Property(x => x.IsVisible)
+            builder.Property(x => x.IsActive)
                 .HasColumnOrder(lastColumnOrder++)
                 .IsRequired();
 

@@ -8,6 +8,11 @@
         /// <summary>
         /// 
         /// </summary>
+        void AddDirectoryPaths(params string[] paths);
+
+        /// <summary>
+        /// 
+        /// </summary>
         IEnumerable<Type> FindClassesOf<T>();
 
         /// <summary>
