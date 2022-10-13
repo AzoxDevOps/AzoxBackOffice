@@ -1,25 +1,53 @@
 ﻿namespace Azox.XQR.Business.Dto
 {
     using Azox.Business.Core.Dto;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
-    public class CategoryDto:
+    using System.Collections.Generic;
+
+    public class CategoryDto :
         DeletableBasicDtoBase<Category>
     {
+        #region Fields
+
+        private CategoryDto _parent;
+
+        #endregion Fields
+
+        #region Ctor
+
+        public CategoryDto()
+        {
+            Service = new();
+        }
+
+        #endregion Ctor
+
         #region Methods
+
+        private void SetName(Category entity)
+        {
+            Category _entity = entity;
+            List<string> names = new();
+
+            while (_entity.Parent != null)
+            {
+                names.Add(_entity.Name);
+                _entity = _entity.Parent;
+            }
+
+            names.Reverse();
+            FullName = string.Join(" >> ", names);
+        }
 
         public override void Init(Category entity)
         {
             base.Init(entity);
 
-            IsVisible = entity.IsActive;
+            IsActive = entity.IsActive;
             DisplayOrder = entity.DisplayOrder;
+            SetName(entity);
 
-            if (entity.Service!= null)
+            if (entity.Service != null)
             {
                 Service.Init(entity.Service);
             }
@@ -43,7 +71,12 @@
         /// <summary>
         /// 
         /// </summary>
-        public bool IsVisible { get; set; }
+        public string FullName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// 

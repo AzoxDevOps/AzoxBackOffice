@@ -1,51 +1,71 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category
 {
+    using Azox.Core.Extensions;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Components;
 
     using Microsoft.AspNetCore.Components;
 
-    public partial class CategorySummary :
-        Summary<CategoryDto>
+    using System.Linq.Expressions;
+
+    public partial class CategorySummary
     {
         #region Injects
 
         [Inject]
         private ICategoryService CategoryService { get; set; }
 
+        [Inject]
+        private NavigationManager Navigation { get; set; }
+
         #endregion Injects
 
         #region Methods
 
-        protected override void InitializeDataSource(UserGroupType userGroupType, int merchantId,int serviceId)
+        protected override void OnAfterRender(bool firstRender)
         {
-            if (userGroupType == UserGroupType.Admin)
+            base.OnAfterRender(firstRender);
+
+            if (!firstRender)
             {
-                DataSource = CategoryService.Filter<CategoryDto>(x => !x.IsDeleted);
-            }
-            else if (userGroupType == UserGroupType.MerchantAdmin)
-            {
-                DataSource = CategoryService.Filter<CategoryDto>(x => !x.IsDeleted && x.Service.Merchant.Id == merchantId);
-            }
-            else
-            {
-                DataSource = CategoryService.Filter<CategoryDto>(x => !x.IsDeleted && x.Service.Id == serviceId);
+                if (DataSource == null)
+                {
+                    if (AuthorizedServiceIds.Any())
+                    {
+                        DataSource = CategoryService.Filter<CategoryDto>(x => !x.IsDeleted && AuthorizedServiceIds.Contains(x.Service.Id));
+                    }
+                    else
+                    {
+                        DataSource = CategoryService.Filter<CategoryDto>(x => !x.IsDeleted);
+                    }
+
+                    StateHasChanged();
+                }
             }
         }
 
-        protected override void OnDelete(int id)
+        private void OnSearch()
         {
+            Expression<Func<Category, bool>> predicate = x => !x.IsDeleted;
+            if (AuthorizedServiceIds.Any())
+            {
+                predicate = predicate.And(x => AuthorizedServiceIds.Contains(x.Service.Id));
+            }
 
+            DataSource = CategoryService.Filter<CategoryDto>(predicate);
+        }
+
+        private void OnCreate()
+        {
+            Navigation.NavigateTo("/admin/category/new");
         }
 
         #endregion Methods
 
         #region Properties
 
-        protected override string DetailUrl => "category";
+        public IEnumerable<CategoryDto> DataSource { get; set; }
 
         #endregion Properties
     }
 }
-

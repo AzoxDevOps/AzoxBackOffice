@@ -1,0 +1,85 @@
+﻿<PageTitle>XQR Yönetim Paneli Giriş</PageTitle>
+
+<HeadContent>
+    <style>
+        form {
+            width: 100%;
+            max-width: 20rem;
+            padding: 15px;
+            margin: auto;
+            background-color: rgba(29,39,59,1);
+            color: rgba(255,255,255,1);
+            -moz-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            -webkit-box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            box-shadow: 0 .5rem 1rem 0.5rem rgba(29,39,59,1) !important;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+            form h4 {
+                font-family: 'Michroma', sans-serif;
+                font-size: 1.5rem;
+                font-weight: bolder;
+                text-align: center;
+                margin-bottom: 1.5rem;
+            }
+    </style>
+</HeadContent>
+
+@if (_show)
+{
+    <div class="d-flex w-100 h-100 align-items-center">
+        <form @onsubmit="SignIn">
+            <div class="container-fluid">
+                <h4>XQR</h4>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">
+                        <span class="material-icons">person</span>
+                    </span>
+                    <input class="form-control" @bind-value="_username" placeholder="Kullanıcı Adı" required disabled="@_passwordChangeOnFirstLogin" />
+                </div>
+                <div class="input-group mb-4">
+                    <span class="input-group-text">
+                        <span class="material-icons">password</span>
+                    </span>
+                    <input class="form-control" @bind-value="_password" type="password" placeholder="Şifre" required disabled="@_passwordChangeOnFirstLogin" />
+                </div>
+
+                @if (_passwordChangeOnFirstLogin)
+                {
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">
+                            <span class="material-icons">password</span>
+                        </span>
+                        <input class="form-control" @bind-value="_newPassword" type="password" placeholder="Yeni Şifre" required />
+                    </div>
+                    <div class="input-group mb-4">
+                        <span class="input-group-text">
+                            <span class="material-icons">password</span>
+                        </span>
+                        <input class="form-control" @bind-value="_newPasswordCheck" type="password" placeholder="Yeni Şifre Tekrar" required />
+                    </div>
+                }
+
+                <button class="btn btn-primary w-100" disabled="@_isBusy">
+                    @if (_isBusy)
+                    {
+                        <span class="spinner-border me-2">&nbsp;</span>
+                    }
+                    else
+                    {
+                        @if (_passwordChangeOnFirstLogin)
+                        {
+                            <span>Şifre Güncelle</span>
+                        }
+                        else
+                        {
+                            <span>Giriş Yap</span>
+                        }
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+}

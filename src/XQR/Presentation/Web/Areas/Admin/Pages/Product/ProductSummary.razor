@@ -1,39 +1,44 @@
-﻿@page "/admin/products"
-@inherits Summary<ProductDto>
+﻿@page "/admin/product/list"
+@inherits AuthorizeComponent
 
-<GenericLayout Title="Ürünler">
-    <TopToolbar>
-        <div class="btn-group">
-            <button class="btn btn-primary" @onclick="Create">
-                <span>Yeni</span>
-            </button>
-        </div>
-    </TopToolbar>
-    <Body>
-        <RadzenDataGrid TItem="ProductDto"
-                        Data="DataSource"
-                        AllowPaging="true"
-                        AllowSorting="true"
-                        EmptyText="Kayıt bulunamadı"
-                        PageSize="10"
-                        PageSizeOptions="new List<int> { 5, 10, 20, 50, 100 }"
-                        PageSizeText="Sayfa başına kayıt"
-                        ShowPagingSummary="true">
-            <Columns>
-                <RadzenDataGridColumn TItem="ProductDto" Property="Name" Title="Ürün Adı" />
-                <RadzenDataGridColumn TItem="ProductDto" Sortable="false" TextAlign="TextAlign.Right" Width="7rem">
-                    <Template Context="item">
-                        <div class="btn-group btn-group-sm">
-                            <button class="btn btn-sm btn-light" @onclick="@(()=> Edit(item.Id))">
-                                <span class="material-icons">edit</span>
-                            </button>
-                            <button class="btn btn-sm btn-dark" @onclick="@(()=> Delete(item.Id))">
-                                <span class="material-icons">delete</span>
-                            </button>
-                        </div>
-                    </Template>
-                </RadzenDataGridColumn>
-            </Columns>
-        </RadzenDataGrid>
-    </Body>
-</GenericLayout>
+<AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)}, {nameof(UserGroupType.ServiceAdmin)}")">
+    <Authorized>
+        <GenericSummary OnSearch="OnSearch">
+            <Template>
+                <RadzenDataGrid TItem="ProductDto"
+                                Data="DataSource"
+                                AllowSorting="true"
+                                AllowPaging="true"
+                                PageSize="Globals.DefaultGridPageSize"
+                                PageSizeOptions="Globals.GridPageSizes">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="ProductDto" Property="DisplayOrder" Title="Sıra No" />
+                        <RadzenDataGridColumn TItem="ProductDto" Property="Service.Merchant.Name" Title="İşletme Adı" />
+                        <RadzenDataGridColumn TItem="ProductDto" Property="Service.Name" Title="Hizmet Adı" />
+                        <RadzenDataGridColumn TItem="ProductDto" Property="Name" Title="Adı" />
+                        <RadzenDataGridColumn TItem="ProductDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
+                            <Template Context="item">
+                                <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="ProductDto" TextAlign="TextAlign.Right" Width="7rem">
+                            <Template Context="item">
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-sm btn-light shadow rounded-2">
+                                        <span class="material-icons">edit</span>
+                                    </button>
+                                    <button class="btn btn-sm btn-dark shadow rounded-2">
+                                        <span class="material-icons">delete</span>
+                                    </button>
+                                </div>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </Template>
+        </GenericSummary>
+    </Authorized>
+    <NotAuthorized>
+        <NotAuthorizedPageView />
+    </NotAuthorized>
+</AuthorizeView>

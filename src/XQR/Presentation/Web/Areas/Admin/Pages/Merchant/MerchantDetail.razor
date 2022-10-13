@@ -1,84 +1,54 @@
-﻿<GenericLayout Title="@(Model.IsNew ? "Yeni İşletme Ekle":$"{Model.Name} - Düzenle")">
-    <TopToolbar>
-        <div class="btn-group btn-group-sm">
-            <button class="btn btn-primary" @onclick="Save">
+﻿<EditForm EditContext="EditContext" OnValidSubmit="OnSave">
+    <GenericDetail PageTitle="@(Model.IsNew ? "Yeni İşletme Ekle": $"{Model.Name} - Düzenle")">
+        <ToolbarTemplate>
+            <button class="btn btn-primary btn-sm" type="submit">
                 <span>Kaydet</span>
             </button>
             @if (!Model.IsNew)
             {
-                <button class="btn btn-secondary" @onclick="SaveAndClose">
+                <button class="btn btn-secondary btn-sm" type="submit" @onclick="OnClose">
                     <span>Kaydet & Kapat</span>
                 </button>
-                <button class="btn btn-danger" @onclick="Delete">
+                <button class="btn btn-danger btn-sm" type="button" @onclick="OnDelete">
                     <span>Sil</span>
                 </button>
             }
-            <button class="btn btn-dark" @onclick="Close">
+            <button class="btn btn-dark btn-sm" type="button" @onclick="OnClose">
                 <span>Kapat</span>
             </button>
-        </div>
-    </TopToolbar>
-    <Body>
-        <CascadingValue Value="Model">
-            @if (Model.IsNew)
-            {
-                <Detail_Main />
-            }
-            else
-            {
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#main">
-                    <span>Genel</span>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#services">
-                    <span>Hizmetler</span>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#locations">
-                    <span>Lokasyonlar</span>
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#users">
-                    <span>Kullanıcılar</span>
-                </button>
-            </li>
-        </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="main">
-                        <div class="card">
-                            <div class="card-body">
-                                <Detail_Main />
+        </ToolbarTemplate>
+        <Template>
+            <CascadingValue Value="Model">
+                <div class="container-fluid">
+                    @if (Model.IsNew)
+                    {
+                        <MainTabContent />
+                    }
+                    else
+                    {
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#main" type="button">
+                                    <span>Genel</span>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#contact" type="button">
+                                    <span>İletişim</span>
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="main">
+                                <MainTabContent />
+                            </div>
+                            <div class="tab-pane fade" id="contact">
+                                <ContactTabContent />
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="services">
-                        <div class="card">
-                            <div class="card-body">
-                                <Detail_Services />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="locations">
-                        <div class="card">
-                            <div class="card-body">
-                                <Detail_Locations />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="users">
-                        <div class="card">
-                            <div class="card-body">
-                                <Detail_Users/>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
-            }
-        </CascadingValue>
-    </Body>
-</GenericLayout>
+            </CascadingValue>
+        </Template>
+    </GenericDetail>
+</EditForm>

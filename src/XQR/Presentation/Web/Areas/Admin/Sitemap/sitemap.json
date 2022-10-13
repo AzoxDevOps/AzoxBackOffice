@@ -1,0 +1,56 @@
+{
+  "Items": [
+    {
+      "Name": "Kontrol Paneli",
+      "Url": "/admin",
+      "Roles": [ 10, 20, 30 ]
+    },
+    {
+      "Name": "Yönetim",
+      "Roles": [ 10, 20, 30 ],
+      "Items": [
+        {
+          "Name": "İşletmeler",
+          "Roles": [ 10 ],
+          "Url": "/admin/merchant/list"
+        },
+        {
+          "Name": "Hizmetler",
+          "Roles": [ 10, 20 ],
+          "Url": "/admin/service/list"
+        },
+        {
+          "Name": "Lokasyonlar",
+          "Roles": [ 10, 20 ],
+          "Url": "/admin/location/list"
+        },
+        {
+          "Name": "Kullanıcılar",
+          "Roles": [ 10, 20, 30 ],
+          "Url": "/admin/user/list"
+        }
+      ]
+    },
+    {
+      "Name": "Katalog",
+      "Roles": [ 10, 20, 30 ],
+      "Items": [
+        {
+          "Name": "Kategoriler",
+          "Roles": [ 10, 20, 30 ],
+          "Url": "/admin/category/list"
+        },
+        {
+          "Name": "Ürünler",
+          "Roles": [ 10, 20, 30 ],
+          "Url": "/admin/product/list"
+        }
+      ]
+    },
+    {
+      "Name": "Siparişler",
+      "Roles": [ 10, 20, 30, 40 ],
+      "Url": "/admin/order/list"
+    }
+  ]
+}

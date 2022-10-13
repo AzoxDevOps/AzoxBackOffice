@@ -16,13 +16,6 @@
             Address = new();
             Contact = new();
             Picture = new();
-
-            MerchantTypes = new();
-
-            foreach (var item in Enum.GetValues<MerchantType>())
-            {
-                MerchantTypes[item.GetDescription()] = item;
-            }
         }
 
         #endregion Ctor
@@ -92,11 +85,6 @@
         /// 
         /// </summary>
         public string InstagramLink { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Dictionary<string, MerchantType> MerchantTypes { get; set; }
 
         #endregion Properties
     }

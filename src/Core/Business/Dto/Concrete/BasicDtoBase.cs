@@ -2,6 +2,8 @@
 {
     using Azox.Business.Core.Domain;
 
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// 
     /// </summary>

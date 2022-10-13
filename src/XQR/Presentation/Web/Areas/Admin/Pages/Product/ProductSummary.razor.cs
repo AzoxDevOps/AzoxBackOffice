@@ -1,13 +1,15 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Product
 {
+    using Azox.Core.Extensions;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Components;
 
     using Microsoft.AspNetCore.Components;
 
-    public partial class ProductSummary :
-        Summary<ProductDto>
+    using System;
+    using System.Linq.Expressions;
+
+    public partial class ProductSummary
     {
         #region Injects
 
@@ -18,32 +20,40 @@
 
         #region Methods
 
-        protected override void InitializeDataSource(UserGroupType userGroupType, int merchantId, int serviceId)
+        protected override void OnAfterRender(bool firstRender)
         {
-            if (userGroupType == UserGroupType.Admin)
+            base.OnAfterRender(firstRender);
+
+            if (!firstRender)
             {
-                DataSource = ProductService.Filter<ProductDto>(x => !x.IsDeleted);
-            }
-            else if (userGroupType == UserGroupType.MerchantAdmin)
-            {
-                DataSource = ProductService.Filter<ProductDto>(x => !x.IsDeleted && x.Category.Service.Merchant.Id == merchantId);
-            }
-            else
-            {
-                DataSource = ProductService.Filter<ProductDto>(x => !x.IsDeleted && x.Category.Service.Id == serviceId);
+                if (AuthorizedServiceIds.Any())
+                {
+                    DataSource = ProductService.Filter<ProductDto>(x => !x.IsDeleted && AuthorizedServiceIds.Contains(x.Category.Service.Id));
+                }
+                else
+                {
+                    DataSource = ProductService.Filter<ProductDto>(x => !x.IsDeleted);
+                }
             }
         }
 
-        protected override void OnDelete(int id)
+        private void OnSearch()
         {
+            Expression<Func<Product, bool>> predicate = x => !x.IsDeleted;
 
+            if (AuthorizedServiceIds.Any())
+            {
+                predicate = predicate.And(x => AuthorizedServiceIds.Contains(x.Category.Service.Id));
+            }
+
+            DataSource = ProductService.Filter<ProductDto>(predicate);
         }
 
         #endregion Methods
 
         #region Properties
 
-        protected override string DetailUrl => "product";
+        public IEnumerable<ProductDto> DataSource { get; set; }
 
         #endregion Properties
     }

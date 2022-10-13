@@ -3,17 +3,14 @@
     using Azox.Toolkit.Blazor;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Localization;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
-    using Microsoft.JSInterop;
+    using Microsoft.AspNetCore.Components.Forms;
 
     public partial class MerchantDetail
     {
         #region Injects
-
-        [Inject]
-        private IJSRuntime JsRuntime { get; set; }
 
         [Inject]
         private IMerchantService MerchantService { get; set; }
@@ -25,10 +22,13 @@
         private ILocationService LocationService { get; set; }
 
         [Inject]
+        private ILogger<MerchantDetail> Logger { get; set; }
+
+        [Inject]
         private IToastService ToastService { get; set; }
 
         [Inject]
-        private NavigationManager Navigation { get; set; }
+        private NavigationManager Navigator { get; set; }
 
         #endregion Injects
 
@@ -41,67 +41,68 @@
 
         #region Methods
 
-        private void Save()
+        protected override void OnInitialized()
         {
-            if (Model.IsNew)
+            base.OnInitialized();
+            EditContext = new(Model);
+        }
+
+        private void OnSave()
+        {
+            try
             {
-                Merchant merchant = MerchantService
-                    .Create(Model.Name, Model.Description, Model.MerchantType);
-
-                MerchantServe merchantServe = MerchantServeService
-                    .Create(merchant.Id, Model.Name, Model.Description, MerchantServeType.Restaurant);
-
-                LocationService.Create(merchantServe.Id, Model.Name);
-
-                ToastService.ShowSuccess(Resources.Recorded);
-
-                Navigation.NavigateTo($"/admin/merchant/{merchant.Id}");
-            }
-            else
-            {
-                Merchant merchant = MerchantService.GetById(Model.Id);
-
-                merchant.Name = Model.Name;
-                merchant.Description = Model.Description;
-
-                merchant.Contact = new Contact
+                if (Model.IsNew)
                 {
-                    Name = Model.Contact.Name,
-                    Phone = Model.Contact.Phone,
-                    Email = Model.Contact.Email
-                };
+                    Merchant merchant = MerchantService
+                        .Create(Model.Name, Model.Description, Model.MerchantType);
 
-                merchant.Picture = new Picture
+                    MerchantServe merchantServe = MerchantServeService
+                        .Create(merchant.Id, Model.Name, Model.Description, MerchantServeType.Restaurant);
+
+                    Location location = LocationService
+                        .Create(merchantServe.Id, Resources.DefaultLocationName);
+
+                    Navigator.NavigateTo($"/admin/merchant/{merchant.Id}");
+                }
+                else
                 {
-                    FileName = Model.Picture.FileName
-                };
+                    Merchant merchant = MerchantService.GetById(Model.Id);
 
-                MerchantService.Update(merchant);
-                ToastService.ShowSuccess(Resources.Updated);
-                StateHasChanged();
+                    merchant.Address = Model.Address;
+                    merchant.Contact = Model.Contact;
+                    merchant.Description = Model.Description;
+                    merchant.FacebookLink = Model.FacebookLink;
+                    merchant.InstagramLink = Model.InstagramLink;
+                    merchant.Name = Model.Name;
+                    merchant.Picture = Model.Picture;
+
+                    MerchantService.Update(merchant);
+                }
+
+                ToastService.ShowSuccess(Resources.SaveSuccessful);
             }
-        }
-
-        private void SaveAndClose()
-        {
-            Save();
-            Close();
-        }
-
-        private async Task Delete()
-        {
-            if (await JsRuntime.InvokeAsync<bool>("confirm", Resources.DeleteConfirm))
+            catch (Exception ex)
             {
-                MerchantService.Delete(Model.Id);
-                Close();
+                Logger.LogError(ex, ex.Message);
             }
         }
 
-        private void Close()
+        private async Task OnDelete()
         {
-            Navigation.NavigateTo("/admin/merchants");
+            await Task.CompletedTask;
+        }
+
+        private void OnClose()
+        {
+            Navigator.NavigateTo("/admin/merchant/list");
         }
 
         #endregion Methods
+
+        #region Properties
+
+        private EditContext EditContext { get; set; }
+
+        #endregion Properties
     }
 }

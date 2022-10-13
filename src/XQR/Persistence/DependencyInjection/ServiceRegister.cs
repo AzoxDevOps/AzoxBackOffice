@@ -3,7 +3,7 @@
     using Azox.Core;
     using Azox.Core.DependencyInjection;
     using Azox.Persistence.Core;
-    using Azox.XQR.Persistence.Configs;
+    using Azox.Persistence.Core.Configs;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -17,7 +17,7 @@
             services.AddDbContextFactory<XQRDbContext>((serviceProvider, options) =>
             {
                 DbConfig dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-
+                options.UseLazyLoadingProxies(false);
                 switch (dbConfig.Provider)
                 {
                     case DbProvider.MsSQL:
@@ -32,7 +32,7 @@
 
                 options.EnableDetailedErrors();
                 //TODO kullanım durumuna göre bakılacak
-                options.UseLazyLoadingProxies();
+                //options.UseLazyLoadingProxies();
             });
 
             services.AddScoped<IDbContext>(serviceProvider =>

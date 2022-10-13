@@ -17,6 +17,7 @@
             DbContextOptions<XQRDbContext> options) :
             base(serviceProvider, options)
         {
+            
         }
 
         #endregion Ctor

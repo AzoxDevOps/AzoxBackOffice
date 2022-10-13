@@ -2,9 +2,13 @@
 
 <AuthorizeView>
     <Authorized>
-        <PageTitle>XQR Yönetim Paneli</PageTitle>
+        <PageTitle>@Resources.AdminPageTitle</PageTitle>
         <AdminHeader />
-        @Body
+        <main>
+            <div class="container-xl">
+                @Body
+            </div>
+        </main>
     </Authorized>
     <NotAuthorized>
         <Login />

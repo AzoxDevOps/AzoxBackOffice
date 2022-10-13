@@ -2,8 +2,8 @@
 {
     using Azox.Toolkit.Blazor;
     using Azox.XQR.Business;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Localization;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Services;
+    using Azox.XQR.Presentation.Core.Auth;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Authorization;
@@ -14,7 +14,6 @@
 
         private bool _isBusy;
         private bool _passwordChangeOnFirstLogin;
-        private bool _show;
 
         private string _username;
         private string _password;
@@ -29,16 +28,10 @@
         private IUserService UserService { get; set; }
 
         [Inject]
-        private ILocalStorageService LocalStorageService { get; set; }
-
-        [Inject]
         private IToastService ToastService { get; set; }
 
         [Inject]
         AuthenticationStateProvider AuthStateProvider { get; set; }
-
-        [Inject]
-        private NavigationManager NavigationManager { get; set; }
 
         #endregion Injects
 
@@ -83,19 +76,6 @@
 
         #region Methods
 
-        protected override async Task OnInitializedAsync()
-        {
-            try
-            {
-                await LocalStorageService.GetItemAsStringAsync("temp");
-                _show = true;
-            }
-            catch
-            {
-                _show = false;
-            }
-        }
-
         private async Task SignIn()
         {
             _isBusy = true;
@@ -105,40 +85,33 @@
             ValidateCredentialsResult result = await ((IAuthService)AuthStateProvider)
                 .SignIn(_username, _password);
 
-            if (result == ValidateCredentialsResult.Succeeded)
+            if (result == ValidateCredentialsResult.PasswordChangeOnFirstLogin)
             {
-                NavigationManager.NavigateTo("/admin", true);
+                _passwordChangeOnFirstLogin = true;
             }
-            else
+            else if (result == ValidateCredentialsResult.InactiveUser)
             {
-                if (result == ValidateCredentialsResult.PasswordChangeOnFirstLogin)
+                ToastService.Show(new ToastMessage
                 {
-                    _passwordChangeOnFirstLogin = true;
-                }
-                else if (result == ValidateCredentialsResult.InactiveUser)
+                    Type = ToastType.Warning,
+                    Message = Resources.InactiveUser
+                });
+            }
+            else if (result == ValidateCredentialsResult.InvalidUsernameOrPassword)
+            {
+                ToastService.Show(new ToastMessage
                 {
-                    ToastService.Show(new ToastMessage
-                    {
-                        Type = ToastType.Warning,
-                        Message = Resources.InactiveUser
-                    });
-                }
-                else if (result == ValidateCredentialsResult.InvalidUsernameOrPassword)
+                    Type = ToastType.Warning,
+                    Message = Resources.InvalidUsernameOrPassword
+                });
+            }
+            else if (result == ValidateCredentialsResult.LockedUser)
+            {
+                ToastService.Show(new ToastMessage
                 {
-                    ToastService.Show(new ToastMessage
-                    {
-                        Type = ToastType.Warning,
-                        Message = Resources.InvalidUsernameOrPassword
-                    });
-                }
-                else if (result == ValidateCredentialsResult.LockedUser)
-                {
-                    ToastService.Show(new ToastMessage
-                    {
-                        Type = ToastType.Warning,
-                        Message = Resources.LockedUser
-                    });
-                }
+                    Type = ToastType.Warning,
+                    Message = Resources.LockedUser
+                });
             }
 
             _isBusy = false;

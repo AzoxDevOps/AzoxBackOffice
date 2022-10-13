@@ -1,3 +1,6 @@
 ﻿@page "/qr/{LocationSlug}"
 
-<span>@LocationSlug</span>
+@if (ThemeComponentType != null)
+{
+    <DynamicComponent Type="ThemeComponentType" />
+}

@@ -1,11 +1,9 @@
 namespace Azox.XQR.Presentation.Web
 {
     using Azox.Core.Extensions;
-    using Azox.XQR.Business;
-    using Azox.XQR.Presentation.Web.Core.Middlewares;
+    using Azox.XQR.Presentation.Core.Middlewares;
 
-    using System.Threading;
-    using System.Threading.Tasks;
+    using Microsoft.Extensions.FileProviders;
 
     class Program
     {
@@ -20,14 +18,20 @@ namespace Azox.XQR.Presentation.Web
 
         static void ConfigureServices(WebApplicationBuilder builder)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
 
             builder.Services.AddMemoryCache();
-            builder.Services.AddLocalization();
 
             builder.Services.RegisterConfigs(builder.Configuration);
             builder.Services.RegisterServices(builder.Configuration);
+
+            if (!builder.Environment.IsDevelopment())
+            {
+                builder.WebHost.UseStaticWebAssets();
+            }
         }
 
         static void ConfigurePipelines(WebApplication app)
@@ -39,12 +43,15 @@ namespace Azox.XQR.Presentation.Web
 
             app.UseMiddleware<InstallationMiddleware>();
 
-            app.UseRequestLocalization(new RequestLocalizationOptions()
-                .AddSupportedCultures(new[] { "tr-TR" })
-                .AddSupportedUICultures(new[] { "tr-TR" }));
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            StaticFileOptions themeStaticFileOptions = new();
+            themeStaticFileOptions.FileProvider = new PhysicalFileProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "wwwroot"));
+            themeStaticFileOptions.RequestPath = "/_themes";
+
+            app.UseStaticFiles(themeStaticFileOptions);
+
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();

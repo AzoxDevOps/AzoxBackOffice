@@ -1,10 +1,10 @@
 ﻿@page "/admin"
+@using Azox.Toolkit.Blazor
 @namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages
-@using Azox.Toolkit.Blazor 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_AdminLayout";
 }
 
-<component type="typeof(AdminApp)" render-mode="ServerPrerendered" />
-<component type="typeof(ToastContainer)" render-mode="ServerPrerendered" />
+<component type="typeof(AdminApp)" render-mode="Server" />
+<component type="typeof(ToastContainer)" render-mode="Server" />

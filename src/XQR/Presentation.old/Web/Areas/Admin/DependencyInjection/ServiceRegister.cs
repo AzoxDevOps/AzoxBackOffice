@@ -1,8 +1,9 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.DependencyInjection
 {
     using Azox.Core.DependencyInjection;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Helpers;
+    using Azox.XQR.Presentation.Web.Areas.Admin.Services;
 
+    using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +12,11 @@
     {
         public void Register(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<SitemapHelper>();
+            services.AddSingleton<ISitemapService, SitemapService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthenticationStateProvider, AuthService>();
+
+            services.AddScoped<ISelectListHelper, SelectListHelper>();
         }
     }
 }

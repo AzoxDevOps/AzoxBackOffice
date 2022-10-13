@@ -8,5 +8,9 @@
     public interface ICategoryService :
         IEntityService<Category>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        Category Create(int merchantServeId, string name, string description);
     }
 }

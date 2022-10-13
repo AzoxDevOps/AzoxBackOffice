@@ -1,15 +1,14 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location
 {
+    using Azox.Core.Extensions;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Components;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Components;
 
-    [Authorize(Roles = $"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)}, {nameof(UserGroupType.ServiceAdmin)}")]
-    public partial class LocationSummary :
-        Summary<LocationDto>
+    using System.Linq.Expressions;
+
+    public partial class LocationSummary
     {
         #region Injects
 
@@ -20,32 +19,41 @@
 
         #region Methods
 
-        protected override void InitializeDataSource(UserGroupType userGroupType, int merchantId, int serviceId)
+        protected override void OnAfterRender(bool firstRender)
         {
-            if (userGroupType == UserGroupType.Admin)
+            base.OnAfterRender(firstRender);
+
+            if (!firstRender)
             {
-                DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted);
-            }
-            else if (userGroupType == UserGroupType.MerchantAdmin)
-            {
-                DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted && x.Service.Merchant.Id == merchantId);
-            }
-            else
-            {
-                DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted && x.Service.Id == serviceId);
+                if (AuthorizedServiceIds.Any())
+                {
+                    DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted && AuthorizedServiceIds.Contains(x.Service.Id));
+                }
+                else
+                {
+                    DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted);
+                }
+                StateHasChanged();
             }
         }
 
-        protected override void OnDelete(int id)
+        private void OnSearch()
         {
-            
+            Expression<Func<Location, bool>> predicate = x => !x.IsDeleted;
+
+            if (AuthorizedServiceIds.Any())
+            {
+                predicate = predicate.And(x => AuthorizedServiceIds.Contains(x.Service.Id));
+            }
+
+            DataSource = LocationService.Filter<LocationDto>(predicate);
         }
 
         #endregion Methods
 
         #region Properties
 
-        protected override string DetailUrl => "location";
+        public IEnumerable<LocationDto> DataSource { get; set; }
 
         #endregion Properties
     }

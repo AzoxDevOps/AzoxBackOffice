@@ -1,0 +1,12 @@
+﻿@page "/admin/service/{MerchantServeId:int}"
+
+<AuthorizeView Roles="@nameof(UserGroupType.Admin)">
+    <Authorized>
+        <CascadingValue Value="Model">
+            <MerchantServeDetail />
+        </CascadingValue>
+    </Authorized>
+    <NotAuthorized>
+        <NotAuthorizedPageView />
+    </NotAuthorized>
+</AuthorizeView>

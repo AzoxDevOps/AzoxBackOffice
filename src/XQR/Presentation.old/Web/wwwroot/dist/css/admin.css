@@ -1,12 +1,4 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap");
-@font-face {
-  font-family: "Material Icons";
-  font-style: normal;
-  font-weight: 400;
-  src: url(https://example.com/MaterialIcons-Regular.eot);
-  /* For IE6-8 */
-  src: local("Material Icons"), local("MaterialIcons-Regular"), url(https://example.com/MaterialIcons-Regular.woff2) format("woff2"), url(https://example.com/MaterialIcons-Regular.woff) format("woff"), url(https://example.com/MaterialIcons-Regular.ttf) format("truetype");
-}
 :root {
   --bs-font-sans-serif: "Titillium Web", sans-serif;
   --bs-body-bg: #F1F5F9;
@@ -15,6 +7,10 @@
 html, body {
   width: 100%;
   height: 100%;
+}
+
+.material-icons {
+  font-size: 0.875rem !important;
 }
 
 .topmenu {
@@ -35,40 +31,31 @@ html, body {
   content: inherit;
 }
 
-.material-icons {
-  font-family: "Material Icons";
-  font-style: normal;
-  font-weight: 400;
-  font-variant: normal;
-  text-transform: none;
-  letter-spacing: normal;
-  -ms-word-wrap: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  line-height: 1;
-  vertical-align: -0.125em;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-feature-settings: "liga";
-  -webkit-font-feature-settings: "liga";
-  font-feature-settings: "liga";
-  text-rendering: optimizeLegibility;
+header .material-icons {
+  font-size: 1.5rem !important;
+}
+
+.summary {
+  width: 100%;
+  height: calc(100% - 114px);
+}
+.summary .page-title {
+  line-height: inherit;
+}
+.summary .btn-toolbar button {
+  min-width: 5rem;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -ms-align-content: center;
+  -webkit-align-content: center;
+  align-content: center;
+}
+.summary .btn-toolbar button .material-icons {
+  margin-right: 0.25rem;
 }
 
 .toast-container {
   bottom: 1rem;
   right: 1rem;
-}
-
-.tab-pane > .card {
-  border-top-width: 0;
-  -webkit-border-top-left-radius: 0;
-  border-top-left-radius: 0;
-  -webkit-border-top-right-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.qrcode {
-  width: 5rem;
 }

@@ -20,6 +20,7 @@
             DbContextOptions<TDbContext> options) :
             base(options)
         {
+            
             ServiceProvider = serviceProvider;
         }
 
