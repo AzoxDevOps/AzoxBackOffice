@@ -1,4 +1,6 @@
-﻿<EditForm EditContext="EditContext" OnValidSubmit="OnSave">
+﻿@inherits AuthComponent
+
+<EditForm EditContext="EditContext" OnValidSubmit="OnSave">
     <GenericDetail PageTitle="@(Model.IsNew ? "Yeni Hizmet Ekle": $"{Model.Name} - Düzenle")">
         <ToolbarTemplate>
             <button class="btn btn-primary btn-sm" type="submit">

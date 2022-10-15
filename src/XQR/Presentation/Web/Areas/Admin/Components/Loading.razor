@@ -1,0 +1,37 @@
+﻿@if (_isLoaded)
+{
+    @ChildContent
+}
+else
+{
+    <div class="loading-overlay"></div>
+    <div class="position-absolute top-0 start-0 end-0 bottom-0 d-flex justify-content-center align-items-center">
+        <div class="loading d-flex justify-content-center align-items-center">
+            <span class="material-icons">restaurant_menu</span>
+        </div>
+    </div>
+}
+@code {
+
+    #region Fields
+
+    private bool _isLoaded;
+
+    #endregion Fields
+
+    #region Parameters
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    #endregion Parameters
+
+    #region Methods
+
+    protected override async Task OnInitializedAsync()
+    {
+        _isLoaded = true;        
+    }
+
+    #endregion Methods
+}

@@ -176,6 +176,8 @@
                 Repository.SaveChanges();
 
                 ClearCacheKeys();
+
+                EventHandlerService.Handle<IEntityInsertedEventHandler<TEntity>, TEntity>(entity);
             }
             catch (Exception ex)
             {
@@ -236,6 +238,8 @@
                 Repository.SaveChanges();
 
                 ClearCacheKeys();
+
+                EventHandlerService.Handle<IEntityDeletedEventHandler<TEntity>, TEntity>(entity);
             }
             catch (Exception ex)
             {

@@ -3,6 +3,7 @@
     using Azox.Core.Extensions;
     using Azox.XQR.Business;
     using Azox.XQR.Presentation.Core.Configs;
+    using Azox.XQR.Presentation.Core.Extensions;
 
     using Microsoft.AspNetCore.Components.Authorization;
     using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -24,6 +25,7 @@
         private readonly SymmetricSecurityKey _symmetricSecurityKey;
         private readonly ProtectedLocalStorage _localStorage;
         private readonly IUserService _userService;
+        private readonly IMerchantServeUserService _merchantServeUserService;
 
         #endregion Fields
 
@@ -32,11 +34,13 @@
         public AuthStateProvider(
             JwtConfig jwtConfig,
             ProtectedLocalStorage localStorage,
-            IUserService userService)
+            IUserService userService,
+            IMerchantServeUserService merchantServeUserService)
         {
             _symmetricSecurityKey = new(jwtConfig.SecretKeyBytes);
             _localStorage = localStorage;
             _userService = userService;
+            _merchantServeUserService = merchantServeUserService;
         }
 
         #endregion Ctor
@@ -147,10 +151,15 @@
             if (result == ValidateCredentialsResult.Succeeded)
             {
                 User user = _userService.GetByUsername(username);
+                IEnumerable<int> userServices = _merchantServeUserService
+                    .Filter(x => x.User.Id == user.Id)
+                    .Select(x => x.Service.Id);
+
                 ClaimsIdentity identity = new(AUTHENTICATION_TYPE);
 
                 identity.AddClaim(new Claim(ClaimTypes.Name, user.Username));
                 identity.AddClaim(new Claim(ClaimTypes.Role, user.UserGroup.UserGroupType.ToString()));
+                identity.AddClaim(new Claim(ClaimsPrincipalExtensions.UserServicesClaimType, string.Join(",", userServices)));
 
                 ClaimsPrincipal principal = new(identity);
 

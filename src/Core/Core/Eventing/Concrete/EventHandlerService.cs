@@ -13,7 +13,7 @@
 
         private readonly Dictionary<string, List<IEventHandler>> _eventHandlers;
         private readonly IServiceProvider _serviceProvider;
-
+        private readonly IServiceProvider _scopeServiceProvider;
         #endregion Fields
 
         #region Ctor
@@ -22,6 +22,7 @@
         {
             _eventHandlers = new();
             _serviceProvider = serviceProvider;
+            _scopeServiceProvider = serviceProvider.CreateScope().ServiceProvider;
         }
 
         #endregion Ctor
@@ -38,14 +39,11 @@
                 {
                     _eventHandlers[eventHandlerTypeName] = new();
 
-                    IServiceProvider serviceProvider = _serviceProvider
-                        .CreateScope().ServiceProvider;
-
                     ITypeFinder typeFinder = _serviceProvider.GetRequiredService<ITypeFinder>();
 
                     foreach (Type eventHandlerType in typeFinder.FindClassesOf<TEventHandler>())
                     {
-                        IEventHandler eventHandler = (IEventHandler)Activator.CreateInstance(eventHandlerType, new object[] { serviceProvider });
+                        IEventHandler eventHandler = (IEventHandler)Activator.CreateInstance(eventHandlerType, new object[] { _scopeServiceProvider });
 
                         _eventHandlers[eventHandlerTypeName].Add(eventHandler);
                     }

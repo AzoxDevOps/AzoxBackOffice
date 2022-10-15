@@ -6,9 +6,9 @@
     {
         #region Methods
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
             Model = new();
         }
 

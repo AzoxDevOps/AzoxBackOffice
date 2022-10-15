@@ -1,8 +1,10 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location
 {
     using Azox.Core.Extensions;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
 
@@ -13,40 +15,62 @@
         #region Injects
 
         [Inject]
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
+
+        [Inject]
         private ILocationService LocationService { get; set; }
+
+        [Inject]
+        private NavigationManager Navigator { get; set; }
 
         #endregion Injects
 
         #region Methods
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            base.OnAfterRender(firstRender);
+            await base.OnInitializedAsync();
+            FilterDataSource(x => !x.IsDeleted);
+        }
 
-            if (!firstRender)
+        private void FilterDataSource(Expression<Func<Location, bool>> predicate)
+        {
+            if (UserServices.Any())
             {
-                if (AuthorizedServiceIds.Any())
-                {
-                    DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted && AuthorizedServiceIds.Contains(x.Service.Id));
-                }
-                else
-                {
-                    DataSource = LocationService.Filter<LocationDto>(x => !x.IsDeleted);
-                }
-                StateHasChanged();
+                predicate = predicate.And(x => UserServices.Contains(x.Service.Id));
             }
+
+            DataSource = LocationService.Filter<LocationDto>(predicate);
         }
 
         private void OnSearch()
         {
-            Expression<Func<Location, bool>> predicate = x => !x.IsDeleted;
+            Expression<Func<Location, bool>> predicate = x => !x.IsDeleted && !x.Service.IsDeleted;
 
-            if (AuthorizedServiceIds.Any())
+            FilterDataSource(predicate);
+        }
+
+        private void OnCreate()
+        {
+            Navigator.NavigateTo("/admin/location/new");
+        }
+
+        private void OnEdit(int locationId)
+        {
+            Navigator.NavigateTo($"/admin/location/{locationId}");
+        }
+
+        private async Task OnDelete(int locationId)
+        {
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
             {
-                predicate = predicate.And(x => AuthorizedServiceIds.Contains(x.Service.Id));
+                await Task.Run(() =>
+                {
+                    LocationService.Delete(locationId);
+                    FilterDataSource(x => !x.IsDeleted);
+                });
             }
-
-            DataSource = LocationService.Filter<LocationDto>(predicate);
         }
 
         #endregion Methods

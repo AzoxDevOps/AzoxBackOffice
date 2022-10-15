@@ -1,12 +1,12 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.MerchantServe
 {
     using Azox.Core.Extensions;
-    using Azox.Persistence.Core.Configs;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
-    using Microsoft.EntityFrameworkCore;
 
     using System.Linq.Expressions;
 
@@ -15,31 +15,39 @@
         #region Injects
 
         [Inject]
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
+
+        [Inject]
         private IMerchantServeService MerchantServeService { get; set; }
 
         [Inject]
-        private DbConfig DbConfig { get; set; }
+        private NavigationManager Navigator { get; set; }
 
         #endregion Injects
 
         #region Methods
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            base.OnAfterRender(firstRender);
+            await base.OnInitializedAsync();
+            FilterDataSource(x => !x.IsDeleted && !x.Merchant.IsDeleted);
+        }
 
-            if (!firstRender)
+        private void FilterDataSource(Expression<Func<MerchantServe, bool>> predicate)
+        {
+            if (UserServices.Any())
             {
-                DataSource = MerchantServeService.Filter<MerchantServeDto>(x => !x.IsDeleted );
-                StateHasChanged();
+                predicate = predicate.And(x => UserServices.Contains(x.Id));
             }
+
+            DataSource = MerchantServeService.Filter<MerchantServeDto>(predicate);
         }
 
         private void OnSearch()
         {
-            Expression<Func<MerchantServe, bool>> predicate = x => !x.IsDeleted;
+            Expression<Func<MerchantServe, bool>> predicate = x => !x.IsDeleted && !x.Merchant.IsDeleted;
 
-            DataSource = MerchantServeService.Filter<MerchantServeDto>(predicate);
+            FilterDataSource(predicate);
         }
 
         private void OnCreate()
@@ -52,9 +60,17 @@
             Navigator.NavigateTo($"/admin/service/{merchantServeId}");
         }
 
-        private void OnDelete(int merchantId)
+        private async Task OnDelete(int merchantServeId)
         {
-
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
+            {
+                await Task.Run(() =>
+                {
+                    MerchantServeService.Delete(merchantServeId);
+                    FilterDataSource(x => !x.IsDeleted);
+                });
+            }
         }
 
         #endregion Methods

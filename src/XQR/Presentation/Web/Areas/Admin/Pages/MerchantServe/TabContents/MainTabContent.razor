@@ -1,10 +1,18 @@
-﻿<div class="row">
+﻿@inherits AuthComponent
+
+<div class="row">
     <div class="col-12 col-md-6">
-        
+        <label class="col-form-label">İşletme</label>
+        <select class="form-select" @bind="Model.Merchant.Id" disabled="@(!Model.IsNew)">
+            @foreach (var item in MerchantSelectList)
+            {
+                <option value="@item.Value">@item.Text</option>
+            }
+        </select>
     </div>
     <div class="col-12 col-md-6">
         <label class="col-form-label">Hizmet Tipi</label>
-        <select class="form-select" @bind="Model.ServiceType" required>
+        <select class="form-select" @bind="Model.ServiceType" disabled="@(!Model.IsNew)">
             @foreach (var item in Enum.GetValues<MerchantServeType>())
             {
                 <option value="@item">@item.GetDescription()</option>
@@ -13,7 +21,7 @@
     </div>
     <div class="col-12 col-md-6">
         <label class="col-form-label">Hizmet Adı</label>
-        <input class="form-control" @bind-value="Model.Name" required />
+        <input class="form-control" @bind-value="Model.Name" />
     </div>
     <div class="col-12 col-md-6">
         <div class="col-12">

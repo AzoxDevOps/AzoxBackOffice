@@ -1,11 +1,11 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.MerchantServe
 {
     using Azox.Toolkit.Blazor;
-    using Azox.XQR.Business.Dto;
     using Azox.XQR.Business;
-    using Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant;
-    using Microsoft.AspNetCore.Components;
+    using Azox.XQR.Business.Dto;
     using Azox.XQR.Presentation.Core.Localization;
+
+    using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Components.Forms;
 
     public partial class MerchantServeDetail
@@ -35,9 +35,9 @@
 
         #region Methods
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
             EditContext = new(Model);
         }
 

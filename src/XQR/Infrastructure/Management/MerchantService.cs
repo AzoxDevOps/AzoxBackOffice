@@ -3,6 +3,8 @@
     using Azox.Infrastructure.Core;
     using Azox.XQR.Business;
 
+    using Microsoft.Extensions.DependencyInjection;
+
     using System;
 
     internal class MerchantService :

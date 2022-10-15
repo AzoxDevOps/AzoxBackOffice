@@ -1,9 +1,9 @@
 ﻿@page "/admin/service/list"
-@inherits AuthorizeComponent
+@inherits AuthComponent
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)}")">
     <Authorized>
-        <GenericSummary OnSearch="OnSearch">
+        <GenericSummary OnCreate="OnCreate" OnSearch="OnSearch" ShowToolbar="true">
             <Template>
                 <RadzenDataGrid TItem="MerchantServeDto"
                                 Data="DataSource"

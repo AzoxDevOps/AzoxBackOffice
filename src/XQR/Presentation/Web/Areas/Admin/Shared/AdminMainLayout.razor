@@ -1,16 +1,17 @@
 ﻿@inherits LayoutComponentBase
-
-<AuthorizeView>
-    <Authorized>
-        <PageTitle>@Resources.AdminPageTitle</PageTitle>
-        <AdminHeader />
-        <main>
-            <div class="container-xl">
-                @Body
-            </div>
-        </main>
-    </Authorized>
-    <NotAuthorized>
-        <Login />
-    </NotAuthorized>
-</AuthorizeView>
+    <Loading>
+        <AuthorizeView>
+            <Authorized>
+                <PageTitle>@Resources.AdminPageTitle</PageTitle>
+                <AdminHeader />
+                <main>
+                    <div class="container-xl">
+                        @Body
+                    </div>
+                </main>
+            </Authorized>
+            <NotAuthorized>
+                <Login />
+            </NotAuthorized>
+        </AuthorizeView>
+    </Loading>
