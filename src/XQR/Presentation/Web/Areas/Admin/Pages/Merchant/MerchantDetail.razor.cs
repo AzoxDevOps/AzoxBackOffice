@@ -1,6 +1,7 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant
 {
     using Azox.Toolkit.Blazor;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
     using Azox.XQR.Presentation.Core.Localization;
@@ -13,13 +14,10 @@
         #region Injects
 
         [Inject]
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
+
+        [Inject]
         private IMerchantService MerchantService { get; set; }
-
-        [Inject]
-        private IMerchantServeService MerchantServeService { get; set; }
-
-        [Inject]
-        private ILocationService LocationService { get; set; }
 
         [Inject]
         private ILogger<MerchantDetail> Logger { get; set; }
@@ -56,12 +54,6 @@
                     Merchant merchant = MerchantService
                         .Create(Model.Name, Model.Description, Model.MerchantType);
 
-                    MerchantServe merchantServe = MerchantServeService
-                        .Create(merchant.Id, Model.Name, Model.Description, MerchantServeType.Restaurant);
-
-                    Location location = LocationService
-                        .Create(merchantServe.Id, Resources.DefaultLocationName);
-
                     Navigator.NavigateTo($"/admin/merchant/{merchant.Id}");
                 }
                 else
@@ -89,7 +81,12 @@
 
         private async Task OnDelete()
         {
-            await Task.CompletedTask;
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
+            {
+                MerchantService.Delete(Model.Id);
+                OnClose();
+            }
         }
 
         private void OnClose()

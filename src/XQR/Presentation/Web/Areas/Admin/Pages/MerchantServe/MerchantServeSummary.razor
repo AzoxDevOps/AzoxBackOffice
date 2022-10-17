@@ -1,9 +1,23 @@
 ﻿@page "/admin/service/list"
-@inherits AuthorizeComponent
+@inherits AuthComponent
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)}")">
     <Authorized>
-        <GenericSummary OnSearch="OnSearch">
+        <GenericSummary OnCreate="OnCreate" OnSearch="OnSearch" ShowToolbar="true" PageTitle="Hizmetler">
+            <SearchTemplate>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">İşletme</label>
+                            <MerchantSelect ShowAllSelectItem="true" @bind-MerchantId="_filterMerchantId" />
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="col-form-label">Hizmet Adı</label>
+                            <input class="form-control" @bind-value="_filterMerchantServeName" />
+                        </div>
+                    </div>
+                </div>
+            </SearchTemplate>
             <Template>
                 <RadzenDataGrid TItem="MerchantServeDto"
                                 Data="DataSource"
@@ -12,9 +26,9 @@
                                 PageSize="Globals.DefaultGridPageSize"
                                 PageSizeOptions="Globals.GridPageSizes">
                     <Columns>
-                        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Merchant.Name" Title="İşletme Adı" />
-                        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Adı" />
-                        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Türü">
+                        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Merchant.Name" Title="İşletme" />
+                        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Hizmet Adı" />
+                        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Hizmet Türü">
                             <Template Context="item">
                                 <span>@item.ServiceType.GetDescription()</span>
                             </Template>

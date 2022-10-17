@@ -113,20 +113,17 @@
 
         public virtual bool Any(Expression<Func<TEntity, bool>> predicate)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate),
-                 ce => Repository.Any(predicate));
+            return Repository.Any(predicate);
         }
 
         public virtual int Count(Expression<Func<TEntity, bool>> predicate)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate),
-                 ce => Repository.Count(predicate));
+            return Repository.Count(predicate);
         }
 
         public virtual IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate),
-                 ce => Repository.Filter(predicate));
+            return Repository.Filter(predicate);
         }
 
         public virtual IEnumerable<TEntity> Filter(
@@ -134,38 +131,32 @@
             Expression<Func<TEntity, object>> sort,
             SortOrder sortOrder = SortOrder.Ascending)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate, sort),
-                 ce => Repository.Filter(predicate));
+            return Repository.Filter(predicate, sort, sortOrder);
         }
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate),
-                 ce => Repository.FirstOrDefault(predicate));
+            return Repository.FirstOrDefault(predicate);
         }
 
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(),
-                 ce => Repository.GetAll());
+            return Repository.GetAll();
         }
 
         public virtual TEntity GetById(Guid id)
         {
-            return MemoryCache.GetOrCreate(GetCacheKeyById(id),
-                 ce => Repository.GetById(id));
+            return Repository.GetById(id);
         }
 
         public virtual TEntity GetById(int id)
         {
-            return MemoryCache.GetOrCreate(GetCacheKeyById(id),
-                 ce => Repository.GetById(id));
+            return Repository.GetById(id);
         }
 
         public virtual TEntity GetById(long id)
         {
-            return MemoryCache.GetOrCreate(GetCacheKeyById(id),
-                 ce => Repository.GetById(id));
+            return Repository.GetById(id);
         }
 
         public virtual void Insert(TEntity entity)
@@ -176,6 +167,8 @@
                 Repository.SaveChanges();
 
                 ClearCacheKeys();
+
+                EventHandlerService.Handle<IEntityInsertedEventHandler<TEntity>, TEntity>(entity);
             }
             catch (Exception ex)
             {
@@ -236,6 +229,8 @@
                 Repository.SaveChanges();
 
                 ClearCacheKeys();
+
+                EventHandlerService.Handle<IEntityDeletedEventHandler<TEntity>, TEntity>(entity);
             }
             catch (Exception ex)
             {
@@ -276,8 +271,7 @@
 
         public virtual TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            return MemoryCache.GetOrCreate(GetCacheKey(predicate),
-                 ce => Repository.SingleOrDefault(predicate));
+            return Repository.SingleOrDefault(predicate);
         }
 
         #endregion Methods

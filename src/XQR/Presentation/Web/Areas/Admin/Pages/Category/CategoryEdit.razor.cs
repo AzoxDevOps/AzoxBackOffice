@@ -1,8 +1,7 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category
 {
-    using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-
+    using Azox.XQR.Business;
     using Microsoft.AspNetCore.Components;
 
     public partial class CategoryEdit
@@ -12,7 +11,10 @@
         [Inject]
         private ICategoryService CategoryService { get; set; }
 
-        #endregion Injects
+        [Inject]
+        private NavigationManager Navigator { get; set; }
+
+        #endregion
 
         #region Parameters
 
@@ -23,21 +25,14 @@
 
         #region Methods
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override void OnParametersSet()
         {
-            base.OnAfterRender(firstRender);
-            if (!firstRender)
-            {
-                if (AuthorizedServiceIds.Any())
-                {
-                    Model = CategoryService.FirstOrDefault<CategoryDto>(x => x.Id == CategoryId && AuthorizedServiceIds.Contains(x.Service.Id) && !x.IsDeleted);
-                }
-                else
-                {
-                    Model = CategoryService.GetById<CategoryDto>(CategoryId);
-                }
+            base.OnInitialized();
+            Model = CategoryService.GetById<CategoryDto>(CategoryId);
 
-                StateHasChanged();
+            if (Model.IsDeleted)
+            {
+                Navigator.NavigateTo("/admin/category/list");
             }
         }
 

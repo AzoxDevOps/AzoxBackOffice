@@ -2,13 +2,13 @@
 {
     using Azox.Core.Extensions;
     using Azox.Persistence.Core.Configs;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
     using Microsoft.EntityFrameworkCore;
-
-    using Radzen.Blazor;
 
     using System.Linq.Expressions;
 
@@ -24,26 +24,28 @@
         #region Injects
 
         [Inject]
+        private ILogger<MerchantSummary> Logger { get; set; }
+
+        [Inject]
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
+
+        [Inject]
         private IMerchantService MerchantService { get; set; }
 
         [Inject]
         private DbConfig DbConfig { get; set; }
 
+        [Inject]
+        private NavigationManager Navigator { get; set; }
+
         #endregion Injects
 
         #region Methods
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnInitializedAsync()
         {
-            base.OnAfterRender(firstRender);
-            if (!firstRender)
-            {
-                if (DataSource == null)
-                {
-                    FilterDataSource(x => !x.IsDeleted);
-                    StateHasChanged();
-                }
-            }
+            await base.OnInitializedAsync();
+            FilterDataSource(x => !x.IsDeleted);
         }
 
         private void FilterDataSource(Expression<Func<Merchant, bool>> predicate)
@@ -51,33 +53,30 @@
             DataSource = MerchantService.Filter<MerchantDto>(predicate);
         }
 
-        private async Task OnSearch()
+        private void OnSearch()
         {
-            await Task.Run(() =>
+            Expression<Func<Merchant, bool>> predicate = x => !x.IsDeleted;
+
+            if (_filterMerchantType > 0)
             {
-                Expression<Func<Merchant, bool>> predicate = x => !x.IsDeleted;
+                MerchantType merchantType = (MerchantType)_filterMerchantType;
 
-                if (_filterMerchantType > 0)
+                predicate = predicate.And(x => x.MerchantType == merchantType);
+            }
+
+            if (!_filterMerchantName.IsNullOrEmpty())
+            {
+                if (DbConfig.Provider == DbProvider.MsSQL)
                 {
-                    MerchantType merchantType = (MerchantType)_filterMerchantType;
-
-                    predicate = predicate.And(x => x.MerchantType == merchantType);
+                    predicate = predicate.And(x => EF.Functions.Like(x.Name, $"%{_filterMerchantName}%"));
                 }
-
-                if (!_filterMerchantName.IsNullOrEmpty())
+                else if (DbConfig.Provider == DbProvider.PostgreSQL)
                 {
-                    if (DbConfig.Provider == DbProvider.MsSQL)
-                    {
-                        predicate = predicate.And(x => EF.Functions.Like(x.Name, $"%{_filterMerchantName}%"));
-                    }
-                    else if (DbConfig.Provider == DbProvider.PostgreSQL)
-                    {
-                        predicate = predicate.And(x => EF.Functions.ILike(x.Name, $"%{_filterMerchantName}%"));
-                    }
+                    predicate = predicate.And(x => EF.Functions.ILike(x.Name, $"%{_filterMerchantName}%"));
                 }
+            }
 
-                FilterDataSource(predicate);
-            });
+            FilterDataSource(predicate);
         }
 
         private void OnCreate()
@@ -90,9 +89,17 @@
             Navigator.NavigateTo($"/admin/merchant/{merchantId}");
         }
 
-        private void OnDelete(int merchantId)
+        private async Task OnDelete(int merchantId)
         {
-
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
+            {
+                await Task.Run(() =>
+                {
+                    MerchantService.Delete(merchantId);
+                    FilterDataSource(x => !x.IsDeleted);
+                });
+            }
         }
 
         #endregion Methods

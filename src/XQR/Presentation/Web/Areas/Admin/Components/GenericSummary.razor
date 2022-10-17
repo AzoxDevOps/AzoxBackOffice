@@ -1,23 +1,39 @@
-﻿<div class="container-fluid">
+﻿<div class="container-fluid summary">
     <div class="d-flex justify-content-between align-items-center my-3">
-        <h2 class="m-0 fs-5">@PageTitle</h2>
-        @if (ToolbarTemplate != null)
-        {
-            <div class="btn-toolbar d-none d-md-flex">
-                @ToolbarTemplate
-            </div>
-        }
-        @if (MobileToolbarTemplate != null)
-        {
-            <div class="dropstart d-flex d-md-none">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
-                    <span class="material-icons">keyboard_command_key</span>
+        <h2 class="m-0 fs-5 summary-page-title">@PageTitle</h2>
+        <div class="btn-toolbar d-none d-md-flex summary-toolbar">
+            <div class="btn-group btn-group-sm me-2">
+                <button class="btn btn-primary btn-sm" @onclick="OnCreate">
+                    <span>Yeni</span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    @MobileToolbarTemplate
-                </div>
             </div>
-        }
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-secondary btn-sm">
+                    <span>İçeri Aktar</span>
+                </button>
+                <button class="btn btn-secondary btn-sm">
+                    <span>Dışarı Aktar</span>
+                </button>
+            </div>
+        </div>
+        <div class="dropstart d-flex d-md-none">
+            <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
+                <span class="material-icons">keyboard_command_key</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end">
+                <button class="dropdown-item" @onclick="OnCreate">
+                    <span>Yeni</span>
+                </button>
+                <hr class="dropdown-divider" />
+                <button class="dropdown-item">
+                    <span>İçeri Aktar</span>
+                </button>
+                <button class="dropdown-item">
+                    <span>Dışarı Aktar</span>
+                </button>
+            </div>
+        </div>
+
     </div>
     @if (SearchTemplate != null)
     {

@@ -1,6 +1,12 @@
 ﻿@page "/admin/category/{CategoryId:int}"
-@inherits AuthorizeComponent
 
-<CascadingValue Value="Model">
-    <CategoryDetail />
-</CascadingValue>
+<AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)},{nameof(UserGroupType.ServiceAdmin)}")">
+    <Authorized>
+        <CascadingValue Value="Model">
+            <CategoryDetail />
+        </CascadingValue>
+    </Authorized>
+    <NotAuthorized>
+        <NotAuthorizedPageView />
+    </NotAuthorized>
+</AuthorizeView>

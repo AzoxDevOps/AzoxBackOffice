@@ -1,6 +1,7 @@
 ﻿@page "/admin/service/new"
+@inherits AuthComponent
 
-<AuthorizeView Roles="@nameof(UserGroupType.Admin)">
+<AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)}")">
     <Authorized>
         <CascadingValue Value="Model">
             <MerchantServeDetail />

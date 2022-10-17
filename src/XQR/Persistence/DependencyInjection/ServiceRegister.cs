@@ -17,7 +17,7 @@
             services.AddDbContextFactory<XQRDbContext>((serviceProvider, options) =>
             {
                 DbConfig dbConfig = serviceProvider.GetRequiredService<DbConfig>();
-                
+                options.UseLazyLoadingProxies(false);
                 switch (dbConfig.Provider)
                 {
                     case DbProvider.MsSQL:

@@ -1,26 +1,26 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category
 {
     using Azox.Toolkit.Blazor;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
     using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
-    using Microsoft.AspNetCore.Mvc.Rendering;
-    using Microsoft.Extensions.Logging;
+    using Microsoft.AspNetCore.Components.Forms;
 
     public partial class CategoryDetail
     {
         #region Injects
 
         [Inject]
-        private ILogger<CategoryDetail> Logger { get; set; }
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
         private ICategoryService CategoryService { get; set; }
 
         [Inject]
-        private IMerchantServeService MerchantServeService { get; set; }
+        private ILogger<CategoryDetail> Logger { get; set; }
 
         [Inject]
         private IToastService ToastService { get; set; }
@@ -39,53 +39,17 @@
 
         #region Methods
 
-        protected override void OnAfterRender(bool firstRender)
+        protected override void OnInitialized()
         {
-            base.OnAfterRender(firstRender);
-            if (!firstRender)
-            {
-                if (MerchantServices == null)
-                {
-                    if (AuthorizedServiceIds.Any())
-                    {
-                        MerchantServices = MerchantServeService
-                            .Filter(x => AuthorizedServiceIds.Contains(x.Id) && !x.IsDeleted)
-                            .Select(x => new SelectListItem
-                            {
-                                Text = x.Name,
-                                Value = x.Id.ToString()
-                            });
-                    }
-                    else
-                    {
-                        MerchantServices = MerchantServeService
-                            .Filter(x => !x.IsDeleted)
-                            .Select(x => new SelectListItem
-                            {
-                                Text = x.Name,
-                                Value = x.Id.ToString()
-                            });
-                    }
-                    StateHasChanged();
-                }
-            }
+            base.OnInitialized();
+            EditContext = new(Model);
         }
 
         private void OnSave()
         {
             try
             {
-                if (Model.IsNew)
-                {
-                    Category category = CategoryService
-                        .Create(Model.Service.Id, Model.Name, Model.Description);
 
-                    Navigator.NavigateTo($"/admin/category/{category.Id}");
-                }
-                else
-                {
-
-                }
 
                 ToastService.ShowSuccess(Resources.SaveSuccessful);
             }
@@ -97,7 +61,12 @@
 
         private async Task OnDelete()
         {
-            await Task.CompletedTask;
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
+            {
+                CategoryService.Delete(Model.Id);
+                OnClose();
+            }
         }
 
         private void OnClose()
@@ -109,7 +78,7 @@
 
         #region Properties
 
-        private IEnumerable<SelectListItem> MerchantServices { get; set; }
+        private EditContext EditContext { get; set; }
 
         #endregion Properties
     }

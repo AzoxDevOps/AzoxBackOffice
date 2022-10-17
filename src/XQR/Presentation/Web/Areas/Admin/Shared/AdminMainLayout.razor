@@ -1,49 +1,17 @@
 ﻿@inherits LayoutComponentBase
-@inject IJSRuntime _jsRuntime
-
-<AuthorizeView>
-    <Authorized>
-        <PageTitle>@Resources.AdminPageTitle</PageTitle>
-        <AdminHeader />
-        <main>
-            <div class="container-xl">
-                <ErrorBoundary @ref="_errorBoundary">
-                    <ChildContent>
+    <Loading>
+        <AuthorizeView>
+            <Authorized>
+                <PageTitle>@Resources.AdminPageTitle</PageTitle>
+                <AdminHeader />
+                <main>
+                    <div class="container-xl">
                         @Body
-                    </ChildContent>
-                    <ErrorContent Context="ex">
-                        <p>@ex.GetBaseException().Message</p>
-                    </ErrorContent>
-                </ErrorBoundary>
-            </div>
-        </main>
-    </Authorized>
-    <NotAuthorized>
-        <ErrorBoundary @ref="_errorBoundary">
-            <ChildContent>
+                    </div>
+                </main>
+            </Authorized>
+            <NotAuthorized>
                 <Login />
-            </ChildContent>
-            <ErrorContent Context="ex">
-               
-        @(ShowError(ex))
-                
-            </ErrorContent>
-        </ErrorBoundary>
-
-    </NotAuthorized>
-</AuthorizeView>
-
-@code {
-
-    ErrorBoundary? _errorBoundary;
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-        _errorBoundary?.Recover();
-    }
-
-    private async Task ShowError(Exception ex) {
-        await _jsRuntime.InvokeVoidAsync("alert", ex.Message);
-    }
-}
+            </NotAuthorized>
+        </AuthorizeView>
+    </Loading>

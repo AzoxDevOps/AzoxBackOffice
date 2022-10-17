@@ -1,21 +1,25 @@
-﻿<div class="row">
-    <div class="col-12 col-md-6">
-        <div class="col-12">
-            <label class="col-form-label">İşletme Tipi</label>
-            <select class="form-select" @bind="Model.MerchantType" required>
-                @foreach (var item in Enum.GetValues<MerchantType>())
-                {
-                    <option value="@item">@item.GetDescription()</option>
-                }
-            </select>
+﻿<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="col-12">
+                    <label class="col-form-label">İşletme Tipi</label>
+                    <select class="form-select" @bind="Model.MerchantType" required>
+                        @foreach (var item in Enum.GetValues<MerchantType>())
+                        {
+                            <option value="@item">@item.GetDescription()</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label class="col-form-label">İşletme Adı</label>
+                    <input class="form-control" @bind-value="Model.Name" required />
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="col-form-label">İşletme Kısa Bilgi</label>
+                <textarea class="form-control" style="height:calc(100% - 38px);" @bind="Model.Description" />
+            </div>
         </div>
-        <div class="col-12">
-            <label class="col-form-label">İşletme Adı</label>
-            <input class="form-control" @bind-value="Model.Name" required />
-        </div>
-    </div>
-    <div class="col-12 col-md-6">
-        <label class="col-form-label">İşletme Kısa Bilgi</label>
-        <textarea class="form-control" style="height:calc(100% - 38px);" @bind="Model.Description" />
     </div>
 </div>

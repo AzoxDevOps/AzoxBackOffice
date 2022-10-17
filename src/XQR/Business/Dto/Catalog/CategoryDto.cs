@@ -27,15 +27,17 @@
         private void SetName(Category entity)
         {
             Category _entity = entity;
-            List<string> names = new();
+            List<string> names = new()
+            {
+                _entity.Name
+            };
 
             while (_entity.Parent != null)
             {
-                names.Add(_entity.Name);
+                names.Insert(0, _entity.Name);
                 _entity = _entity.Parent;
             }
 
-            names.Reverse();
             FullName = string.Join(" >> ", names);
         }
 

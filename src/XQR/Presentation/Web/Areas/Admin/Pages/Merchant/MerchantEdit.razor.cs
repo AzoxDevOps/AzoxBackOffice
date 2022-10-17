@@ -10,7 +10,10 @@
         #region Injects
 
         [Inject]
-        private IMerchantService MerchantService {get;set;}
+        private IMerchantService MerchantService { get; set; }
+
+        [Inject]
+        private NavigationManager Navigator { get; set; }
 
         #endregion
 
@@ -23,10 +26,15 @@
 
         #region Methods
 
-        protected override void OnInitialized()
+        protected override void OnParametersSet()
         {
             base.OnInitialized();
             Model = MerchantService.GetById<MerchantDto>(MerchantId);
+
+            if (Model.IsDeleted)
+            {
+                Navigator.NavigateTo("/admin/merchant/list");
+            }
         }
 
         #endregion Methods
