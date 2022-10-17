@@ -28,7 +28,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Areas\Admin\Pages\Category\" />
 	  <Folder Include="Areas\Admin\Pages\Product\" />
 	</ItemGroup>
 

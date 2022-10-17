@@ -1,31 +1,26 @@
-﻿@page "/admin/location/list"
+﻿@page "/admin/category/list"
 @inherits AuthComponent
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)},{nameof(UserGroupType.ServiceAdmin)}")">
     <Authorized>
-        <GenericSummary OnCreate="OnCreate" OnSearch="OnSearch" ShowToolbar="true" PageTitle="Lokasyonlar">
+        <GenericSummary PageTitle="Kategoriler">
             <Template>
-                <RadzenDataGrid TItem="LocationDto"
+                <RadzenDataGrid TItem="CategoryDto"
                                 Data="DataSource"
                                 AllowSorting="true"
                                 AllowPaging="true"
                                 PageSize="Globals.DefaultGridPageSize"
                                 PageSizeOptions="Globals.GridPageSizes">
                     <Columns>
-                        <RadzenDataGridColumn TItem="LocationDto" Property="Service.Merchant.Name" Title="İşletme Adı" />
-                        <RadzenDataGridColumn TItem="LocationDto" Property="Service.Name" Title="Hizmet Adı" />
-                        <RadzenDataGridColumn TItem="LocationDto" Property="Name" Title="Adı" />
-                        <RadzenDataGridColumn TItem="LocationDto" Title="Türü">
-                            <Template Context="item">
-                                <span>@item.Service.ServiceType.GetDescription()</span>
-                            </Template>
-                        </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="LocationDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
+                        <RadzenDataGridColumn TItem="CategoryDto" Property="Service.Name" Title="Hizmet Adı" />
+                        <RadzenDataGridColumn TItem="CategoryDto" Property="DisplayOrder" Title="İşletme Adı" />
+                        <RadzenDataGridColumn TItem="CategoryDto" Property="FullName" Title="Adı" />
+                        <RadzenDataGridColumn TItem="CategoryDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
                             <Template Context="item">
                                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="LocationDto" TextAlign="TextAlign.Right" Width="7rem">
+                        <RadzenDataGridColumn TItem="CategoryDto" TextAlign="TextAlign.Right" Width="7rem">
                             <Template Context="item">
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-sm btn-light shadow rounded-2" @onclick="@(()=>OnEdit(item.Id))">

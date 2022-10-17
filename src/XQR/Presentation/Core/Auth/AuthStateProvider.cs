@@ -98,22 +98,30 @@
                 return false;
             }
 
-            principal = tokenHandler
-                .ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
-
-            if (validatedToken is JwtSecurityToken securityToken)
+            try
             {
-                if (securityToken == null)
-                {
-                    return false;
-                }
+                principal = tokenHandler
+                    .ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
 
-                if (securityToken.ValidTo < DateTime.UtcNow)
+                if (validatedToken is JwtSecurityToken securityToken)
                 {
-                    return false;
-                }
+                    if (securityToken == null)
+                    {
+                        return false;
+                    }
 
-                return true;
+                    if (securityToken.ValidTo < DateTime.UtcNow)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                principal = null;
+                return false;
             }
 
             return false;

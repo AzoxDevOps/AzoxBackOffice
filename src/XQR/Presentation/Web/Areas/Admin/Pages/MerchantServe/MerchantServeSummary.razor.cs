@@ -1,17 +1,26 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.MerchantServe
 {
     using Azox.Core.Extensions;
+    using Azox.Persistence.Core.Configs;
     using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
     using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
+    using Microsoft.EntityFrameworkCore;
 
     using System.Linq.Expressions;
 
     public partial class MerchantServeSummary
     {
+        #region Fields
+
+        private int _filterMerchantId;
+        private string _filterMerchantServeName;
+
+        #endregion Fields
+
         #region Injects
 
         [Inject]
@@ -22,6 +31,9 @@
 
         [Inject]
         private NavigationManager Navigator { get; set; }
+
+        [Inject]
+        private DbConfig DbConfig { get; set; }
 
         #endregion Injects
 
@@ -46,6 +58,23 @@
         private void OnSearch()
         {
             Expression<Func<MerchantServe, bool>> predicate = x => !x.IsDeleted && !x.Merchant.IsDeleted;
+
+            if (_filterMerchantId > 0)
+            {
+                predicate = predicate.And(x => x.Merchant.Id == _filterMerchantId);
+            }
+
+            if (!_filterMerchantServeName.IsNullOrEmpty())
+            {
+                if (DbConfig.Provider == DbProvider.MsSQL)
+                {
+                    predicate = predicate.And(x => EF.Functions.Like(x.Name, $"%{_filterMerchantServeName}%"));
+                }
+                else
+                {
+                    predicate = predicate.And(x => EF.Functions.ILike(x.Name, $"%{_filterMerchantServeName}%"));
+                }
+            }
 
             FilterDataSource(predicate);
         }

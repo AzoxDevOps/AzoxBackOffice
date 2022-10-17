@@ -3,12 +3,7 @@
 <div class="row">
     <div class="col-12 col-md-6">
         <label class="col-form-label">İşletme</label>
-        <select class="form-select" @bind="Model.Merchant.Id" disabled="@(!Model.IsNew)">
-            @foreach (var item in MerchantSelectList)
-            {
-                <option value="@item.Value">@item.Text</option>
-            }
-        </select>
+        <MerchantSelect Disabled="!Model.IsNew" MerchantId="Model.Merchant.Id" />
     </div>
     <div class="col-12 col-md-6">
         <label class="col-form-label">Hizmet Tipi</label>
