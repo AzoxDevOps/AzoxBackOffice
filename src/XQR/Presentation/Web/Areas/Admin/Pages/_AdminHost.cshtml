@@ -1,4 +1,5 @@
 ﻿@page "/admin"
+@using Azox.Toolkit.Blazor
 @using Microsoft.AspNetCore.Components.Web
 @namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -18,6 +19,7 @@
 <body>
 
     <component type="typeof(AdminApp)" render-mode="Server" />
+    <component type="typeof(ToastContainer)" render-mode="Server" />
 
     <script src="_framework/blazor.server.js"></script>
     <script src="~/dist/js/bootstrap.bundle.min.js"></script>
