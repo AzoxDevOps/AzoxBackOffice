@@ -71,6 +71,26 @@
             return true;
         }
 
+        public void SetAsActive(int locationId)
+        {
+            Location location = GetById(locationId);
+            if (location != null)
+            {
+                location.IsActive = true;
+                Update(location);
+            }
+        }
+
+        public void SetAsPassive(int locationId)
+        {
+            Location location = GetById(locationId);
+            if (location != null)
+            {
+                location.IsActive = false;
+                Update(location);
+            }
+        }
+
         #endregion Methods
     }
 }

@@ -23,8 +23,7 @@
         /// </summary>
         IEnumerable<TDto> Filter<TDto>(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending)
+            params SortProvider<TEntity>[] sortProviders)
             where TDto : IDtoFor<TEntity>;
 
         /// <summary>

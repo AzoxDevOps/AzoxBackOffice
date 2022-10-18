@@ -1,6 +1,7 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.MerchantServe
 {
     using Azox.Toolkit.Blazor;
+    using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
     using Azox.XQR.Presentation.Core.Localization;
@@ -11,6 +12,9 @@
     public partial class MerchantServeDetail
     {
         #region Injects
+
+        [Inject]
+        private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
         private IMerchantServeService MerchantServeService { get; set; }
@@ -38,10 +42,9 @@
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            EditContext = new(Model);
         }
 
-        private void OnSave()
+        private void OnSave(bool saveAndClose)
         {
             try
             {
@@ -70,6 +73,11 @@
                     //MerchantService.Update(merchant);
                 }
 
+                if (!saveAndClose)
+                {
+                    Navigator.NavigateTo($"/admin/service/{Model.Id}");
+                }
+
                 ToastService.ShowSuccess(Resources.SaveSuccessful);
             }
             catch (Exception ex)
@@ -80,12 +88,17 @@
 
         private async Task OnDelete()
         {
-            await Task.CompletedTask;
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            if (confirm)
+            {
+                await Task.Run(() => MerchantServeService.Delete(Model.Id));
+                await OnClose();
+            }
         }
 
-        private void OnClose()
+        private async Task OnClose()
         {
-            Navigator.NavigateTo("/admin/service/list");
+            await Task.Run(() => Navigator.NavigateTo("/admin/service/list"));
         }
 
         #endregion Methods

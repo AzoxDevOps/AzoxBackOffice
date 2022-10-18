@@ -1,9 +1,8 @@
-﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category.TabContents
+﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location.TabContents
 {
     using Azox.Core.Extensions;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
-
     using Microsoft.AspNetCore.Components;
     using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,7 +10,6 @@
 
     public partial class MainTabContent
     {
-
         #region Injects
 
         [Inject]
@@ -20,12 +18,18 @@
         [Inject]
         private IMerchantServeService MerchantServeService { get; set; }
 
+        [Inject]
+        private ILocationService LocationService { get; set; }
+
+        [Inject]
+        private NavigationManager Navigator { get; set; }
+
         #endregion Injects
 
         #region Parameters
 
         [CascadingParameter]
-        public CategoryDto Model { get; set; }
+        public LocationDto Model { get; set; }
 
         #endregion Parameters
 
@@ -84,6 +88,18 @@
                         Value = x.Id.ToString(),
                         Selected = x.Id == Model.Service.Id
                     });
+        }
+
+        private void SetAsActive()
+        {
+            LocationService.SetAsActive(Model.Id);
+            Model.OnPropertyChanged?.Invoke();
+        }
+
+        private void SetAsPassive()
+        {
+            LocationService.SetAsPassive(Model.Id);
+            Model.OnPropertyChanged?.Invoke();
         }
 
         #endregion Methods

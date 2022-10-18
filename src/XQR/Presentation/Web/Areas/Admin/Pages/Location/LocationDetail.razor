@@ -1,0 +1,11 @@
+﻿<GenericDetail Model="Model"
+               PageTitle="@(Model.IsNew ? "Yeni Lokasyon Ekle": $"{Model.Name} - Düzenle")"
+               OnClose="OnClose"
+               OnDelete="OnDelete"
+               OnSave="OnSave">
+    <Template>
+        <div class="container-fluid">
+            <MainTabContent />
+        </div>
+    </Template>
+</GenericDetail>

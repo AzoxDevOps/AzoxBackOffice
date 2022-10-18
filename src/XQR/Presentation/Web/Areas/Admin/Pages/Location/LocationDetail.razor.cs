@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant
+﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location
 {
     using Azox.Toolkit.Blazor;
     using Azox.Toolkit.Blazor.Helpers;
@@ -8,7 +8,7 @@
 
     using Microsoft.AspNetCore.Components;
 
-    public partial class MerchantDetail
+    public partial class LocationDetail
     {
         #region Injects
 
@@ -16,10 +16,10 @@
         private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
-        private IMerchantService MerchantService { get; set; }
+        private ILocationService LocationService { get; set; }
 
         [Inject]
-        private ILogger<MerchantDetail> Logger { get; set; }
+        private ILogger<LocationDetail> Logger { get; set; }
 
         [Inject]
         private IToastService ToastService { get; set; }
@@ -32,16 +32,11 @@
         #region Parameters
 
         [CascadingParameter]
-        public MerchantDto Model { get; set; }
+        public LocationDto Model { get; set; }
 
         #endregion Parameters
 
         #region Methods
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
 
         private void OnSave(bool saveAndClose)
         {
@@ -49,29 +44,25 @@
             {
                 if (Model.IsNew)
                 {
-                    Merchant merchant = MerchantService
-                        .Create(Model.Name, Model.Description, Model.MerchantType);
+                    Location location = LocationService
+                        .Create(Model.Service.Id, Model.Name);
 
-                    Model.Id = merchant.Id;
+                    Model.Id = location.Id;
                 }
                 else
                 {
-                    Merchant merchant = MerchantService.GetById(Model.Id);
+                    Location location = LocationService.GetById(Model.Id);
 
-                    merchant.Address = Model.Address;
-                    merchant.Contact = Model.Contact;
-                    merchant.Description = Model.Description;
-                    merchant.FacebookLink = Model.FacebookLink;
-                    merchant.InstagramLink = Model.InstagramLink;
-                    merchant.Name = Model.Name;
-                    merchant.Picture = Model.Picture;
+                    location.Name = Model.Name;
+                    location.Description = Model.Description;
+                    location.IsActive = Model.IsActive;
 
-                    MerchantService.Update(merchant);
+                    LocationService.Update(location);
                 }
 
                 if (!saveAndClose)
                 {
-                    Navigator.NavigateTo($"/admin/merchant/{Model.Id}");
+                    Navigator.NavigateTo($"/admin/location/{Model.Id}");
                 }
 
                 ToastService.ShowSuccess(Resources.SaveSuccessful);
@@ -87,14 +78,14 @@
             bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
             if (confirm)
             {
-                await Task.Run(() => MerchantService.Delete(Model.Id));
+                await Task.Run(() => LocationService.Delete(Model.Id));
                 await OnClose();
             }
         }
 
         private async Task OnClose()
         {
-            await Task.Run(() => Navigator.NavigateTo("/admin/merchant/list"));
+            await Task.Run(() => Navigator.NavigateTo("/admin/location/list"));
         }
 
         #endregion Methods

@@ -41,6 +41,11 @@
         /// </summary>
         public bool IsNew { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Action OnPropertyChanged { get; set; }
+
         #endregion Properties
     }
 }

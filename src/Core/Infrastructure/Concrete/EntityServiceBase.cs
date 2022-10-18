@@ -1,5 +1,6 @@
 ﻿namespace Azox.Infrastructure.Core
 {
+    using Azox.Business.Core;
     using Azox.Business.Core.Data;
     using Azox.Business.Core.Domain;
     using Azox.Business.Core.Service;
@@ -128,10 +129,9 @@
 
         public virtual IEnumerable<TEntity> Filter(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending)
+            params SortProvider<TEntity>[] sortProvider)
         {
-            return Repository.Filter(predicate, sort, sortOrder);
+            return Repository.Filter(predicate, sortProvider);
         }
 
         public virtual TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)

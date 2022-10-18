@@ -42,14 +42,28 @@
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            EditContext = new(Model);
         }
 
-        private void OnSave()
+        private void OnSave(bool saveAndClose)
         {
             try
             {
+                if (Model.IsNew)
+                {
+                    Category category = CategoryService
+                        .Create(Model.Service.Id, Model.Name, Model.Description);
 
+                    Model.Id = category.Id;
+                }
+                else
+                {
+
+                }
+
+                if (!saveAndClose)
+                {
+                    Navigator.NavigateTo($"/admin/category/{Model.Id}");
+                }
 
                 ToastService.ShowSuccess(Resources.SaveSuccessful);
             }
@@ -64,22 +78,16 @@
             bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
             if (confirm)
             {
-                CategoryService.Delete(Model.Id);
-                OnClose();
+                await Task.Run(() => CategoryService.Delete(Model.Id));
+                await OnClose();
             }
         }
 
-        private void OnClose()
+        private async Task OnClose()
         {
-            Navigator.NavigateTo("/admin/category/list");
+            await Task.Run(() => Navigator.NavigateTo("/admin/category/list"));
         }
 
         #endregion Methods
-
-        #region Properties
-
-        private EditContext EditContext { get; set; }
-
-        #endregion Properties
     }
 }

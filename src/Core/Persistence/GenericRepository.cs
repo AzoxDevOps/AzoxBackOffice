@@ -1,9 +1,12 @@
 ﻿namespace Azox.Persistence.Core
 {
+    using Azox.Business.Core;
     using Azox.Business.Core.Data;
     using Azox.Business.Core.Domain;
     using Azox.Core;
+
     using Microsoft.EntityFrameworkCore;
+
     using System.Linq.Expressions;
 
     /// <summary>
@@ -65,22 +68,36 @@
         public virtual IEnumerable<TEntity> Filter(Expression<Func<TEntity, bool>> predicate) =>
              Entities.Where(predicate).ToList();
 
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual IEnumerable<TEntity> Filter(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending)
+            params SortProvider<TEntity>[] sortProviders)
         {
             IQueryable<TEntity> query = Entities.Where(predicate);
 
-            query = sortOrder switch
+            if (sortProviders != null)
             {
-                SortOrder.Ascending => query.OrderBy(sort),
-                SortOrder.Descending => query.OrderByDescending(sort),
-                _ => throw new AzoxBugException()
-            };
+                IOrderedQueryable<TEntity> orderQuery = sortProviders[0].SortOrder switch
+                {
+                    SortOrder.Ascending => query.OrderBy(sortProviders[0].Predicate),
+                    SortOrder.Descending => query.OrderByDescending(sortProviders[0].Predicate),
+                    _ => throw new AzoxBugException()
+                };
+
+                if (sortProviders.Length > 1)
+                {
+                    for (int i = 1; i < sortProviders.Length; i++)
+                    {
+                        orderQuery = sortProviders[i].SortOrder switch
+                        {
+                            SortOrder.Ascending => orderQuery.ThenBy(sortProviders[i].Predicate),
+                            SortOrder.Descending => orderQuery.ThenByDescending(sortProviders[i].Predicate),
+                            _ => throw new AzoxBugException()
+                        };
+                    }
+                }
+
+                return orderQuery.ToList();
+            }
 
             return query.ToList();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Azox.Infrastructure.Core
 {
-    using Azox.Business.Core.Data;
+    using Azox.Business.Core;
     using Azox.Business.Core.Dto;
     using Azox.Business.Core.Extensions;
 
@@ -23,9 +23,8 @@
         /// </summary>
         public virtual IEnumerable<TDto> Filter<TDto>(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending)
-            where TDto : IDtoFor<TEntity> => Filter(predicate, sort, sortOrder).ToDto<TEntity, TDto>();
+            params SortProvider<TEntity>[] sortProviders)
+        where TDto : IDtoFor<TEntity> => Filter(predicate, sortProviders).ToDto<TEntity, TDto>();
 
         /// <summary>
         /// 

@@ -17,5 +17,15 @@
         /// 
         /// </summary>
         bool GetThemeTypeName(string slug, out string themeTypeName);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetAsActive(int locationId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void SetAsPassive(int locationId);
     }
 }

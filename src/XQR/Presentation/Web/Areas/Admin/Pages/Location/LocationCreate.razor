@@ -1,10 +1,9 @@
-﻿@page "/admin/category/{CategoryId:int}"
-@inherits AuthComponent
+﻿@page "/admin/location/new"
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)},{nameof(UserGroupType.ServiceAdmin)}")">
     <Authorized>
         <CascadingValue Value="Model">
-            <CategoryDetail />
+            <LocationDetail />
         </CascadingValue>
     </Authorized>
     <NotAuthorized>

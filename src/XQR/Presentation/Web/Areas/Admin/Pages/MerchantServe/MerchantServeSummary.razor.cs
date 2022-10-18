@@ -8,6 +8,7 @@
     using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     using System.Linq.Expressions;
@@ -27,6 +28,9 @@
         private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
+        private IMerchantService MerchantService { get; set; }
+
+        [Inject]
         private IMerchantServeService MerchantServeService { get; set; }
 
         [Inject]
@@ -43,6 +47,7 @@
         {
             await base.OnInitializedAsync();
             FilterDataSource(x => !x.IsDeleted && !x.Merchant.IsDeleted);
+            FillMerchantSelectListItems();
         }
 
         private void FilterDataSource(Expression<Func<MerchantServe, bool>> predicate)
@@ -79,6 +84,24 @@
             FilterDataSource(predicate);
         }
 
+        private void FillMerchantSelectListItems()
+        {
+            Expression<Func<Merchant, bool>> predicate = x => !x.IsDeleted;
+
+            if (UserGroupType != UserGroupType.Admin)
+            {
+                predicate = predicate.And(x => UserServices.Contains(x.Id));
+            }
+
+            MerchantSelectListItems = MerchantService
+                    .Filter(predicate)
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.Name,
+                        Value = x.Id.ToString(),
+                    });
+        }
+
         private void OnCreate()
         {
             Navigator.NavigateTo("/admin/service/new");
@@ -105,6 +128,8 @@
         #endregion Methods
 
         #region Properties
+
+        private IEnumerable<SelectListItem> MerchantSelectListItems { get; set; } = new List<SelectListItem>();
 
         public IEnumerable<MerchantServeDto> DataSource { get; set; }
 

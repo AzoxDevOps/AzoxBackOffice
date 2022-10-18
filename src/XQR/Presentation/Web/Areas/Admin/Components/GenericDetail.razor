@@ -1,43 +1,59 @@
-﻿<div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center my-3">
-        <h2 class="m-0 fs-5">@PageTitle</h2>
-        @if (ToolbarTemplate != null)
-        {
+﻿@typeparam TModel
+
+<EditForm EditContext="EditContext" OnValidSubmit="OnValidSubmit">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center my-3">
+            <h2 class="m-0 fs-5">@PageTitle</h2>
             <div class="btn-toolbar d-none d-md-flex">
                 <div class="btn-group btn-group-sm">
-                    @ToolbarTemplate
+                    <button class="btn btn-primary btn-sm" type="submit">
+                        <span>Kaydet</span>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" type="button" @onclick="OnSaveAndCloseAsync">
+                        <span>Kaydet & Kapat</span>
+                    </button>
+                    <button class="btn btn-danger btn-sm" type="button" @onclick="OnDeleteAsync">
+                        <span>Sil</span>
+                    </button>
+                    <button class="btn btn-dark btn-sm" type="button" @onclick="OnCloseAsync">
+                        <span>Kapat</span>
+                    </button>
+                    @if (ToolbarTemplate != null)
+                    {
+                        @ToolbarTemplate
+                    }
                 </div>
             </div>
-        }
-        @if (MobileToolbarTemplate != null)
-        {
-            <div class="dropstart d-flex d-md-none">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
-                    <span class="material-icons">keyboard_command_key</span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    @MobileToolbarTemplate
+            @if (MobileToolbarTemplate != null)
+            {
+                <div class="dropstart d-flex d-md-none">
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
+                        <span class="material-icons">keyboard_command_key</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        @MobileToolbarTemplate
+                    </div>
                 </div>
-            </div>
-        }
-    </div>
-    <div class="my-3">
-        <div class="card">
-            <div class="card-body">
-                @if (MobileTemplate != null)
-                {
-                    <div class="d-none d-md-block">
+            }
+        </div>
+        <div class="my-3">
+            <div class="card">
+                <div class="card-body">
+                    @if (MobileTemplate != null)
+                    {
+                        <div class="d-none d-md-block">
+                            @Template
+                        </div>
+                        <div class="d-block d-md-none">
+                            @MobileTemplate
+                        </div>
+                    }
+                    else
+                    {
                         @Template
-                    </div>
-                    <div class="d-block d-md-none">
-                        @MobileTemplate
-                    </div>
-                }
-                else
-                {
-                    @Template
-                }
+                    }
+                </div>
             </div>
         </div>
     </div>
-</div>
+</EditForm>

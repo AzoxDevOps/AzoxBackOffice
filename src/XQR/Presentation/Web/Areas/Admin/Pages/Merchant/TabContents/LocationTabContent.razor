@@ -7,6 +7,11 @@
                         PageSize="Globals.DefaultGridPageSize"
                         PageSizeOptions="Globals.GridPageSizes">
             <Columns>
+                <RadzenDataGridColumn TItem="LocationDto" TextAlign="TextAlign.Center" Sortable="false">
+                    <Template Context="item">
+                        <QrCode LocationId="item.Id" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="LocationDto" Property="Service.Name" Title="Hizmet Adı" />
                 <RadzenDataGridColumn TItem="LocationDto" Property="Name" Title="Adı" />
                 <RadzenDataGridColumn TItem="LocationDto" Title="Türü">

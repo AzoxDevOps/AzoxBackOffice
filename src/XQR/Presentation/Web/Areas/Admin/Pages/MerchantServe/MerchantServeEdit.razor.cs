@@ -7,12 +7,6 @@
 
     public partial class MerchantServeEdit
     {
-        #region Fields
-
-        private bool _allowEdit;
-
-        #endregion Fields
-
         #region Injects
 
         [Inject]
@@ -36,18 +30,13 @@
         {
             base.OnParametersSet();
 
-            _allowEdit = UserServices.Contains(MerchantServeId) || UserGroupType == UserGroupType.Admin;
+            Model = MerchantServeService.GetById<MerchantServeDto>(MerchantServeId);
+            bool allowEdit = UserServices.Contains(MerchantServeId) || UserGroupType == UserGroupType.Admin;
 
-            if (_allowEdit)
-            {
-                Model = MerchantServeService.GetById<MerchantServeDto>(MerchantServeId);
-            }
-
-            if (Model.IsDeleted)
+            if (!allowEdit || Model.IsDeleted)
             {
                 Navigator.NavigateTo("/admin/service/list");
             }
-
         }
 
         #endregion Methods

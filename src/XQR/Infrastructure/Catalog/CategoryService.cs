@@ -37,7 +37,7 @@
                 Name = name,
                 Description = description,
                 IsActive = true,
-                DisplayOrder = lastDisplayOrder++
+                DisplayOrder = ++lastDisplayOrder
             };
 
             Insert(category);

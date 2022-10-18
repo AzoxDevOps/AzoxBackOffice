@@ -40,8 +40,7 @@
         /// </summary>
         IEnumerable<TEntity> Filter(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending);
+            params SortProvider<TEntity>[] sortProviders);
 
         /// <summary>
         /// 

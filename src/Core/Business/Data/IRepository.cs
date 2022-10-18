@@ -1,6 +1,7 @@
 ﻿namespace Azox.Business.Core.Data
 {
     using Azox.Business.Core.Domain;
+
     using System.Linq.Expressions;
 
     /// <summary>
@@ -44,8 +45,7 @@
         /// </summary>
         IEnumerable<TEntity> Filter(
             Expression<Func<TEntity, bool>> predicate,
-            Expression<Func<TEntity, object>> sort,
-            SortOrder sortOrder = SortOrder.Ascending);
+            params SortProvider<TEntity>[] sortProviders);
 
         /// <summary>
         /// 

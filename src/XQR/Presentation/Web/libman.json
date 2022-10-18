@@ -11,6 +11,15 @@
         "css/bootstrap.min.css",
         "css/bootstrap.min.css.map"
       ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "qr-code-styling@1.6.0-rc.1",
+      "destination": "wwwroot/dist/js/",
+      "files": [
+        "lib/qr-code-styling.js",
+        "lib/qr-code-styling.js.map"
+      ]
     }
   ]
 }

@@ -3,7 +3,7 @@
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)},{nameof(UserGroupType.ServiceAdmin)}")">
     <Authorized>
-        <GenericSummary PageTitle="Kategoriler">
+        <GenericSummary PageTitle="Kategoriler" OnCreate="OnCreate">
             <Template>
                 <RadzenDataGrid TItem="CategoryDto"
                                 Data="DataSource"

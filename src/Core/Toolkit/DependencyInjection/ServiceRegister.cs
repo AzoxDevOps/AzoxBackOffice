@@ -13,7 +13,6 @@
         {
             services.AddScoped<IJsRuntimeHelper, JsRuntimeHelper>();
             services.AddScoped<IToastService, ToastService>();
-
         }
     }
 }

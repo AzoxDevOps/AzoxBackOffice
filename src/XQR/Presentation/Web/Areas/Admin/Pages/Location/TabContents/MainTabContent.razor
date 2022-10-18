@@ -28,13 +28,34 @@
 
             </div>
             <div class="col-12 col-md-6">
-                <label class="col-form-label">Kategori Adı</label>
+                <label class="col-form-label">Lokasyon Adı</label>
                 <input class="form-control" @bind-value="Model.Name" />
             </div>
             <div class="col-12 col-md-6">
-                <label class="col-form-label">Kategori Kısa Bilgi</label>
+                <label class="col-form-label">Lokasyon Kısa Bilgi</label>
                 <input class="form-control" @bind-value="Model.Description" />
             </div>
+            @if (!Model.IsNew)
+            {
+                <div class="col-12 col-md-6">
+                    <label class="col-form-label">Lokasyon Durumu</label>
+                    <div class="input-group">
+                        <input class="form-control" disabled value="@(Model.IsActive ? "Aktif" : "Pasif")" />
+                        @if (Model.IsActive)
+                        {
+                            <button class="btn btn-primary input-group-text" type="button" @onclick="SetAsPassive">
+                                <span>Pasif Et</span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary input-group-text" type="button" @onclick="SetAsActive">
+                                <span>Aktif Et</span>
+                            </button>
+                        }
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
