@@ -5,6 +5,9 @@ namespace Azox.XQR.Presentation.Web
     using Azox.XQR.Presentation.Web.Areas.Admin.Sitemap;
 
     using Microsoft.Extensions.FileProviders;
+    using Serilog;
+    using Serilog.Events;
+    using System.Text;
 
     class Program
     {
@@ -19,6 +22,21 @@ namespace Azox.XQR.Presentation.Web
 
         static void ConfigureServices(WebApplicationBuilder builder)
         {
+            var logger = new LoggerConfiguration()
+           .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+           .Enrich.FromLogContext()
+           .WriteTo.Console()
+           .WriteTo.File(
+               path: Path.Combine(AppContext.BaseDirectory, "LogFiles", "XQRPresentationWeb.txt"),
+               outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {CorrelationId} {Level:u3}] {Username} {Message:lj}{NewLine}{Exception}",
+               shared: true,
+               rollingInterval: RollingInterval.Day,
+               encoding: Encoding.UTF8)
+           .CreateLogger();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
+
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             builder.Services.AddRazorPages();
