@@ -1,40 +1,47 @@
 ﻿@inherits AuthComponent
 
-<div class="card">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <label class="col-form-label">İşletme</label>
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="col-12">
+            <label class="col-form-label">Hizmet</label>
+            <RadzenDropDownDataGrid @bind-Value="Model.Service.Id"
+                                    Data="MerchantServices"
+                                    TValue="int"
+                                    TextProperty="Name"
+                                    ValueProperty="Id"
+                                    AllowFiltering="false"
+                                    Disabled="!Model.IsNew"
+                                    class="form-control">
+                <Columns>
+                    <RadzenDropDownDataGridColumn Property="Merchant.Name" Title="İşletme" />
+                    <RadzenDropDownDataGridColumn Property="Name" Title="Hizmet" />
+                </Columns>
+            </RadzenDropDownDataGrid>
+        </div>
+        <div class="col-12">
+            <label class="col-form-label">Kategori Adı</label>
+            <input class="form-control" @bind-value="Model.Name" />
 
-                <select class="form-select" @onchange="MerchantOnSelect" disabled="@(!Model.IsNew)">
-                    <option>İşletme Seçiniz</option>
-                    @foreach (var item in MerchantSelectListItems)
-                    {
-                        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
-                    }
-                </select>
-
-            </div>
-            <div class="col-12 col-md-6">
-                <label class="col-form-label">Hizmet</label>
-
-                <select class="form-select" @onchange="MerchantServeOnSelect" disabled="@(!Model.IsNew || Model.Service.Merchant.Id == 0)">
-                    <option>Hizmet Seçiniz</option>
-                    @foreach (var item in MerchantServeSelectListItems)
-                    {
-                        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
-                    }
-                </select>
-
-            </div>
-            <div class="col-12 col-md-6">
-                <label class="col-form-label">Kategori Adı</label>
-                <input class="form-control" @bind-value="Model.Name" />
-            </div>
-            <div class="col-12 col-md-6">
-                <label class="col-form-label">Kategori Kısa Bilgi</label>
-                <input class="form-control" @bind-value="Model.Description" />
-            </div>
         </div>
     </div>
+    <div class="col-12 col-md-6">
+        <label class="col-form-label">Kategori Kısa Bilgi</label>
+        <textarea class="form-control" @bind="Model.Description" style="height:calc(100% - 38px);" />
+    </div>
+    @if (!Model.IsNew)
+    {
+        <div class="col-12 col-md-6">
+            <label class="col-form-label">Kategori Sıra</label>
+            <input class="form-control" @bind-value="Model.DisplayOrder" type="number" step="1" />
+        </div>
+        <div class="col-12 col-md-6">
+            <label class="col-form-label">Kategori Durumu</label>
+            <RadzenSelectBar @bind-Value="Model.IsActive" TValue="bool" class="form-control">
+                <Items>
+                    <RadzenSelectBarItem Text="Aktif" Value="true" />
+                    <RadzenSelectBarItem Text="Pasif" Value="false" />
+                </Items>
+            </RadzenSelectBar>
+        </div>
+    }
 </div>

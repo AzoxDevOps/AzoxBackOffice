@@ -22,7 +22,7 @@
         /// 
         /// </summary>
         [Parameter]
-        public string PageTitle { get; set; }
+        public RenderFragment BreadCrumb { get; set; }
 
         /// <summary>
         /// 

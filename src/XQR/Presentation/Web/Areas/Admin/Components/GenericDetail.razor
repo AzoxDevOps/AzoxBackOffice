@@ -3,21 +3,29 @@
 <EditForm EditContext="EditContext" OnValidSubmit="OnValidSubmit">
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center my-3">
-            <h2 class="m-0 fs-5">@PageTitle</h2>
+            @if (BreadCrumb != null)
+            {
+                @BreadCrumb
+            }
             <div class="btn-toolbar d-none d-md-flex">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-primary btn-sm" type="submit">
-                        <span>Kaydet</span>
-                    </button>
-                    <button class="btn btn-secondary btn-sm" type="button" @onclick="OnSaveAndCloseAsync">
-                        <span>Kaydet & Kapat</span>
-                    </button>
-                    <button class="btn btn-danger btn-sm" type="button" @onclick="OnDeleteAsync">
-                        <span>Sil</span>
-                    </button>
-                    <button class="btn btn-dark btn-sm" type="button" @onclick="OnCloseAsync">
-                        <span>Kapat</span>
-                    </button>
+                    <RadzenButton Text="Kaydet"
+                                  Icon="save"
+                                  ButtonStyle="ButtonStyle.Primary"
+                                  ButtonType="ButtonType.Submit" />
+
+                    <RadzenButton Text="Sil"
+                                  Icon="delete"
+                                  ButtonStyle="ButtonStyle.Danger"
+                                  ButtonType="ButtonType.Button"
+                                  Click="OnDeleteAsync" />
+
+                    <RadzenButton Text="Kapat"
+                                  Icon="close"
+                                  ButtonStyle="ButtonStyle.Dark"
+                                  ButtonType="ButtonType.Button"
+                                  Click="OnCloseAsync"
+                                  class="ms-2" />
                     @if (ToolbarTemplate != null)
                     {
                         @ToolbarTemplate
@@ -36,24 +44,20 @@
                 </div>
             }
         </div>
-        <div class="my-3">
-            <div class="card">
-                <div class="card-body">
-                    @if (MobileTemplate != null)
-                    {
-                        <div class="d-none d-md-block">
-                            @Template
-                        </div>
-                        <div class="d-block d-md-none">
-                            @MobileTemplate
-                        </div>
-                    }
-                    else
-                    {
-                        @Template
-                    }
+        <RadzenCard>
+            @if (MobileTemplate != null)
+            {
+                <div class="d-none d-md-block">
+                    @Template
                 </div>
-            </div>
-        </div>
+                <div class="d-block d-md-none">
+                    @MobileTemplate
+                </div>
+            }
+            else
+            {
+                @Template
+            }
+        </RadzenCard>
     </div>
 </EditForm>

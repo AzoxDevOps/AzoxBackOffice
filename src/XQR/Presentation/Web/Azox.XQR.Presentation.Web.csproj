@@ -30,10 +30,6 @@
 		<ProjectReference Include="..\Core\Azox.XQR.Presentation.Core.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Areas\Admin\Pages\Product\" />
-	</ItemGroup>
-
 	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

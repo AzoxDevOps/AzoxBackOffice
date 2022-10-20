@@ -1,15 +1,24 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location
 {
+    using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
 
     public partial class LocationCreate
     {
         #region Methods
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
-            base.OnInitialized();
+            await base.OnInitializedAsync();
             Model = new();
+
+            if (UserGroupType != Business.UserGroupType.Admin)
+            {
+                if (UserServices.Count() == 1)
+                {
+                    Model.Service.Id = UserServices.FirstOrDefault();
+                }
+            }
         }
 
         #endregion Methods

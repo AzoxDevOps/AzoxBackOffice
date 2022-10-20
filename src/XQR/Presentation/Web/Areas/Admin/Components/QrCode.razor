@@ -1,1 +1,21 @@
-﻿<div class="qrcode" id="@Id"></div>
+﻿@if (Magnifable)
+{
+    <div class="qrcode" id="@Id" @onclick="OnClick"></div>
+    <div class="position-fixed top-0 start-0 end-0 bottom-0 justify-content-center align-content-center qrcode-container @(ShowMagnified ? "d-flex" : "d-none")">
+        <div class="qrcode" id="fs-@(Id)">
+            <div class="d-flex justify-content-end">
+                <button class="btn" @onclick="OnClose">
+                    <span class="material-icons fs-2">clear</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    if (!Href.IsNullOrEmpty())
+    {
+        <a class="qrcode" id="@Id" href="@Href" target="_blank"></a>
+    }
+}

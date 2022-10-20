@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant.TabContents
+﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category.TabContents
 {
     using Azox.Toolkit.Blazor.Helpers;
     using Azox.XQR.Business;
@@ -7,10 +7,7 @@
 
     using Microsoft.AspNetCore.Components;
 
-    using System;
-    using System.Linq.Expressions;
-
-    public partial class LocationTabContent
+    public partial class ProductsTabContent
     {
         #region Injects
 
@@ -18,7 +15,7 @@
         private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
-        private ILocationService LocationService { get; set; }
+        private IProductService ProductService { get; set; }
 
         [Inject]
         private NavigationManager Navigator { get; set; }
@@ -28,7 +25,7 @@
         #region Parameters
 
         [CascadingParameter]
-        public MerchantDto Model { get; set; }
+        public CategoryDto Model { get; set; }
 
         #endregion Parameters
 
@@ -36,23 +33,23 @@
 
         protected override void OnParametersSet()
         {
-            DataSource = LocationService.Filter<LocationDto>(x => x.Service.Merchant.Id == Model.Id && !x.IsDeleted && !x.Service.IsDeleted);
+            DataSource = ProductService.Filter<ProductDto>(x => x.Category.Id == Model.Id && !x.IsDeleted);
         }
 
-        private void OnEdit(int locationId)
+        private void OnEdit(int productId)
         {
-            Navigator.NavigateTo($"/admin/location/{locationId}");
+            Navigator.NavigateTo($"/admin/product/{productId}");
         }
 
-        private async Task OnDelete(int locationId)
+        private async Task OnDelete(int productId)
         {
             bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() =>
                 {
-                    LocationService.Delete(locationId);
-                    DataSource = LocationService.Filter<LocationDto>(x => x.Service.Merchant.Id == Model.Id && !x.IsDeleted && !x.Service.IsDeleted);
+                    ProductService.Delete(productId);
+                    DataSource = ProductService.Filter<ProductDto>(x => x.Category.Id == Model.Id && !x.IsDeleted);
                 });
             }
         }
@@ -61,7 +58,7 @@
 
         #region Properties
 
-        public IEnumerable<LocationDto> DataSource { get; set; }
+        public IEnumerable<ProductDto> DataSource { get; set; }
 
         #endregion Properties
     }

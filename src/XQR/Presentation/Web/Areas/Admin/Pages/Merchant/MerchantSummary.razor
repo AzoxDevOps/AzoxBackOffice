@@ -9,7 +9,7 @@
                         <div class="col-12 col-md-6">
                             <label class="col-form-label">İşletme Tipi</label>
                             <select class="form-select" @bind="_filterMerchantType">
-                                <option value="0">@Resources.SelectListAllOption</option>
+                                <option value="0">@XResource.SelectListAllOption</option>
                                 @foreach (var item in Enum.GetValues<MerchantType>())
                                 {
                                     <option value="@item.ToString("D")">@item.GetDescription()</option>
@@ -42,16 +42,18 @@
                                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="MerchantDto" TextAlign="TextAlign.Right" Width="7rem">
+                        <RadzenDataGridColumn TItem="MerchantDto" TextAlign="TextAlign.Right" Width="7rem" Sortable="false">
                             <Template Context="item">
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-sm btn-light shadow rounded-2" @onclick="@(()=>OnEdit(item.Id))">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn btn-sm btn-dark shadow rounded-2" @onclick="@(()=>OnDelete(item.Id))">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
+                                <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnEdit(item.Id))" />
+                                <RadzenButton Icon="delete"
+                                              ButtonStyle="ButtonStyle.Danger"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnDelete(item.Id))" />
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

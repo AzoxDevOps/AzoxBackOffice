@@ -15,6 +15,8 @@
             Merchant = new();
             Contacts = new();
             WorkingHours = new();
+
+            ServiceType = MerchantServeType.Restaurant;
         }
 
         #endregion Ctor

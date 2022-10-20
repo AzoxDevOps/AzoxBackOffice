@@ -44,7 +44,7 @@
 
         private async Task OnDelete(int merchantServeId)
         {
-            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() =>

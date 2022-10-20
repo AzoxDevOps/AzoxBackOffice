@@ -1,7 +1,9 @@
 ﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Location
 {
+    using Azox.Toolkit.Blazor;
     using Azox.XQR.Business;
     using Azox.XQR.Business.Dto;
+    using Azox.XQR.Presentation.Core.Localization;
 
     using Microsoft.AspNetCore.Components;
 
@@ -13,6 +15,9 @@
 
         [Inject]
         private ILocationService LocationService { get; set; }
+
+        [Inject]
+        private IToastService ToastService { get; set; }
 
         [Inject]
         private NavigationManager Navigator { get; set; }
@@ -39,10 +44,15 @@
             {
                 Navigator.NavigateTo("/admin/location/list");
             }
+        }
 
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
             Model.OnPropertyChanged = () =>
             {
                 Model = LocationService.GetById<LocationDto>(LocationId);
+                ToastService.ShowSuccess(XResource.Updated);
                 StateHasChanged();
             };
         }

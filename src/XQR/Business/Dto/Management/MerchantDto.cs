@@ -16,6 +16,8 @@
             Address = new();
             Contact = new();
             Picture = new();
+
+            MerchantType = MerchantType.Restaurant;
         }
 
         #endregion Ctor

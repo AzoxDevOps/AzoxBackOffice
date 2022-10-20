@@ -78,7 +78,7 @@
                     Navigator.NavigateTo($"/admin/service/{Model.Id}");
                 }
 
-                ToastService.ShowSuccess(Resources.SaveSuccessful);
+                ToastService.ShowSuccess(XResource.SaveSuccessful);
             }
             catch (Exception ex)
             {
@@ -88,7 +88,7 @@
 
         private async Task OnDelete()
         {
-            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() => MerchantServeService.Delete(Model.Id));

@@ -49,7 +49,7 @@
                 ToastService.Show(new ToastMessage
                 {
                     Type = ToastType.Warning,
-                    Message = Resources.UnmatchedPassword
+                    Message = XResource.UnmatchedPassword
                 });
                 _isBusy = false;
                 return;
@@ -65,7 +65,7 @@
                 ToastService.Show(new ToastMessage
                 {
                     Type = ToastType.Warning,
-                    Message = Resources.GeneralErrorMessage
+                    Message = XResource.GeneralErrorMessage
                 });
                 _isBusy = false;
                 return;
@@ -94,7 +94,7 @@
                 ToastService.Show(new ToastMessage
                 {
                     Type = ToastType.Warning,
-                    Message = Resources.InactiveUser
+                    Message = XResource.InactiveUser
                 });
             }
             else if (result == ValidateCredentialsResult.InvalidUsernameOrPassword)
@@ -102,7 +102,7 @@
                 ToastService.Show(new ToastMessage
                 {
                     Type = ToastType.Warning,
-                    Message = Resources.InvalidUsernameOrPassword
+                    Message = XResource.InvalidUsernameOrPassword
                 });
             }
             else if (result == ValidateCredentialsResult.LockedUser)
@@ -110,7 +110,7 @@
                 ToastService.Show(new ToastMessage
                 {
                     Type = ToastType.Warning,
-                    Message = Resources.LockedUser
+                    Message = XResource.LockedUser
                 });
             }
 

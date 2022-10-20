@@ -24,7 +24,7 @@
                     <Columns>
                         <RadzenDataGridColumn TItem="LocationDto" TextAlign="TextAlign.Center" Sortable="false">
                             <Template Context="item">
-                                <QrCode LocationId="item.Id" />
+                                <QrCode LocationId="item.Id" Width="70" Height="70" />
                             </Template>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="LocationDto" Property="Service.Merchant.Name" Title="İşletme Adı" />
@@ -40,16 +40,25 @@
                                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="LocationDto" TextAlign="TextAlign.Right" Width="7rem">
-                            <Template Context="item">
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-sm btn-light shadow rounded-2" @onclick="@(()=>OnEdit(item.Id))">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn btn-sm btn-dark shadow rounded-2" @onclick="@(()=>OnDelete(item.Id))">
-                                        <span class="material-icons">delete</span>
+                        <RadzenDataGridColumn TItem="LocationDto" TextAlign="TextAlign.Center" Width="7rem" Sortable="false">
+                            <HeaderTemplate>
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-sm btn-light shadow rounded-2" @onclick="OnRefresh">
+                                        <span class="material-icons">refresh</span>
                                     </button>
                                 </div>
+                            </HeaderTemplate>
+                            <Template Context="item">
+                                <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnEdit(item.Id))" />
+                                <RadzenButton Icon="delete"
+                                              ButtonStyle="ButtonStyle.Danger"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnDelete(item.Id))" />
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

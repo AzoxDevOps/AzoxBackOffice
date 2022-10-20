@@ -1,0 +1,11 @@
+﻿<RadzenDataGrid TItem="OrderDto"
+                Data="DataSource"
+                AllowSorting="true"
+                AllowPaging="true"
+                PageSize="Globals.DefaultGridPageSize"
+                PageSizeOptions="Globals.GridPageSizes">
+    <Columns>
+        <RadzenDataGridColumn TItem="OrderDto" Property="Id" Title="Sipariş No" />
+        <RadzenDataGridColumn TItem="OrderDto" Property="CreationTime" Title="Sipariş Tarihi" />
+    </Columns>
+</RadzenDataGrid>

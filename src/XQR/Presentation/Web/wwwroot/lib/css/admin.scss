@@ -36,11 +36,32 @@ header {
 }
 
 .summary {
-    
+
     & .summary-toolbar {
         & button {
-            min-width:5rem;
+            min-width: 5rem;
         }
+    }
+}
+
+.qrcode {
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-align-content: center;
+    -webkit-align-content: center;
+    align-content: center;
+}
+
+.qrcode-container {
+    background: rgba(97, 104, 118, 0.5);
+    z-index: 9999;
+
+    & .qrcode {
+        margin: auto;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
     }
 }
 

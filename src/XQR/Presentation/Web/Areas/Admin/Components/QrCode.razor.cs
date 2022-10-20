@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Components;
     using Microsoft.JSInterop;
 
-    using System.Text.Json;
     using System.Threading.Tasks;
 
     public partial class QrCode
@@ -35,13 +34,30 @@
         [Parameter]
         public int LocationId { get; set; }
 
+        [Parameter]
+        public int Width { get; set; }
+
+        [Parameter]
+        public int Height { get; set; }
+
+        [Parameter]
+        public bool Magnifable { get; set; }
+
         #endregion Parameters
 
         #region Methods
 
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Location location = LocationService.GetById(LocationId);
+            Href = $"{Navigator.BaseUri}qr/{location.Slug}";
+        }
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             await base.OnAfterRenderAsync(firstRender);
+            
             if (firstRender)
             {
                 Location location = LocationService.GetById(LocationId);
@@ -49,12 +65,42 @@
                 var qrGridOptions = new
                 {
                     data = $"{Navigator.BaseUri}qr/{location.Slug}",
-                    width = 80,
-                    height = 80
+                    width = Width,
+                    height = Height
                 };
 
+                Href = qrGridOptions.data;
                 await JsRuntime.InvokeVoidAsync("generateQrCode", Id, qrGridOptions);
             }
+        }
+
+        private async Task OnClick()
+        {
+            if (!Magnifable)
+            {
+                return;
+            }
+
+            if (!RenderMagnified)
+            {
+                Location location = LocationService.GetById(LocationId);
+
+                var qrGridOptions = new
+                {
+                    data = $"{Navigator.BaseUri}qr/{location.Slug}",
+                    width = 300,
+                    height = 300
+                };
+                await JsRuntime.InvokeVoidAsync("generateQrCode", $"fs-{Id}", qrGridOptions);
+                RenderMagnified = true;
+            }
+
+            ShowMagnified = true;
+        }
+
+        private void OnClose()
+        {
+            ShowMagnified = false;
         }
 
         #endregion Methods
@@ -75,6 +121,12 @@
                 return _id;
             }
         }
+
+        private string Href { get; set; }
+
+        private bool RenderMagnified { get; set; }
+
+        private bool ShowMagnified { get; set; }
 
         #endregion Properties
     }

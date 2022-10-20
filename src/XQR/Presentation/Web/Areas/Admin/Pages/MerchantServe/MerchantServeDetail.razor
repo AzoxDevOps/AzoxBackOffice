@@ -1,10 +1,15 @@
 ﻿@inherits AuthComponent
 
 <GenericDetail Model="Model"
-               PageTitle="@(Model.IsNew ? "Yeni Hizmet Ekle": $"{Model.Name} - Düzenle")"
                OnClose="OnClose"
                OnDelete="OnDelete"
                OnSave="OnSave">
+    <BreadCrumb>
+        <RadzenBreadCrumb>
+            <RadzenBreadCrumbItem Text="Hizmetler" Path="/admin/service/list" />
+            <RadzenBreadCrumbItem Text="@(Model.IsNew ? "Yeni Hizmet Ekle" : Model.Name)" />
+        </RadzenBreadCrumb>
+    </BreadCrumb>
     <Template>
         <CascadingValue Value="Model">
             @if (Model.IsNew)
@@ -13,18 +18,13 @@
             }
             else
             {
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#main" type="button">
-                            <span>Genel</span>
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="main">
-                        <MainTabContent />
-                    </div>
-                </div>
+                <RadzenTabs>
+                    <Tabs>
+                        <RadzenTabsItem Text="Genel">
+                            <MainTabContent />
+                        </RadzenTabsItem>
+                    </Tabs>
+                </RadzenTabs>
             }
         </CascadingValue>
     </Template>

@@ -89,7 +89,7 @@
 
         private async Task OnDelete(int locationId)
         {
-            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() =>
@@ -98,6 +98,11 @@
                     FilterDataSource(x => !x.IsDeleted);
                 });
             }
+        }
+
+        private void OnRefresh()
+        {
+            FilterDataSource(x => !x.IsDeleted);
         }
 
         #endregion Methods

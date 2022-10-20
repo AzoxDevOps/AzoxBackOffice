@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Merchant
+﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Product
 {
     using Azox.Toolkit.Blazor;
     using Azox.Toolkit.Blazor.Helpers;
@@ -8,7 +8,7 @@
 
     using Microsoft.AspNetCore.Components;
 
-    public partial class MerchantDetail
+    public partial class ProductDetail
     {
         #region Injects
 
@@ -16,10 +16,10 @@
         private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
-        private IMerchantService MerchantService { get; set; }
+        private IProductService ProductService { get; set; }
 
         [Inject]
-        private ILogger<MerchantDetail> Logger { get; set; }
+        private ILogger<ProductDetail> Logger { get; set; }
 
         [Inject]
         private IToastService ToastService { get; set; }
@@ -32,7 +32,7 @@
         #region Parameters
 
         [CascadingParameter]
-        public MerchantDto Model { get; set; }
+        public ProductDto Model { get; set; }
 
         #endregion Parameters
 
@@ -49,29 +49,18 @@
             {
                 if (Model.IsNew)
                 {
-                    Merchant merchant = MerchantService
-                        .Create(Model.Name, Model.Description, Model.MerchantType);
 
-                    Model.Id = merchant.Id;
+
+
                 }
                 else
                 {
-                    Merchant merchant = MerchantService.GetById(Model.Id);
 
-                    merchant.Address = Model.Address;
-                    merchant.Contact = Model.Contact;
-                    merchant.Description = Model.Description;
-                    merchant.FacebookLink = Model.FacebookLink;
-                    merchant.InstagramLink = Model.InstagramLink;
-                    merchant.Name = Model.Name;
-                    merchant.Picture = Model.Picture;
-
-                    MerchantService.Update(merchant);
                 }
 
                 if (!saveAndClose)
                 {
-                    Navigator.NavigateTo($"/admin/merchant/{Model.Id}");
+                    Navigator.NavigateTo($"/admin/product/{Model.Id}");
                 }
 
                 ToastService.ShowSuccess(XResource.SaveSuccessful);
@@ -87,14 +76,14 @@
             bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
-                await Task.Run(() => MerchantService.Delete(Model.Id));
+                await Task.Run(() => ProductService.Delete(Model.Id));
                 await OnClose();
             }
         }
 
         private async Task OnClose()
         {
-            await Task.Run(() => Navigator.NavigateTo("/admin/merchant/list"));
+            await Task.Run(() => Navigator.NavigateTo("/admin/category/list"));
         }
 
         #endregion Methods

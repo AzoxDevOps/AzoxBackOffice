@@ -1,4 +1,4 @@
-﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Category
+﻿namespace Azox.XQR.Presentation.Web.Areas.Admin.Pages.Product
 {
     using Azox.Core.Extensions;
     using Azox.Toolkit.Blazor.Helpers;
@@ -10,7 +10,7 @@
 
     using System.Linq.Expressions;
 
-    public partial class CategorySummary
+    public partial class ProductSummary
     {
         #region Injects
 
@@ -18,7 +18,7 @@
         private IJsRuntimeHelper JsRuntimeHelper { get; set; }
 
         [Inject]
-        private ICategoryService CategoryService { get; set; }
+        private IProductService ProductService { get; set; }
 
         [Inject]
         private NavigationManager Navigator { get; set; }
@@ -33,41 +33,41 @@
             FilterDataSource(x => !x.IsDeleted);
         }
 
-        private void FilterDataSource(Expression<Func<Category, bool>> predicate)
+        private void FilterDataSource(Expression<Func<Product, bool>> predicate)
         {
             if (UserServices.Any())
             {
-                predicate = predicate.And(x => UserServices.Contains(x.Service.Id));
+                predicate = predicate.And(x => UserServices.Contains(x.Category.Service.Id));
             }
 
-            DataSource = CategoryService.Filter<CategoryDto>(predicate);
+            DataSource = ProductService.Filter<ProductDto>(predicate);
         }
 
         private void OnSearch()
         {
-            Expression<Func<Category, bool>> predicate = x => !x.IsDeleted;
+            Expression<Func<Product, bool>> predicate = x => !x.IsDeleted;
 
             FilterDataSource(predicate);
         }
 
         private void OnCreate()
         {
-            Navigator.NavigateTo("/admin/category/new");
+            Navigator.NavigateTo("/admin/product/new");
         }
 
-        private void OnEdit(int categoryId)
+        private void OnEdit(int productId)
         {
-            Navigator.NavigateTo($"/admin/category/{categoryId}");
+            Navigator.NavigateTo($"/admin/product/{productId}");
         }
 
-        private async Task OnDelete(int locationId)
+        private async Task OnDelete(int productId)
         {
             bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() =>
                 {
-                    CategoryService.Delete(locationId);
+                    ProductService.Delete(productId);
                     FilterDataSource(x => !x.IsDeleted);
                 });
             }
@@ -77,7 +77,7 @@
 
         #region Properties
 
-        private IEnumerable<CategoryDto> DataSource { get; set; }
+        private IEnumerable<ProductDto> DataSource { get; set; }
 
         #endregion Properties
     }

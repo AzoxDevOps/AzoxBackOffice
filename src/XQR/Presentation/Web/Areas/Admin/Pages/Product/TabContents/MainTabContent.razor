@@ -1,0 +1,32 @@
+﻿@inherits AuthComponent
+
+<div class="row">
+    <div class="col-12 col-md-6">
+        <label class="col-form-label">Kategori</label>
+        <RadzenDropDownDataGrid class="form-control"
+                                TValue="int"
+                                TextProperty="Name"
+                                ValueProperty="Id"
+                                AllowFiltering="false"
+                                Value="SelectedCategory?.Id"
+                                SelectedItemChanged="CategoryOnSelect"
+                                Data="Categories">
+            <Columns>
+                @if (UserGroupType == UserGroupType.Admin)
+                {
+                    <RadzenDropDownDataGridColumn Property="Service.Merchant.Name" Title="İşletme" />
+                }
+                <RadzenDropDownDataGridColumn Property="Service.Name" Title="Hizmet" />
+                <RadzenDropDownDataGridColumn Property="Name" Title="Kategori" />
+            </Columns>
+        </RadzenDropDownDataGrid>
+    </div>
+    <div class="col-12 col-md-6">
+        <label class="col-form-label">Ürün Adı</label>
+        <input class="form-control" @bind-value="Model.Name" />
+    </div>
+    <div class="col-12 col-md-6">
+        <label class="col-form-label">Ürün Kısa Bilgi</label>
+        <input class="form-control" @bind-value="Model.Description" />
+    </div>
+</div>

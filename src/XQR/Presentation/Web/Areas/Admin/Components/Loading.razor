@@ -30,7 +30,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _isLoaded = true;        
+        _isLoaded = true;
+        await Task.CompletedTask;
     }
 
     #endregion Methods

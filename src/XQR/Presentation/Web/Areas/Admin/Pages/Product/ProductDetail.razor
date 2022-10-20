@@ -4,12 +4,11 @@
                OnSave="OnSave">
     <BreadCrumb>
         <RadzenBreadCrumb>
-            <RadzenBreadCrumbItem Text="Lokasyonlar" Path="/admin/location/list" />
-            <RadzenBreadCrumbItem Text="@(Model.IsNew ? "Yeni Lokasyon Ekle" : Model.Name)" />
+            <RadzenBreadCrumbItem Text="Ürünler" Path="/admin/product/list" />
+            <RadzenBreadCrumbItem Text="@(Model.IsNew ? "Yeni Ürün Ekle" : Model.Name)" />
         </RadzenBreadCrumb>
     </BreadCrumb>
     <Template>
-
         <div class="container-fluid">
             @if (Model.IsNew)
             {
@@ -21,9 +20,6 @@
                     <Tabs>
                         <RadzenTabsItem Text="Genel">
                             <MainTabContent />
-                        </RadzenTabsItem>
-                        <RadzenTabsItem Text="Siparişler">
-                            <OrderTabContent />
                         </RadzenTabsItem>
                     </Tabs>
                 </RadzenTabs>

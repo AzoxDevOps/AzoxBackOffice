@@ -1,4 +1,5 @@
 ﻿@page "/admin/location/new"
+@inherits AuthComponent
 
 <AuthorizeView Roles="@($"{nameof(UserGroupType.Admin)}, {nameof(UserGroupType.MerchantAdmin)},{nameof(UserGroupType.ServiceAdmin)}")">
     <Authorized>

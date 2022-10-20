@@ -7,6 +7,7 @@
             <SearchTemplate>
                 <div class="container-fluid">
                     <div class="row">
+
                         <div class="col-12 col-md-6">
                             <label class="col-form-label">İşletme</label>
                             <select class="form-select" @bind="_filterMerchantId">
@@ -17,6 +18,7 @@
                                 }
                             </select>
                         </div>
+
                         <div class="col-12 col-md-6">
                             <label class="col-form-label">Hizmet Adı</label>
                             <input class="form-control" @bind-value="_filterMerchantServeName" />
@@ -32,7 +34,10 @@
                                 PageSize="Globals.DefaultGridPageSize"
                                 PageSizeOptions="Globals.GridPageSizes">
                     <Columns>
-                        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Merchant.Name" Title="İşletme" />
+                        @if (UserGroupType == UserGroupType.Admin)
+                        {
+                            <RadzenDataGridColumn TItem="MerchantServeDto" Property="Merchant.Name" Title="İşletme" />
+                        }
                         <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Hizmet Adı" />
                         <RadzenDataGridColumn TItem="MerchantServeDto" Title="Hizmet Türü">
                             <Template Context="item">
@@ -44,16 +49,18 @@
                                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="MerchantServeDto" TextAlign="TextAlign.Right" Width="7rem">
+                        <RadzenDataGridColumn TItem="MerchantServeDto" TextAlign="TextAlign.Right" Width="7rem" Sortable="false">
                             <Template Context="item">
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-sm btn-light shadow rounded-2" @onclick="@(()=>OnEdit(item.Id))">
-                                        <span class="material-icons">edit</span>
-                                    </button>
-                                    <button class="btn btn-sm btn-dark shadow rounded-2" @onclick="@(()=>OnDelete(item.Id))">
-                                        <span class="material-icons">delete</span>
-                                    </button>
-                                </div>
+                                <RadzenButton Icon="edit"
+                                              ButtonStyle="ButtonStyle.Light"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnEdit(item.Id))" />
+                                <RadzenButton Icon="delete"
+                                              ButtonStyle="ButtonStyle.Danger"
+                                              Variant="Variant.Flat"
+                                              Size="ButtonSize.Medium"
+                                              Click="@(() => OnDelete(item.Id))" />
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

@@ -1,22 +1,19 @@
-﻿<RadzenDataGrid TItem="MerchantServeDto"
+﻿<RadzenDataGrid TItem="ProductDto"
                 Data="DataSource"
                 AllowSorting="true"
                 AllowPaging="true"
                 PageSize="Globals.DefaultGridPageSize"
                 PageSizeOptions="Globals.GridPageSizes">
     <Columns>
-        <RadzenDataGridColumn TItem="MerchantServeDto" Property="Name" Title="Hizmet Adı" />
-        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Hizmet Türü">
-            <Template Context="item">
-                <span>@item.ServiceType.GetDescription()</span>
-            </Template>
-        </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="MerchantServeDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
+        <RadzenDataGridColumn TItem="ProductDto" Property="Category.Name" Title="Kategori" />
+        <RadzenDataGridColumn TItem="ProductDto" Property="DisplayOrder" Title="Sıra" />
+        <RadzenDataGridColumn TItem="ProductDto" Property="Name" Title="Adı" />
+        <RadzenDataGridColumn TItem="ProductDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
             <Template Context="item">
                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>
             </Template>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn TItem="MerchantServeDto" TextAlign="TextAlign.Right" Width="7rem" Sortable="false">
+        <RadzenDataGridColumn TItem="ProductDto" TextAlign="TextAlign.Right" Width="7rem" Sortable="false">
             <Template Context="item">
                 <RadzenButton Icon="edit"
                               ButtonStyle="ButtonStyle.Light"

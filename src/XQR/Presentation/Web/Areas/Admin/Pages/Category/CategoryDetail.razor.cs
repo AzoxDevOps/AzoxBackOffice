@@ -57,7 +57,14 @@
                 }
                 else
                 {
+                    Category category = CategoryService.GetById(Model.Id);
 
+                    category.Name = Model.Name;
+                    category.Description = Model.Description;
+                    category.DisplayOrder = Model.DisplayOrder;
+                    category.IsActive = Model.IsActive;
+
+                    CategoryService.Update(category);
                 }
 
                 if (!saveAndClose)
@@ -65,7 +72,7 @@
                     Navigator.NavigateTo($"/admin/category/{Model.Id}");
                 }
 
-                ToastService.ShowSuccess(Resources.SaveSuccessful);
+                ToastService.ShowSuccess(XResource.SaveSuccessful);
             }
             catch (Exception ex)
             {
@@ -75,7 +82,7 @@
 
         private async Task OnDelete()
         {
-            bool confirm = await JsRuntimeHelper.GetConfirmResult(Resources.DeleteConfirm);
+            bool confirm = await JsRuntimeHelper.GetConfirmResult(XResource.DeleteConfirm);
             if (confirm)
             {
                 await Task.Run(() => CategoryService.Delete(Model.Id));
