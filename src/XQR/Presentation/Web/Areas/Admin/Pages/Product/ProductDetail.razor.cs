@@ -49,9 +49,10 @@
             {
                 if (Model.IsNew)
                 {
+                    Product product = ProductService
+                        .Create(Model.Category.Id, Model.Name, Model.Description, Model.Price);
 
-
-
+                    Model.Id = product.Id;
                 }
                 else
                 {
@@ -83,7 +84,7 @@
 
         private async Task OnClose()
         {
-            await Task.Run(() => Navigator.NavigateTo("/admin/category/list"));
+            await Task.Run(() => Navigator.NavigateTo("/admin/product/list"));
         }
 
         #endregion Methods

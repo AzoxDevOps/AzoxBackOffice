@@ -8,5 +8,9 @@
     public interface IProductService :
         IEntityService<Product>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        Product Create(int categoryId, string name, string description, Price price);
     }
 }

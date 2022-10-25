@@ -52,45 +52,6 @@
             return GetById(location.Id);
         }
 
-        public bool GetThemeTypeName(string slug, out string themeTypeName)
-        {
-            themeTypeName = string.Empty;
-
-            if (slug.IsNullOrEmpty())
-            {
-                return false;
-            }
-
-            Location location = SingleOrDefault(x => x.Slug == slug);
-            if (location == null)
-            {
-                return false;
-            }
-
-            themeTypeName = location.Service.ThemeTypeName;
-            return true;
-        }
-
-        public void SetAsActive(int locationId)
-        {
-            Location location = GetById(locationId);
-            if (location != null)
-            {
-                location.IsActive = true;
-                Update(location);
-            }
-        }
-
-        public void SetAsPassive(int locationId)
-        {
-            Location location = GetById(locationId);
-            if (location != null)
-            {
-                location.IsActive = false;
-                Update(location);
-            }
-        }
-
         #endregion Methods
     }
 }

@@ -12,10 +12,19 @@
                                 PageSize="Globals.DefaultGridPageSize"
                                 PageSizeOptions="Globals.GridPageSizes">
                     <Columns>
-                        <RadzenDataGridColumn TItem="ProductDto" Property="DisplayOrder" Title="Sıra" />
-                        <RadzenDataGridColumn TItem="ProductDto" Property="Category.Service.Name" Title="Hizmet Adı" />
+                        <RadzenDataGridColumn TItem="ProductDto" Property="DisplayOrder" Title="Sıra" Width="4rem" />
+                        @if (UserGroupType == UserGroupType.Admin)
+                        {
+                            <RadzenDataGridColumn TItem="ProductDto" Property="Category.Service.Merchant.Name" Title="İşletme" />
+                            <RadzenDataGridColumn TItem="ProductDto" Property="Category.Service.Name" Title="Hizmet" />
+                        }
+                        @if (UserGroupType == UserGroupType.MerchantAdmin)
+                        {
+                            <RadzenDataGridColumn TItem="ProductDto" Property="Category.Service.Name" Title="Hizmet" />
+                        }
                         <RadzenDataGridColumn TItem="ProductDto" Property="Category.Name" Title="Kategori Adı" />
                         <RadzenDataGridColumn TItem="ProductDto" Property="Name" Title="Adı" />
+                        <RadzenDataGridColumn TItem="ProductDto" Property="Price" Title="Fiyat" TextAlign="TextAlign.Center" Width="4rem" />
                         <RadzenDataGridColumn TItem="ProductDto" Title="Aktif" TextAlign="TextAlign.Center" Width="4rem">
                             <Template Context="item">
                                 <span class="material-icons">@(item.IsActive ? "check_circle":"cancel")</span>

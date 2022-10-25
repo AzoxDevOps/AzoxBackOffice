@@ -48,10 +48,6 @@
                        c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
                        c => (List<MerchantServeWorkingHour>)c.ToList()))
                .IsRequired(false);
-
-            builder.Property(x => x.ThemeTypeName)
-               .HasColumnOrder(lastColumnOrder++)
-               .HasMaxLength(1024);
         }
     }
 }

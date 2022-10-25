@@ -37,7 +37,7 @@
 
             if (entity.OldPrice != null)
             {
-                Price = new Price(entity.OldPrice.Amount, entity.OldPrice.Currency);
+                OldPrice = new Price(entity.OldPrice.Amount, entity.OldPrice.Currency);
             }
         }
 

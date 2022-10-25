@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Azox.XQR.Persistence.Migrations
 {
-    public partial class V1000_POSTGRESQL : Migration
+    public partial class V1000 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace Azox.XQR.Persistence.Migrations
                     StepName = table.Column<string>(type: "text", nullable: false),
                     Success = table.Column<bool>(type: "boolean", nullable: false),
                     Error = table.Column<string>(type: "text", nullable: true),
-                    LastExecutionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    LastExecutionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -45,11 +45,11 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     MerchantType = table.Column<int>(type: "integer", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     Address = table.Column<string>(type: "text", nullable: true),
@@ -70,11 +70,11 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UserGroupType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -89,16 +89,15 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     ServiceType = table.Column<int>(type: "integer", nullable: false),
                     Contacts = table.Column<string>(type: "text", nullable: true),
                     WorkingHours = table.Column<string>(type: "text", nullable: true),
-                    ThemeTypeName = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                     Currency = table.Column<int>(type: "integer", nullable: false),
                     MerchantId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -120,9 +119,9 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     FirstName = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                     LastName = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                     Username = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
@@ -131,7 +130,7 @@ namespace Azox.XQR.Persistence.Migrations
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     IsLocked = table.Column<bool>(type: "boolean", nullable: false),
                     PasswordChangeOnFirstLogin = table.Column<bool>(type: "boolean", nullable: false),
-                    LastLoginTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastLoginTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UserGroupId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -152,11 +151,11 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     ServiceId = table.Column<int>(type: "integer", nullable: false),
@@ -186,11 +185,11 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     ServiceId = table.Column<int>(type: "integer", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     Slug = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false)
@@ -213,7 +212,7 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ServiceId = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -241,11 +240,11 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Name = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                     Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     DisplayOrder = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<string>(type: "text", nullable: false),
@@ -270,9 +269,9 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     LocationId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -293,9 +292,9 @@ namespace Azox.XQR.Persistence.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     UnitPrice = table.Column<string>(type: "text", nullable: false),
                     OrderId = table.Column<long>(type: "bigint", nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: false),

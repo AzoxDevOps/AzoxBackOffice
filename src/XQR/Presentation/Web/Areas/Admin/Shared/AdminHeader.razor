@@ -9,7 +9,7 @@
     </div>
     <div class="navbar d-none d-md-flex topmenu">
         <div class="container-xl">
-            <RadzenMenu>
+            <RadzenMenu Responsive="false">
                 @foreach (var item in MenuItems.Items)
                 {
                     if (!item.Roles.Contains((int)_userGroupType))

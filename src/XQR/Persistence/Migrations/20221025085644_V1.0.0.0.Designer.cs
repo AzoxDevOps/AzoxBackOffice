@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Azox.XQR.Persistence.Migrations
 {
     [DbContext(typeof(XQRDbContext))]
-    [Migration("20221010171917_V1.0.0.0_POSTGRESQL")]
-    partial class V1000_POSTGRESQL
+    [Migration("20221025085644_V1.0.0.0")]
+    partial class V1000
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("LastExecutionTime")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("StepName")
                         .IsRequired()
@@ -61,11 +61,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")
@@ -120,11 +120,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")
@@ -185,11 +185,11 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnOrder(9);
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")
@@ -252,14 +252,14 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnOrder(8);
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<int>("Currency")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")
@@ -288,11 +288,6 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasColumnOrder(7);
 
-                    b.Property<string>("ThemeTypeName")
-                        .HasMaxLength(1024)
-                        .HasColumnType("character varying(1024)")
-                        .HasColumnOrder(10);
-
                     b.Property<string>("WorkingHours")
                         .HasColumnType("text")
                         .HasColumnOrder(9);
@@ -318,7 +313,7 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<int>("ServiceId")
@@ -348,11 +343,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(3);
 
                     b.Property<bool>("IsDeleted")
@@ -381,11 +376,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(3);
 
                     b.Property<bool>("IsDeleted")
@@ -430,11 +425,11 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")
@@ -491,11 +486,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(3);
 
                     b.Property<string>("FirstName")
@@ -516,7 +511,7 @@ namespace Azox.XQR.Persistence.Migrations
                         .HasColumnOrder(10);
 
                     b.Property<DateTime?>("LastLoginTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(12);
 
                     b.Property<string>("LastName")
@@ -568,11 +563,11 @@ namespace Azox.XQR.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(1);
 
                     b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamp without time zone")
                         .HasColumnOrder(5);
 
                     b.Property<string>("Description")

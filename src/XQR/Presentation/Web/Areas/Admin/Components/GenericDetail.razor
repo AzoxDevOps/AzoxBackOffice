@@ -32,17 +32,17 @@
                     }
                 </div>
             </div>
-            @if (MobileToolbarTemplate != null)
-            {
-                <div class="dropstart d-flex d-md-none">
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
-                        <span class="material-icons">keyboard_command_key</span>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-end">
+            <div class="dropstart d-flex d-md-none">
+                <button class="btn btn-primary btn-sm" data-bs-toggle="dropdown">
+                    <span class="material-icons">keyboard_command_key</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end">
+                    @if (MobileToolbarTemplate != null)
+                    {
                         @MobileToolbarTemplate
-                    </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
         <RadzenCard>
             @if (MobileTemplate != null)
