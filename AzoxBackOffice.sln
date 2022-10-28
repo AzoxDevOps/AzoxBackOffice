@@ -40,6 +40,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azox.XQR.Presentation.Core"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Azox.XQR.Presentation.Web", "src\XQR\Presentation\Web\Azox.XQR.Presentation.Web.csproj", "{AA876976-82AA-4CB2-BE96-66BBAB2717E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azox.Messaging.RabbitMQ", "src\Core\Messaging\RabbitMQ\Azox.Messaging.RabbitMQ.csproj", "{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{AA876976-82AA-4CB2-BE96-66BBAB2717E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA876976-82AA-4CB2-BE96-66BBAB2717E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA876976-82AA-4CB2-BE96-66BBAB2717E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -105,6 +111,7 @@ Global
 		{22909CA0-6790-4DA9-835C-E18DB974E847} = {7B7BA0B3-4073-43F9-83F6-7CA0CCC6E1C8}
 		{CF6A2A4D-5560-4C55-849C-3AFC246CDD34} = {5355408E-10FE-422A-9A71-D15C1A3B7F80}
 		{AA876976-82AA-4CB2-BE96-66BBAB2717E1} = {5355408E-10FE-422A-9A71-D15C1A3B7F80}
+		{ED6B2660-E6BF-4D06-B30C-92E5E7725CEE} = {7B7BA0B3-4073-43F9-83F6-7CA0CCC6E1C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D956FB10-0D36-4BFF-B4F2-663EA77DAF44}
